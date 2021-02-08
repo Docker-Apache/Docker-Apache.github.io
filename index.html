@@ -182,6 +182,49 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/02/08/%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">二分查找</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/08/%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+          
+          
+            
+          
+          基本二分查找无重复元素，查找 target 的索引越界警告不能是 $right = nums.size()$
+因为若 $target &gt; nums[n - 1]$，最后 $left = right = n$访问 $nums[n]$ 时会发生越界
+12345678910111213141516int search(vector&lt;int&gt;&amp; nums, int target)
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-08 16:34" pubdate>
+              2021-02-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/01/31/%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
       </h1>
 
@@ -677,61 +720,6 @@ public 公有部分
               <a href="/tags/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/">函数重载</a>
             
               <a href="/tags/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF/">函数模板</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/04/C++/%E7%BB%93%E6%9E%84%E4%BD%93/">结构体</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/04/C++/%E7%BB%93%E6%9E%84%E4%BD%93/">
-          
-          
-            
-          
-          关键字 struct 与 typedef关键字 struct 建立结构声明
-12345// 单链表的结点struct Node&#123;    int data;    struct Node *next;&#125; p, q;
-
-Node 是结构声明的标记名，可省。p 和 q 是结构变量
-该声明并未创建实际的数据对象，只描述了该对象由什么组成
-结构声明中，用一对花括号括起来的是结构成员变量，
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-04 01:00" pubdate>
-              2021-01-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/C-C/">C/C++</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/struct/">struct</a>
-            
-              <a href="/tags/typedef/">typedef</a>
             
           </div>
         
