@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.4k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      20
        分钟
     </span>
   
@@ -254,14 +254,16 @@
 <p><a target="_blank" rel="noopener" href="https://imgchr.com/i/yEzcP1"><img src="https://s3.ax1x.com/2021/01/31/yEzcP1.png" srcset="/img/loading.gif" alt="yEzcP1.png"></a></p>
 <h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">string</span> res;<br><span class="hljs-keyword">while</span> (M &gt; <span class="hljs-number">0</span> &amp;&amp; N &gt; <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">if</span> (text1[M] == text2[N]) &#123;<br>        res = text1[M] + res;<br>        --M;<br>        --N;<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">if</span> (dp[M][N] == dp[M][N - <span class="hljs-number">1</span>]) &#123;<br>            --N;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            --M;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="hljs-built_in">endl</span>;<br></code></pre></td></tr></table></figure>
 <h2 id="不同的二叉搜索树"><a href="#不同的二叉搜索树" class="headerlink" title="不同的二叉搜索树"></a>不同的二叉搜索树</h2><h3 id="题目地址-2"><a href="#题目地址-2" class="headerlink" title="题目地址"></a>题目地址</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/">LeetCode | 95. 不同的二叉搜索树</a></p>
-<h3 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="状态-2"><a href="#状态-2" class="headerlink" title="状态"></a>状态</h4><p>$dp[i]$ 表示 $i$ 个结点构成的二叉搜索树（BST）的个数</p>
+<h3 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h3><h4 id="状态-2"><a href="#状态-2" class="headerlink" title="状态"></a>状态</h4><p>$dp[i]$ 表示 $i$ 个结点构成的二叉搜索树（BST）个数</p>
 <h4 id="初始化-2"><a href="#初始化-2" class="headerlink" title="初始化"></a>初始化</h4><p>$i = 0$ 时，无根结点时 (空树)，BST 个数规定为 1，即 $dp[0] = 1$<br>$i = 1$ 时，根结点为 1 时，BST 个数 = 1，即 $dp[1] = dp[0]*dp[0] = 1$</p>
-<h4 id="状态转移方程-2"><a href="#状态转移方程-2" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>假设根结点为 $j\in [1,i]$，则 $$dp[i] = \sum_{j=1}^i root(j) = \sum_{j=1}^i (dp[j-1] * dp[i-j])$$</p>
-<p>$$根结点为 j 的 BST 个数 root(j) = (左子树) j-1 个结点构成的 BST 个数 dp[j-1] * (右子树) i-j 个结点构成的 BST 个数 dp[i-j]$$</p>
+<h4 id="状态转移方程-2"><a href="#状态转移方程-2" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>设根结点为 $j\in [1,i]$ 的 BST 个数为 $root(j)$<br>(左子树) $j-1$ 个结点构成的 BST 个数为 $dp[j-1]$<br>(右子树) $i-j$ 个结点构成的 BST 个数为 $dp[i-j]$</p>
+<p>则 $$dp[i] = \sum_{j=1}^i root(j) = \sum_{j=1}^i (dp[j-1] * dp[i-j])$$</p>
 <p><strong>举例说明</strong></p>
 <p>$dp[1] = dp[0]*dp[0]$<br>$dp[2] = dp[0]*dp[1] + dp[1]*dp[0] = 1 + 1 =2$<br>$dp[3] = dp[0]*dp[2] + dp[1]*dp[1] + dp[2]*dp[0] = 2 + 1 + 2 = 5$</p>
-<p><img src="https://s3.ax1x.com/2021/02/16/ycvYVg.png" srcset="/img/loading.gif" alt="ycvYVg.png"></p>
-
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/ycvYVg"><img src="https://s3.ax1x.com/2021/02/16/ycvYVg.png" srcset="/img/loading.gif" alt="ycvYVg.png"></a></p>
+<h4 id="输出-2"><a href="#输出-2" class="headerlink" title="输出"></a>输出</h4><p>$dp[n]$ 表示 $n$ 个结点构成的二叉搜索树（BST）个数</p>
+<h4 id="填表方向-2"><a href="#填表方向-2" class="headerlink" title="填表方向"></a>填表方向</h4><p>左右</p>
+<h2 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">numTrees_96</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)</span></span>;<br>    dp[<span class="hljs-number">0</span>] = dp[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; ++i) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; ++j) &#123;<br>            dp[i] += dp[j - <span class="hljs-number">1</span>] * dp[i - j];<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= n; ++i) &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; dp[i] &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp[n];<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
