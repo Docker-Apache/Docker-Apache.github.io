@@ -248,10 +248,12 @@
 <h3 id="静态局部变量"><a href="#静态局部变量" class="headerlink" title="静态局部变量"></a>静态局部变量</h3><ul>
 <li>该变量在全局数据区分配内存</li>
 <li>静态局部变量在程序执行到该对象的声明处时被首次初始化一次（若没有显式初始化，则被自动初始化为 0）</li>
-<li>它始终驻留在全局数据区，直到程序运行结束。但其作用域为局部作用域<h2 id="new-与-malloc-的区别"><a href="#new-与-malloc-的区别" class="headerlink" title="new 与 malloc() 的区别"></a>new 与 malloc() 的区别</h2><blockquote>
+<li>它始终驻留在全局数据区，直到程序运行结束。但其作用域为局部作用域</li>
+</ul>
+<h2 id="new-与-malloc-的区别"><a href="#new-与-malloc-的区别" class="headerlink" title="new 与 malloc() 的区别"></a>new 与 malloc() 的区别</h2><blockquote>
 <p>属性</p>
 </blockquote>
-</li>
+<ul>
 <li><code>new</code> 是 C++ 关键字，也是运算符，可以通过 <code>operator new()</code> 实现运算符重载</li>
 <li><code>malloc()</code> 是 C 语言库函数</li>
 </ul>
@@ -278,7 +280,7 @@
 <li><code>malloc()</code> 需要显式地指出所需内存大小</li>
 </ul>
 <blockquote>
-<p>返回类型安全性  </p>
+<p>返回类型安全性</p>
 </blockquote>
 <ul>
 <li><code>new</code> 申请内存成功时，返回指向对象的指针，指针类型与对象类型匹配，无需类型转换</li>
