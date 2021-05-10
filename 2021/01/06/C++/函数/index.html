@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="浮梁华生">
   <meta name="keywords" content="">
-  <title>函数 - ——浮梁华生</title>
+  <title>函数 - 浮梁华生</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -229,16 +229,14 @@
             <div class="markdown-body">
               <h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><h3 id="引用变量"><a href="#引用变量" class="headerlink" title="引用变量"></a>引用变量</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">int</span> &amp;b = a;<br><span class="hljs-keyword">int</span> *c = &amp;a;<br></code></pre></td></tr></table></figure>
 <ul>
-<li><p>必须在声明引用变量时初始化，即不能这样声明：<code>int &amp;b;  b = a;</code></p>
-</li>
-<li><p>引用变量只能指向变量，不能指向表达式，即不允许出现 <code>&amp;b = a + 1；</code></p>
-</li>
-<li><p>引用变量 <code>b</code> 是 <code>a</code> 的别名，它们的值和地址都相同，即 <code>a = b = *c，&amp;a = &amp;b = c;</code></p>
-<h3 id="引用参数"><a href="#引用参数" class="headerlink" title="引用参数"></a>引用参数</h3><h4 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">cube</span><span class="hljs-params">(<span class="hljs-keyword">double</span> a)</span></span>&#123;<br>    a *= a * a;<br>    <span class="hljs-keyword">return</span> a;<br>&#125;<br><span class="hljs-keyword">double</span> b = cuba(<span class="hljs-number">2.5</span>);<br></code></pre></td></tr></table></figure></li>
-<li><p>形参 <code>a</code> 是实参 <code>2.5</code> 的副本</p>
-</li>
-<li><p>返回值 <code>a</code> 是一个临时变量，将值赋给 <code>b</code> 后就会被销毁</p>
-</li>
+<li>必须在声明引用变量时初始化，即不能这样声明：<code>int &amp;b; b = a;</code></li>
+<li>引用变量只能指向变量，不能指向表达式，即不允许出现 <code>&amp;b = a + 1；</code></li>
+<li>引用变量 <code>b</code> 是 <code>a</code> 的别名，它们的值和地址都相同，即 <code>a = b = *c，&amp;a = &amp;b = c;</code></li>
+</ul>
+<h3 id="引用参数"><a href="#引用参数" class="headerlink" title="引用参数"></a>引用参数</h3><h4 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">cube</span><span class="hljs-params">(<span class="hljs-keyword">double</span> a)</span></span>&#123;<br>    a *= a * a;<br>    <span class="hljs-keyword">return</span> a;<br>&#125;<br><span class="hljs-keyword">double</span> b = cuba(<span class="hljs-number">2.5</span>);<br></code></pre></td></tr></table></figure>
+<ul>
+<li>形参 <code>a</code> 是实参 <code>2.5</code> 的副本</li>
+<li>返回值 <code>a</code> 是一个临时变量，将值赋给 <code>b</code> 后就会被销毁</li>
 </ul>
 <h4 id="按引用传递"><a href="#按引用传递" class="headerlink" title="按引用传递"></a>按引用传递</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">refcube</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> &amp;ra)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> ra * ra * ra;<br>&#125;<br><span class="hljs-keyword">double</span> ra = <span class="hljs-number">2.0</span>;<br><span class="hljs-keyword">double</span> rb = refcube(ra);<br></code></pre></td></tr></table></figure>
 <ul>
@@ -266,7 +264,7 @@
 <h3 id="用于结构"><a href="#用于结构" class="headerlink" title="用于结构"></a>用于结构</h3><blockquote>
 <p>返回引用</p>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">FreeThrows &amp;<span class="hljs-title">accumulate</span><span class="hljs-params">(FreeThrows &amp;tar, <span class="hljs-keyword">const</span> FreeThrows &amp;src)</span></span>&#123;      <br>    tar.attempts += src.attempts;<br>    tar.made += src.made;<br>    set_perc(tar);<br>    <span class="hljs-keyword">return</span> tar;<br>&#125;<br>display(accumulate(team, two));<br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">FreeThrows &amp;<span class="hljs-title">accumulate</span><span class="hljs-params">(FreeThrows &amp;tar, <span class="hljs-keyword">const</span> FreeThrows &amp;src)</span></span>&#123;<br>    tar.attempts += src.attempts;<br>    tar.made += src.made;<br>    set_perc(tar);<br>    <span class="hljs-keyword">return</span> tar;<br>&#125;<br>display(accumulate(team, two));<br></code></pre></td></tr></table></figure>
 <ul>
 <li>若返回类型为 <code>FreeThrows</code>，则返回 <code>tar</code> 的拷贝</li>
 <li>若返回引用 <code>FreeThrows &amp;</code>，则返回 <code>tar</code> 本身，即 <code>accumulate()</code> 的实参 <code>team</code></li>
@@ -284,25 +282,19 @@
 <p>只传值不修改</p>
 </blockquote>
 <ul>
-<li><p>如果数据对象很小，则按值传递，如内置数据类型或小型结构</p>
-</li>
-<li><p>如果数据对象是数组，则使用指针，因为这是唯一的选择，并将指针声明为 const</p>
-</li>
-<li><p>如果数据对象是较大的结构，则使用 const 引用或 const 指针，以提高效率</p>
-</li>
-<li><p>如果数据对象是类对象，则使用 const 引用，因为传递类对象参数的标准方式是按引用传递</p>
+<li>如果数据对象很小，则按值传递，如内置数据类型或小型结构</li>
+<li>如果数据对象是数组，则使用指针，因为这是唯一的选择，并将指针声明为 const</li>
+<li>如果数据对象是较大的结构，则使用 const 引用或 const 指针，以提高效率</li>
+<li>如果数据对象是类对象，则使用 const 引用，因为传递类对象参数的标准方式是按引用传递</li>
+</ul>
 <blockquote>
 <p>修改参数值</p>
 </blockquote>
-</li>
-<li><p>如果数据对象是内置数据类型，则使用指针</p>
-</li>
-<li><p>如果数据对象是数组，则只能使用指针</p>
-</li>
-<li><p>如果数据对象是结构，则使用引用或指针</p>
-</li>
-<li><p>如果数据对象是类对象，则使用引用</p>
-</li>
+<ul>
+<li>如果数据对象是内置数据类型，则使用指针</li>
+<li>如果数据对象是数组，则只能使用指针</li>
+<li>如果数据对象是结构，则使用引用或指针</li>
+<li>如果数据对象是类对象，则使用引用</li>
 </ul>
 <h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><h3 id="函数特征标（参数列表）"><a href="#函数特征标（参数列表）" class="headerlink" title="函数特征标（参数列表）"></a>函数特征标（参数列表）</h3><ul>
 <li>作用：使用相同的函数名，调用不同的函数版本</li>
@@ -314,7 +306,7 @@
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">cube</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">cube</span><span class="hljs-params">(<span class="hljs-keyword">double</span> &amp;x)</span></span>;<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>const、非 const  参数是函数重载</p>
+<p>const、非 const 参数是函数重载</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dribble</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *bits)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dribble</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *cbits)</span></span>;<br></code></pre></td></tr></table></figure>
 <blockquote>
