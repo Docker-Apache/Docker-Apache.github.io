@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      199 字
+      187 字
     </span>
   
 
@@ -227,11 +227,11 @@
             <h1 style="display: none">文件传输</h1>
             
             <div class="markdown-body">
-              <h2 id="安全文件传输协议-SFTP"><a href="#安全文件传输协议-SFTP" class="headerlink" title="安全文件传输协议 SFTP"></a>安全文件传输协议 SFTP</h2><p><strong>SFTP (Secure File Transfer Protocol)</strong> 与 FTP 相比，为文件传输提供一种安全的网络的加密方法。</p>
+              <h2 id="安全文件传输协议-SFTP"><a href="#安全文件传输协议-SFTP" class="headerlink" title="安全文件传输协议 SFTP"></a>安全文件传输协议 SFTP</h2><p><strong>SFTP (Secure File Transfer Protocol)</strong> 与 FTP 相比，为文件传输提供了一种安全的网络加密方法</p>
 <h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><h4 id="sftp-远程连接服务器（与-ssh-类似）"><a href="#sftp-远程连接服务器（与-ssh-类似）" class="headerlink" title="sftp 远程连接服务器（与 ssh 类似）"></a>sftp 远程连接服务器（与 ssh 类似）</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sftp username@hostname (ip)<br></code></pre></td></tr></table></figure>
 <h4 id="将客户端的文件（或文件夹）上传至服务器"><a href="#将客户端的文件（或文件夹）上传至服务器" class="headerlink" title="将客户端的文件（或文件夹）上传至服务器"></a>将客户端的文件（或文件夹）上传至服务器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">put [local_file] [remote_file]<br>put -r [local_directory] [remote_directory]<br></code></pre></td></tr></table></figure>
 <h4 id="将服务器的文件（或文件夹）下载至客户端"><a href="#将服务器的文件（或文件夹）下载至客户端" class="headerlink" title="将服务器的文件（或文件夹）下载至客户端"></a>将服务器的文件（或文件夹）下载至客户端</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">get [remote_file] [local_file]<br>get -r [remote_directory] [local_directory]<br></code></pre></td></tr></table></figure>
-<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><p>用 SecureCRT 远程登录 Ubuntu 和 Centos，其中 Ubuntu 充当客户端，Centos 充当服务器（反过来也行）。</p>
+<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><p>用 SecureCRT 远程登录虚拟机 VMware Workstation 中的 Ubuntu 和 Centos</p>
 <ul>
 <li>VMware Workstation 16 Pro</li>
 <li>SecureCRT 8.5.0</li>
