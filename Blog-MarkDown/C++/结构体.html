@@ -17,9 +17,23 @@
   <meta name="description" content="">
   <meta name="author" content="浮梁华生">
   <meta name="keywords" content="">
-  <title>标签 - 浮梁华生</title>
+  <title>结构体 - 浮梁华生</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
 
 
 
@@ -47,7 +61,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,17 +160,13 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="标签">
+            <span class="h2" id="subtitle" title="结构体">
               
             </span>
 
             
           </div>
 
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
           
         </div>
       </div>
@@ -174,8 +184,24 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="text-center tagcloud">
-  
+<div class="page-content">
+  <h2 id="关键字-struct-与-typedef"><a href="#关键字-struct-与-typedef" class="headerlink" title="关键字 struct 与 typedef"></a>关键字 struct 与 typedef</h2><p>关键字 <code>struct</code> 建立结构声明</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 单链表的结点</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span>&#123;</span><br>    <span class="hljs-keyword">int</span> data;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> *<span class="hljs-title">next</span>;</span><br>&#125; p, q;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>Node</code> 是结构声明的标记名，可省。<code>p</code> 和 <code>q</code> 是结构变量</li>
+<li>该声明并未创建实际的数据对象，只描述了该对象由什么组成</li>
+<li>结构声明中，用一对花括号括起来的是结构成员变量，每个成员变量都有自己的类型</li>
+</ul>
+<p>关键字 <code>typedef</code> 为结构声明 <code>Node</code> 创建别名 <code>LNode</code> 和 <code>*LinkList</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span>&#123;</span><br>    <span class="hljs-keyword">int</span> data;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> *<span class="hljs-title">next</span>;</span><br>&#125; LNode, *LinkList;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> *<span class="hljs-title">p</span>;</span><br>LNode *q;<br>LinkList L;<br>L = <span class="hljs-keyword">new</span> LNode;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>LNode</code> 与 <code>struct Node</code> 等价</li>
+<li><code>LNode</code> 是普通类型，<code>LinkList</code> 是指针类型，声明结构变量时不同</li>
+</ul>
+<h2 id="通过结构变量访问成员变量"><a href="#通过结构变量访问成员变量" class="headerlink" title="通过结构变量访问成员变量"></a>通过结构变量访问成员变量</h2><blockquote>
+<p>结构指针-&gt;成员成员 = 成员成员<br>结构指针-&gt;成员指针 = 成员指针<br>结构变量.成员成员 = 成员成员<br>结构变量.成员指针 = 成员指针</p>
+</blockquote>
+
 </div>
 
               </div>
@@ -265,6 +291,8 @@
 
 
 
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
