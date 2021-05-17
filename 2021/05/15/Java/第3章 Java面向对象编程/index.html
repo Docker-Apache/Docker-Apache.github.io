@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-28 22:47" pubdate>
-        2021年3月28日 晚上
+      <time datetime="2021-05-15 22:47" pubdate>
+        2021年5月15日 晚上
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.2k 字
+      3.6k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      40
+      43
        分钟
     </span>
   
@@ -277,15 +277,15 @@
 <p><strong>子类 PlaneCircle</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PlaneCircle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Circle</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> cx = <span class="hljs-number">0.0</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> cy = <span class="hljs-number">0.0</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PlaneCircle</span><span class="hljs-params">(<span class="hljs-keyword">double</span> r, <span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(r);       <span class="hljs-comment">// 调用超类的构造函数 Circle(double r);</span><br>        <span class="hljs-keyword">this</span>.cx = x;<br>        <span class="hljs-keyword">this</span>.cy = y;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCentreX</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cx;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCentreY</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cy;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">radiansToDegrees</span><span class="hljs-params">(<span class="hljs-keyword">double</span> rad)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> rad;<br>    &#125;<br><br>    <span class="hljs-comment">// 这个方法使用了继承的实例字段 r</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isInside</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span> </span>&#123;<br>        <span class="hljs-keyword">double</span> dx = x - cx;<br>        <span class="hljs-keyword">double</span> dy = y - cy;<br>        <span class="hljs-keyword">double</span> dist = Math.sqrt(dx * dx + dy * dy);<br>        <span class="hljs-keyword">return</span> dist &lt; r;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>final 类</strong></p>
-<ul>
-<li>如果声明类时使用了 <code>final</code> 修饰符，那么这个类无法作为超类或子类</li>
-<li>子类不能重写超类的 <code>final</code> 方法</li>
-</ul>
 <p><strong>子类对象与超类对象的赋值</strong></p>
 <ul>
 <li>把子类对象赋值给超类对象时无需强制转换</li>
 <li>把超类对象赋值给子类对象时需强制转换</li>
+</ul>
+<p><strong>final 类</strong></p>
+<ul>
+<li>如果声明类时使用了 <code>final</code> 修饰符，那么这个类无法作为超类或子类</li>
+<li>子类不能重写超类的 <code>final</code> 方法</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">PlaneCircle pc = <span class="hljs-keyword">new</span> PlaneCircle(<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>);<br>Circle c = pc;<br>PlaneCircle pc2 = (PlaneCircle) c;<br><span class="hljs-keyword">boolean</span> origininside = ((PlaneCircle) c).isInside(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>);<br></code></pre></td></tr></table></figure>
 
@@ -415,7 +415,17 @@
 <td>否</td>
 </tr>
 </tbody></table>
-<h2 id="3-6-抽象类和方法"><a href="#3-6-抽象类和方法" class="headerlink" title="3.6 抽象类和方法"></a>3.6 抽象类和方法</h2>
+<h2 id="3-6-抽象类与抽象方法"><a href="#3-6-抽象类与抽象方法" class="headerlink" title="3.6 抽象类与抽象方法"></a>3.6 抽象类与抽象方法</h2><p>Java 中的抽象方法与 C++ 中的纯虚拟函数（即声明为 <code>= 0</code> 的虚拟函数）类似。在 C++ 中，包含纯虚拟函数的类是抽象类，不能实例化。包含抽象方法的 Java 类也一样不能实例化。</p>
+<p><strong><code>abstract</code> 抽象方法和这些方法所在的 <code>abstract</code> 抽象类相关的规则</strong></p>
+<ul>
+<li>只要类中有一个 <code>abstract</code> 方法，那么这个类本身就自动成为 <code>abstract</code> 类，且必须声明为 <code>abstract</code> 类，否则会编译出错</li>
+<li>abstract 类无法实例化</li>
+<li>abstract 类的子类必须覆盖超类的每个 <code>abstract</code> 方法并且把这些方法全部实现，才能实例化。这种类一般叫作<strong>具体子类（concrete subclass）</strong></li>
+<li>如果 <code>abstract</code> 类的子类没有实现继承的所有 <code>abstract</code> 方法，那么这个子类还是抽象类，且必须使用 abstract 声明， 也不能实例化</li>
+<li>使用 <code>static</code>、<code>private</code> 和 <code>final</code> 声明的方法不能是抽象方法，因为这三种方法在子类中不能覆盖。类似地，final 类中不能有任何 abstract 方法。</li>
+<li>就算类中没有 abstract 方法，这个类也能声明为 abstract。使用这种方式声明的<br>abstract 类表明实现的不完整，要交给子类实现。这种类不能实例化。</li>
+</ul>
+
             </div>
             <hr>
             <div>
@@ -445,9 +455,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/05/10/Hadoop/MapReduce/">
+                      <a href="/2021/05/15/Git/gitee_depositary/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MapReduce</span>
+                        <span class="hidden-mobile">Git 基础操作</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -455,7 +465,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/27/Java/%E7%AC%AC2%E7%AB%A0%20Java%E5%9F%BA%E6%9C%AC%E5%8F%A5%E6%B3%95/">
+                      <a href="/2021/05/15/Java/%E7%AC%AC2%E7%AB%A0%20Java%E5%9F%BA%E6%9C%AC%E5%8F%A5%E6%B3%95/">
                         <span class="hidden-mobile">第2章 Java基本句法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
