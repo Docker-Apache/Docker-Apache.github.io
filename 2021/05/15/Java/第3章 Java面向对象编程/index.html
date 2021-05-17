@@ -249,7 +249,7 @@
 <ul>
 <li>如果类声明为 <code>strictfp</code>，那么其中所有的方法都声明为 <code>strictfp</code>。这个修饰符极少使用</li>
 </ul>
-<h2 id="3-2-字段和方法"><a href="#3-2-字段和方法" class="headerlink" title="3.2 字段和方法"></a>3.2 字段和方法</h2><p>字段和方法有两种不同的类型：类成员和实例成员</p>
+<h2 id="3-2-字段和方法"><a href="#3-2-字段和方法" class="headerlink" title="3.2 字段和方法"></a>3.2 字段和方法</h2><p><strong>字段和方法有两种不同的类型：类成员和实例成员</strong></p>
 <ul>
 <li>类成员（静态成员）：关联在类自身上。包括使用 <code>static</code> 字段修饰的类字段（全局变量）和类方法（全局方法）。类外调用时，类名.类成员</li>
 <li>实例成员：关联在类的单个实例（对象）上。包括未使用 <code>static</code> 字段修饰的实例字段和实例方法</li>
@@ -510,12 +510,23 @@
         <td>未声明为 public 的类只能在包中访问</td>
     </tr>
     <tr>
-        <td >接口</td>
-        <td >未声明为 public 的接口只能在包中访问</td>
+        <td>接口</td>
+        <td>未声明为 public 的接口只能在包中访问</td>
     </tr>
     <tr>
-        <td >成员</td>
-        <td >未声明为 private、protected 或 public 的成员具有包可见性，只能在包中访问</td>
+        <td>成员</td>
+        <td>未声明为 private、protected 或 public 的成员具有包可见性，只能在包中访问</td>
+    </tr>
+    <tr>
+    <tr>
+        <td rowspan = "2">strictfp</td>
+        <td>类</td>
+        <td>这个类中的所有方法都隐式声明为 strictfp</td>
+    </tr>
+    <tr>
+        <td>方法</td>
+        <td>这个方法必须使用严格遵守 IEEE 754 标准的方式执行浮点运算。具体而言，所有数值，包括中间结果，都要使用 IEEE float 或 double 类型表示，而且不能利用本地平台浮点格式或硬件提供的额外精度或取值范围。这个修饰符极少
+使用</td>
     </tr>
     <tr>
         <td rowspan = "1">defult</td>
@@ -530,7 +541,7 @@
     <tr>
         <td rowspan = "1">synchronized</td>
         <td>方法</td>
-        <td>这个方法对类或实例执行非原子操作，所以必须小心，确保不能让两个线程同时修改类或实例。对 static 方法来说，执行方法之前先为类获取一个锁。对非 static 方法来说，会为具体的对象实例获取一个锁</td>
+        <td>这个方法对类或实例执行非原子操作，所以必须小心，确保不能让两个线程同时修改类或实例。对 static 方法来说，执行方法之前先为类获取一个锁。对非 static 方法来说，会为具体的对象实例获取一个锁</td
     </tr>
     <tr>
         <td rowspan = "1">transient</td>
@@ -542,6 +553,7 @@
         <td>字段</td>
         <td>这个字段能被异步线程访问，因此必须对其做些特定的优化。这个修饰符有时可以替代  synchronized</td>
     </tr>
+
 </table>
 
             </div>
@@ -560,7 +572,15 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
+                      <a class="hover-with-bg" href="/tags/%E7%B1%BB/">类</a>
+                    
                       <a class="hover-with-bg" href="/tags/%E5%AF%B9%E8%B1%A1/">对象</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E6%AE%B5/">字段</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%B9%E6%B3%95/">方法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BF%AE%E9%A5%B0%E7%AC%A6/">修饰符</a>
                     
                   </div>
                 
