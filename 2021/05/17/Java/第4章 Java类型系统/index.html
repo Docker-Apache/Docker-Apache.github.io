@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4 字
+      1.1k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      14
        分钟
     </span>
   
@@ -227,7 +227,54 @@
             <h1 style="display: none">第4章 Java类型系统</h1>
             
             <div class="markdown-body">
-              <h2 id="4-1-接口"><a href="#4-1-接口" class="headerlink" title="4.1 接口"></a>4.1 接口</h2>
+              <h2 id="4-1-接口"><a href="#4-1-接口" class="headerlink" title="4.1 接口"></a>4.1 接口</h2><h3 id="4-1-1-定义接口"><a href="#4-1-1-定义接口" class="headerlink" title="4.1.1 定义接口"></a>4.1.1 定义接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Centered</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setCenter</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">getCenterX</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">getCenterY</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>接口中所有强制方法都隐式使用 <code>abstract</code> 声明，不能有方法主体，要使用分号</li>
+<li>接口定义公开的 API。接口中的所有成员都隐式使用 <code>public</code> 声明。如果在接口中使用 <code>protected</code> 或 <code>private</code> 定义方法，会导致编译错误</li>
+<li>接口不能定义任何实例字段，因为字段是实现细节。在接口中只能定义同时使用 <code>static</code> 和 <code>final</code> 声明的常量</li>
+<li>接口不能实例化，因此不定义构造方法</li>
+<li>接口中可以包含嵌套类型。嵌套类型隐式使用 <code>public</code> 和 <code>static</code> 声明</li>
+<li>从 Java 8 开始，接口中可以定义静态方法和默认方法</li>
+</ul>
+<h3 id="4-1-2-扩展接口"><a href="#4-1-2-扩展接口" class="headerlink" title="4.1.2 扩展接口"></a>4.1.2 扩展接口</h3><p><strong>接口使用关键字 <code>extends</code> 扩展接口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Positionable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Centered</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setUpperRightCorner</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">getUpperRightX</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">getUpperRightY</span><span class="hljs-params">()</span></span>;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Transformable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Scalable</span>, <span class="hljs-title">Translatable</span>, <span class="hljs-title">Rotatable</span> </span>&#123;&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">SuperShape</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Positionable</span>, <span class="hljs-title">Transformable</span> </span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>扩展多个接口的接口，会继承每个父接口中的所有方法和常量，且可以定义属于自己的方法和常量。</li>
+<li>实现这个接口的类必须实现这个接口直接定义的抽象方法，以及从所有父接口中继承的全部抽象方法</li>
+</ul>
+<h3 id="4-1-3-实现接口"><a href="#4-1-3-实现接口" class="headerlink" title="4.1.3 实现接口"></a>4.1.3 实现接口</h3><p><strong>类使用关键字 <code>extends</code> 扩展超类，使用关键字 <code>implements</code> 实现接口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CenteredRectangle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Rectangle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Centered</span> </span>&#123;<br>    <span class="hljs-comment">// 新实例字段</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> cx, cy;<br><br>    <span class="hljs-comment">// 构造方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CenteredRectangle</span><span class="hljs-params">(<span class="hljs-keyword">double</span> cx, <span class="hljs-keyword">double</span> cy, <span class="hljs-keyword">double</span> w, <span class="hljs-keyword">double</span> h)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(w, h);<br>        <span class="hljs-keyword">this</span>.cx = cx;<br>        <span class="hljs-keyword">this</span>.cy = cy;<br>    &#125;<br><br>    <span class="hljs-comment">// 继承了 Rectangle 类中的所有方法</span><br>    <span class="hljs-comment">// 但要为 Centered 接口中的所有方法提供实现</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCenter</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span> </span>&#123;<br>        cx = x;<br>        cy = y;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCenterX</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cx;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCenterY</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cy;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果实现接口的类没有实现接口中的所有抽象方法，那么这个类从接口中继承未实现的抽象方法，且必须声明为 <code>abstract</code> 类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CenteredRectangle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Rectangle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Centered</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> cx, cy;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CenteredRectangle</span><span class="hljs-params">(<span class="hljs-keyword">double</span> cx, <span class="hljs-keyword">double</span> cy, <span class="hljs-keyword">double</span> w, <span class="hljs-keyword">double</span> h)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(w, h);<br>        <span class="hljs-keyword">this</span>.cx = cx;<br>        <span class="hljs-keyword">this</span>.cy = cy;<br>    &#125;<br><br>    <span class="hljs-comment">// 没有实现 Centered 接口中的 setCenter 方法</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCenterX</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cx;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCenterY</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cy;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>一个接口，多种实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">CenteredRectangle rect = <span class="hljs-keyword">new</span> CenteredRectangle(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">4.0</span>, <span class="hljs-number">4.0</span>);<br>CenteredRectangle squ = <span class="hljs-keyword">new</span> CenteredSquare(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">4.0</span>, <span class="hljs-number">4.0</span>);<br><br><span class="hljs-keyword">if</span> (rect <span class="hljs-keyword">instanceof</span> Centered) &#123;<br>    System.out.println(<span class="hljs-string">&quot;Instance rect belongs to Interface Centered&quot;</span>)<br>&#125;<br><br>Centered cen = rect;            <span class="hljs-comment">// 放大转换</span><br><span class="hljs-keyword">double</span> rx = cen.getCenterX();   <span class="hljs-comment">// 调用 CenteredRectangle 类实现的接口方法</span><br><br>cen = suq;<br>duoble sx = cen.getCenterX();   <span class="hljs-comment">// 调用 CenteredSquare 类实现的接口方法</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>如果一个类实现了一个接口，那么这个类的实例可以赋值给这个接口的变量 <strong>（不能称为实例，因为接口不能实例化）</strong></li>
+<li>不同类可以实现同一个接口的接口方法，将不同的类实例赋值给同一个接口变量，即可通过一个接口变量调用不同类实现的接口方法</li>
+</ul>
+<h3 id="4-1-4-实现多个接口"><a href="#4-1-4-实现多个接口" class="headerlink" title="4.1.4 实现多个接口"></a>4.1.4 实现多个接口</h3><p>一个类实现多个接口表明这个类要实现所有接口中的全部抽象方法，否则必须声明为 <code>abstract</code> 类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperDuperSquare</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Shape</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Centered</span>, <span class="hljs-title">UpperRightCornered</span>, <span class="hljs-title">Scalable</span> </span>&#123;<br>    <span class="hljs-comment">// 实现所有接口中的全部抽象方法</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-1-5-默认方法"><a href="#4-1-5-默认方法" class="headerlink" title="4.1.5 默认方法"></a>4.1.5 默认方法</h3><p>Java 8 出现后，接口中可以实现可选的默认方法</p>
+<p>目的是在接口中添加新方法时，不会出现实现该接口的类中没有实现添加的新方法而导师编译错误，从而更好地实现向后兼容</p>
+<p><strong>默认方法的基本行为</strong></p>
+<ul>
+<li>实现接口的类可以（但不是必须）实现默认方法</li>
+<li>如果实现接口的类实现了默认方法，那么使用这个类中实现的方法</li>
+<li>如果找不到其他实现，那么使用默认实现</li>
+</ul>
+<h3 id="4-1-6-标记接口"><a href="#4-1-6-标记接口" class="headerlink" title="4.1.6 标记接口"></a>4.1.6 标记接口</h3><p><strong>标记接口是定义为全空的接口</strong></p>
+<ul>
+<li>标记接口提供了额外的信息。类实现这种接口时只需在 implements 子句中列出这个接口，而不用实现任何方法</li>
+<li><code>java.io.Serializable</code> 接口就是标记接口。实现 <code>Serializable</code> 接口的类告诉 <code>ObjectOutputStream</code> 类，这个类的实例可以安全地序列化</li>
+<li><code>java.util.RandomAccess</code> 接口也是标记接口。<code>java.util.List</code> 接口实现了这个接口，表明 <code>java.util.List</code> 接口支持随机访问。例如，<code>ArrayList</code> 类实现了 <code>RandomAccess</code> 接口，而 <code>LinkedList</code> 类没实现</li>
+</ul>
+<h2 id="4-2-Java-泛型"><a href="#4-2-Java-泛型" class="headerlink" title="4.2 Java 泛型"></a>4.2 Java 泛型</h2>
             </div>
             <hr>
             <div>
