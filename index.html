@@ -243,11 +243,9 @@
           
             
           
-          4.1 接口4.1.1 定义接口12345interface Centered &#123;    void setCenter(double x, double y);    double getCenterX();    double getCenterY();&#125;
+          4.1 接口4.1.1 定义接口1234567// 若不声明为 public，则不能在包外访问该接口interface Centered &#123;    // 解耦的所有成员都隐式声明为 public    void setCenter(double x, double y);    double getCenterX();    double getCenterY();&#125;
 
-
-接口中所有强制方法都隐式使用 abstract 声明，不能有方法主体，并使用分号
-接口（包括注解）的所有成员都隐式声
+1. 
         </a>
       </p>
 
