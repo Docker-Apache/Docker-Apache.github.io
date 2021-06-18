@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="浮梁华生">
   <meta name="keywords" content="">
-  <title>第2章 基本句法 - 浮梁华生</title>
+  <title>第1章 基本句法 - 浮梁华生</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="第2章 基本句法">
+            <span class="h2" id="subtitle" title="第1章 基本句法">
               
             </span>
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      14
        分钟
     </span>
   
@@ -224,43 +224,43 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">第2章 基本句法</h1>
+            <h1 style="display: none">第1章 基本句法</h1>
             
             <div class="markdown-body">
-              <h2 id="2-9-引用类型"><a href="#2-9-引用类型" class="headerlink" title="2.9 引用类型"></a>2.9 引用类型</h2><p><strong>五种引用类型：数组、类、接口、枚举、注解</strong></p>
+              <h2 id="1-1-五种引用类型"><a href="#1-1-五种引用类型" class="headerlink" title="1.1 五种引用类型"></a>1.1 五种引用类型</h2><p><strong>五种引用类型：数组、类、接口、枚举、注解</strong></p>
 <ul>
 <li>接口是一种类似于类的引用类型，其中定义了方法签名，但一般没有实现方法的方法主体</li>
 <li>不过，从 Java 8 开始，接口可以使用关键字 <code>default</code> 指明其中的方法是可选的。接口必须包含可选方法的实现</li>
 <li>所有实现这个接口的类，如果没有实现可选的方法，则使用接口中默认的实现</li>
 <li>枚举是特殊的类，注解是特殊的接口</li>
 </ul>
-<h3 id="2-9-1-引用类型与基本类型的比较"><a href="#2-9-1-引用类型与基本类型的比较" class="headerlink" title="2.9.1 引用类型与基本类型的比较"></a>2.9.1 引用类型与基本类型的比较</h3><ul>
+<h2 id="1-2-引用类型和基本类型"><a href="#1-2-引用类型和基本类型" class="headerlink" title="1.2 引用类型和基本类型"></a>1.2 引用类型和基本类型</h2><ul>
 <li>八种基本类型由 Java 语言定义，程序员不能定义新基本类型。引用类型由用户定义，因此有无限多个</li>
 <li>基本类型表示单个值。引用类型是聚合类型，可以保存零个或多个基本值或对象。假设 Point 类存储两个 double 类型的值，char[] 和 Point[] 数组类型是聚合类型，因为它们保存一些 char 类型的基本值和 Point 对象</li>
 <li><strong>「基本类型使用深复制」</strong>。把基本值赋给变量或传入方法时，会重新申请一块内存，在哪申请内存取决于变量类型。具体而言，局部变量在栈中，全局变量和静态变量都在全局（静态）存储区</li>
 <li><strong>「引用类型使用浅复制」</strong>。把对象赋给变量或传入方法时，不会重新申请一块内存，而是把这个内存的引用存储在变量中或传入方法。即只有一个对象的副本，但是这个对象的引用有两个副本</li>
 </ul>
-<h3 id="2-9-2-处理对象和引用副本"><a href="#2-9-2-处理对象和引用副本" class="headerlink" title="2.9.2 处理对象和引用副本"></a>2.9.2 处理对象和引用副本</h3><blockquote>
-<p>Java 无法使用任何方式处理引用，即不能对地址进行操作（引用可以看作 C 语言中的指针或地址）</p>
-</blockquote>
-<p><strong>数组可以通过 clone() 或 System.arraycopy() 方法实现深复制</strong></p>
+<h2 id="1-3-数组的深复制"><a href="#1-3-数组的深复制" class="headerlink" title="1.3 数组的深复制"></a>1.3 数组的深复制</h2><p>数组可以通过 <code>clone</code> 或 <code>System.arraycopy</code> 方法实现深复制</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 声明数组的两种方法</span><br><span class="hljs-keyword">int</span>[] srcNums = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>, <span class="hljs-number">17</span>, <span class="hljs-number">19</span>, <span class="hljs-number">23</span>, <span class="hljs-number">29</span>&#125;;<br><span class="hljs-keyword">int</span>[] srcNums = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>, <span class="hljs-number">17</span>, <span class="hljs-number">19</span>, <span class="hljs-number">23</span>, <span class="hljs-number">29</span>&#125;;<br><br><span class="hljs-comment">// 浅复制</span><br><span class="hljs-keyword">int</span>[] dstNums = srcNums;<br>dstNums[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span>;   <span class="hljs-comment">// srcNums[0] = 100</span><br><br><span class="hljs-comment">// 深复制</span><br><span class="hljs-keyword">int</span>[] dstNums = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[srcNums.length];<br>System.arraycopy(srcNums, <span class="hljs-number">0</span>, dstNums, <span class="hljs-number">0</span>, srcNums.length);<br>dstNums[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span>;   <span class="hljs-comment">// srcNums[0] = 2</span><br><br><span class="hljs-keyword">int</span>[] dstNums = srcNums.clone();<br>dstNums[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span>;   <span class="hljs-comment">// srcNums[0] = 2</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="2-9-3-比较对象"><a href="#2-9-3-比较对象" class="headerlink" title="2.9.3 比较对象"></a>2.9.3 比较对象</h3><h4 id="1-“-”-运算符比较基本值和引用是否相同"><a href="#1-“-”-运算符比较基本值和引用是否相同" class="headerlink" title="1. “==” 运算符比较基本值和引用是否相同"></a>1. “==” 运算符比较基本值和引用是否相同</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">String letter = <span class="hljs-string">&quot;o&quot;</span>;<br>String s = <span class="hljs-string">&quot;hello&quot;</span>;<br>String t = <span class="hljs-string">&quot;hell&quot;</span> + letter; <span class="hljs-comment">// s 和 t 保存的文本完全一样</span><br><br><span class="hljs-keyword">if</span> (s == t) &#123;               <span class="hljs-comment">// 两个引用指向的不是同一个对象，为假</span><br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br><span class="hljs-keyword">if</span> (s.equals(t)) &#123;           <span class="hljs-comment">// 两个对象的内容相等，为真</span><br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="1-4-对象比较"><a href="#1-4-对象比较" class="headerlink" title="1.4 对象比较"></a>1.4 对象比较</h2><h3 id="1-4-1-运算符"><a href="#1-4-1-运算符" class="headerlink" title="1.4.1 == 运算符"></a>1.4.1 <code>==</code> 运算符</h3><p><code>==</code> 运算符比较基本值和引用是否相同</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">String letter = <span class="hljs-string">&quot;o&quot;</span>;<br>String s = <span class="hljs-string">&quot;hello&quot;</span>;<br>String t = <span class="hljs-string">&quot;hell&quot;</span> + letter; <span class="hljs-comment">// s 和 t 保存的文本完全一样</span><br><br><span class="hljs-keyword">if</span> (s == t) &#123;               <span class="hljs-comment">// 两个引用指向的不是同一个对象，为假</span><br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br><span class="hljs-keyword">if</span> (s.equals(t)) &#123;           <span class="hljs-comment">// 两个对象的内容相等，为真</span><br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>比较基本值时，只判断两个值是否一样。即每一位的值都完全相同</li>
 <li>比较引用类型对象时，比较的是引用而不是对象。即 <code>==</code> 判断两个引用是否指向同一个对象，而不判断两个对象的内容是否相等</li>
 </ul>
-<h4 id="2-引用相同与对象相等"><a href="#2-引用相同与对象相等" class="headerlink" title="2. 引用相同与对象相等"></a>2. 引用相同与对象相等</h4><h4 id="「相同」（identical）表示引用相同（指向同一个对象），「相等」（equal）表示对象的内容相等"><a href="#「相同」（identical）表示引用相同（指向同一个对象），「相等」（equal）表示对象的内容相等" class="headerlink" title="「相同」（identical）表示引用相同（指向同一个对象），「相等」（equal）表示对象的内容相等"></a>「相同」（identical）表示引用相同（指向同一个对象），「相等」（equal）表示对象的内容相等</h4><ul>
+<h3 id="1-4-2-引用相同和对象相等"><a href="#1-4-2-引用相同和对象相等" class="headerlink" title="1.4.2  引用相同和对象相等"></a>1.4.2  引用相同和对象相等</h3><p>相同（identical）：引用相同（指向同一个对象）</p>
+<p>相等（equal）：对象的内容相等</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span>[] nums = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>, <span class="hljs-number">17</span>, <span class="hljs-number">19</span>, <span class="hljs-number">23</span>, <span class="hljs-number">29</span>&#125;;<br><span class="hljs-keyword">int</span>[] nums2 = nums;<br><span class="hljs-keyword">int</span>[] nums3 = nums.clone();<br><br><span class="hljs-comment">// 两个引用指向同一个对象，为真</span><br><span class="hljs-keyword">if</span> (nums.equals(nums2)) &#123;<br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">// 两个引用指向的不是同一个对象，为假</span><br><span class="hljs-keyword">if</span> (nums.equals(nums3)) &#123;<br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">// 两个对象的内容相等，为真</span><br><span class="hljs-keyword">if</span> (java.util.Arrays.equals(nums, nums3)) &#123;<br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
 <li>若想判断两个不同的对象是否相等，可以在一个对象上调用 <code>equals()</code> 方法，然后把另一个对象传入这个方法</li>
 <li>所有对象都从 <code>Object</code> 类继承了 <code>equals()</code> 方法，但是默认的实现方式是使用 <code>==</code> 判断引用是否相同，而不判断对象内容是否相等</li>
 <li>数组没有自定义，但 <code>String</code> 类自定义了。因此，数组调用的 <code>equals()</code> 方法与 <code>==</code> 运算符的作用一样</li>
 <li>比较数组是否相等可以使用 <code>java.util.Arrays.equals()</code> 方法</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span>[] nums = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>, <span class="hljs-number">17</span>, <span class="hljs-number">19</span>, <span class="hljs-number">23</span>, <span class="hljs-number">29</span>&#125;;<br><span class="hljs-keyword">int</span>[] nums2 = nums;<br><span class="hljs-keyword">int</span>[] nums3 = nums.clone();<br><br><span class="hljs-comment">// 两个引用指向同一个对象，为真</span><br><span class="hljs-keyword">if</span> (nums.equals(nums2)) &#123;<br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">// 两个引用指向的不是同一个对象，为假</span><br><span class="hljs-keyword">if</span> (nums.equals(nums3)) &#123;<br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">// 两个对象的内容相等，为真</span><br><span class="hljs-keyword">if</span> (java.util.Arrays.equals(nums, nums3)) &#123;<br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="2-9-3-自动装包（装包和拆包转换）"><a href="#2-9-3-自动装包（装包和拆包转换）" class="headerlink" title="2.9.3 自动装包（装包和拆包转换）"></a>2.9.3 自动装包（装包和拆包转换）</h3><p>包装类：Boolean、Byte、Short、Character、Integer、Long、Float、Double，每个实例只保存一个基本值</p>
+<h2 id="1-5-自动装包（装包和拆包转换）"><a href="#1-5-自动装包（装包和拆包转换）" class="headerlink" title="1.5 自动装包（装包和拆包转换）"></a>1.5 自动装包（装包和拆包转换）</h2><p>包装类：Boolean、Byte、Short、Character、Integer、Long、Float、Double，每个实例只保存一个基本值</p>
 <p>包装类一般在把基本值存储在集合中时使用，例如 <code>java.util.List</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; numbers = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();  <span class="hljs-comment">// List 接口</span><br>Integer i = <span class="hljs-number">1</span>;          <span class="hljs-comment">// 自动装包 int -&gt; Integer</span><br>numbers.add(i);<br>numbers.add(<span class="hljs-number">2</span>);         <span class="hljs-comment">// 自动装包 int -&gt; Integer</span><br><span class="hljs-keyword">int</span> j = numbers.get(<span class="hljs-number">0</span>); <span class="hljs-comment">// 自动拆包 Integer -&gt; int</span><br></code></pre></td></tr></table></figure>
 
