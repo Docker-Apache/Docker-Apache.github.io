@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.2k 字
+      7.4k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      109
+      111
        分钟
     </span>
   
@@ -227,7 +227,7 @@
             <h1 style="display: none">第5章 Stream API</h1>
             
             <div class="markdown-body">
-              <h2 id="6-1-引入流"><a href="#6-1-引入流" class="headerlink" title="6.1 引入流"></a>6.1 引入流</h2><h3 id="6-1-1-流简介"><a href="#6-1-1-流简介" class="headerlink" title="6.1.1 流简介"></a>6.1.1 流简介</h3><p>Stream 以声明性方式处理数据集合（通过查询语句来表达，而不是临时编写一个实现）。流可以看做是遍历数据集的高级迭代器，同时，流可以透明地实现并行（无需写任何多线程代码）</p>
+              <h2 id="5-1-引入流"><a href="#5-1-引入流" class="headerlink" title="5.1 引入流"></a>5.1 引入流</h2><h3 id="5-1-1-流简介"><a href="#5-1-1-流简介" class="headerlink" title="5.1.1 流简介"></a>5.1.1 流简介</h3><p>Stream 以声明性方式处理数据集合（通过查询语句来表达，而不是临时编写一个实现）。流可以看做是遍历数据集的高级迭代器，同时，流可以透明地实现并行（无需写任何多线程代码）</p>
 <h4 id="1-流：从支持数据处理操作的数据源生成的元素序列"><a href="#1-流：从支持数据处理操作的数据源生成的元素序列" class="headerlink" title="1. 流：从支持数据处理操作的数据源生成的元素序列"></a>1. 流：从支持数据处理操作的数据源生成的元素序列</h4><ul>
 <li>元素序列：与集合一样，流也提供了一个接口，可以访问特定元素类型的一组有序值。集合是数据结构，所以它的主要目的是以特定的时间或空间复杂度存储和访问元素（如 <code>ArrayList、LinkedList</code>）。但流的目的在于表达计算，如 <code>filter、sorted、map</code> 等。<strong>集合面向数据，流面向计算</strong></li>
 <li>数据源：流会使用一个提供数据的源，如集合、数组或 I/O 资源。 注意，由列表生成的流，其元素顺序与列表一致</li>
@@ -245,7 +245,7 @@
 <li>对流进行一系列数据处理操作：<code>filter、map、limit、collect</code>。除了 <code>collect</code> 外，所有流操作都返回另一个流，因此它们可以被链接成一条流水线（查询）</li>
 <li>最后，<code>collect</code> 执行流水线（调用 <code>collect</code> 之前，流水线中的方法调用都在排队等待），返回结果（<code>Stream</code> 转换为 <code>List</code>），并关闭流水线（流只能消费一次）</li>
 </ul>
-<h3 id="6-1-2-流与集合"><a href="#6-1-2-流与集合" class="headerlink" title="6.1.2 流与集合"></a>6.1.2 流与集合</h3><h4 id="1-流与集合的区别"><a href="#1-流与集合的区别" class="headerlink" title="1. 流与集合的区别"></a>1. 流与集合的区别</h4><ul>
+<h3 id="5-1-2-流与集合"><a href="#5-1-2-流与集合" class="headerlink" title="5.1.2 流与集合"></a>5.1.2 流与集合</h3><h4 id="1-流与集合的区别"><a href="#1-流与集合的区别" class="headerlink" title="1. 流与集合的区别"></a>1. 流与集合的区别</h4><ul>
 <li><p>集合与流之间的一个区别就在于什么时候进行计算</p>
 </li>
 <li><p>集合是内存中的数据结构，它包含数据结构中目前所有的值。集合中的元素都必须先计算出来才能添加到集合中</p>
@@ -262,7 +262,7 @@
 
 <h5 id="流：内部迭代"><a href="#流：内部迭代" class="headerlink" title="流：内部迭代"></a>流：内部迭代</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; names = menu.stream()<br>        .map(Dish::getName)<br>        .collect(toList());    <span class="hljs-comment">// 开始执行流操作，没有迭代</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="6-1-3-流操作"><a href="#6-1-3-流操作" class="headerlink" title="6.1.3 流操作"></a>6.1.3 流操作</h3><h4 id="1-流的三个过程"><a href="#1-流的三个过程" class="headerlink" title="1. 流的三个过程"></a>1. 流的三个过程</h4><ul>
+<h3 id="5-1-3-流操作"><a href="#5-1-3-流操作" class="headerlink" title="5.1.3 流操作"></a>5.1.3 流操作</h3><h4 id="1-流的三个过程"><a href="#1-流的三个过程" class="headerlink" title="1. 流的三个过程"></a>1. 流的三个过程</h4><ul>
 <li>一个数据源（如集合），执行一个查询</li>
 <li>一个中间操作链，形成一条流水线</li>
 <li>一个终端操作，执行流水线，并生成结果</li>
@@ -345,7 +345,7 @@
 </tr>
 </tbody></table>
 <h4 id="4-Summary-Table"><a href="#4-Summary-Table" class="headerlink" title="4. Summary Table"></a>4. Summary Table</h4><p><a target="_blank" rel="noopener" href="https://macimg.com/image/fdM8Y"><img src="https://s.im5i.com/2021/06/09/fdM8Y.png" srcset="/img/loading.gif" alt="fdM8Y.png"></a></p>
-<h3 id="6-1-5-小结"><a href="#6-1-5-小结" class="headerlink" title="6.1.5 小结"></a>6.1.5 小结</h3><ul>
+<h3 id="5-1-5-小结"><a href="#5-1-5-小结" class="headerlink" title="5.1.5 小结"></a>5.1.5 小结</h3><ul>
 <li>流是 「从支持数据处理操作的源生成的一系列元素」</li>
 <li>流利用内部迭代：迭代通过 <code>filter、map、sorted</code> 等操作被抽象掉</li>
 <li>流操作有两类：中间操作、终端操作</li>
@@ -353,7 +353,7 @@
 <li><code>forEach、count、collect</code> 等终端操作会返回一个非流的值，并处理流水线以返回结果</li>
 <li>流中的元素是按需计算的</li>
 </ul>
-<h2 id="6-2-使用流"><a href="#6-2-使用流" class="headerlink" title="6.2 使用流"></a>6.2 使用流</h2><h3 id="6-2-1-筛选和切片"><a href="#6-2-1-筛选和切片" class="headerlink" title="6.2.1 筛选和切片"></a>6.2.1 筛选和切片</h3><h4 id="1-filter"><a href="#1-filter" class="headerlink" title="1. filter"></a>1. filter</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Dish&gt; vegetarianMenu = menu.stream()<br>        .filter(Dish::isVegetarian)<br>        .collect(toList());<br></code></pre></td></tr></table></figure>
+<h2 id="5-2-使用流"><a href="#5-2-使用流" class="headerlink" title="5.2 使用流"></a>5.2 使用流</h2><h3 id="5-2-1-筛选和切片"><a href="#5-2-1-筛选和切片" class="headerlink" title="5.2.1 筛选和切片"></a>5.2.1 筛选和切片</h3><h4 id="1-filter"><a href="#1-filter" class="headerlink" title="1. filter"></a>1. filter</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Dish&gt; vegetarianMenu = menu.stream()<br>        .filter(Dish::isVegetarian)<br>        .collect(toList());<br></code></pre></td></tr></table></figure>
 
 <h4 id="2-distinct"><a href="#2-distinct" class="headerlink" title="2. distinct"></a>2. distinct</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; numbers = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>);<br>numbers.stream()<br>       .filter(i -&gt; i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)<br>       .distinct()						<span class="hljs-comment">// 输出：2 4</span><br>       .forEach(System.out::println);<br></code></pre></td></tr></table></figure>
 
@@ -366,7 +366,7 @@
 <h4 id="4-skip"><a href="#4-skip" class="headerlink" title="4. skip"></a>4. skip</h4><p><code>skip(n)</code>：返回一个扔掉了前 n 个元素的流</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Dish&gt; dishes = menu.stream()<br>        .filter(d -&gt; d.getCalories() &gt; <span class="hljs-number">300</span>)<br>        .skip(<span class="hljs-number">2</span>)<br>        .collect(toList());<br></code></pre></td></tr></table></figure>
 
-<h3 id="6-2-2-映射"><a href="#6-2-2-映射" class="headerlink" title="6.2.2 映射"></a>6.2.2 映射</h3><h4 id="1-map"><a href="#1-map" class="headerlink" title="1. map"></a>1. map</h4><p>返回每道菜名的长度</p>
+<h3 id="5-2-2-映射"><a href="#5-2-2-映射" class="headerlink" title="5.2.2 映射"></a>5.2.2 映射</h3><h4 id="1-map"><a href="#1-map" class="headerlink" title="1. map"></a>1. map</h4><p>返回每道菜名的长度</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; dishNameLengths = menu.stream()<br>        .map(Dish::getName)<br>        .map(String::length)<br>        .collect(toList());<br>System.out.println(dishNameLengths);	<span class="hljs-comment">// 输出：[4, 4, 7, 12, 4, 12, 5, 6, 6]</span><br></code></pre></td></tr></table></figure>
 
 <p>返回一个单词列表中每个单词的长度</p>
@@ -397,7 +397,7 @@
 <p>（3）如何扩展前一个例子，只返回总和能被 3 整除的数对？例如 <code>[(2, 4), (3, 3)]</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; nums1 = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br>List&lt;Integer&gt; nums2 = Arrays.asList(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);<br><br>List&lt;<span class="hljs-keyword">int</span>[]&gt; pairs = nums1.stream()<br>        .flatMap(i -&gt; nums2.stream()<br>                 .filter(j -&gt; (i + j) % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>)<br>                 .map(j -&gt; <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;i, j&#125;))<br>        .collect(Collectors.toList());<br></code></pre></td></tr></table></figure>
 
-<h3 id="6-2-3-匹配和查找"><a href="#6-2-3-匹配和查找" class="headerlink" title="6.2.3 匹配和查找"></a>6.2.3 匹配和查找</h3><h4 id="1-匹配"><a href="#1-匹配" class="headerlink" title="1. 匹配"></a>1. 匹配</h4><h5 id="anyMatch"><a href="#anyMatch" class="headerlink" title="anyMatch"></a>anyMatch</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.println(menu.stream()<br>        .anyMatch(d -&gt; d.getCalories() &lt; <span class="hljs-number">200</span>));		<span class="hljs-comment">// 只要有一个 &lt; 200，就返回 true</span><br></code></pre></td></tr></table></figure>
+<h3 id="5-2-3-匹配和查找"><a href="#5-2-3-匹配和查找" class="headerlink" title="5.2.3 匹配和查找"></a>5.2.3 匹配和查找</h3><h4 id="1-匹配"><a href="#1-匹配" class="headerlink" title="1. 匹配"></a>1. 匹配</h4><h5 id="anyMatch"><a href="#anyMatch" class="headerlink" title="anyMatch"></a>anyMatch</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.println(menu.stream()<br>        .anyMatch(d -&gt; d.getCalories() &lt; <span class="hljs-number">200</span>));		<span class="hljs-comment">// 只要有一个 &lt; 200，就返回 true</span><br></code></pre></td></tr></table></figure>
 
 <h5 id="allMatch"><a href="#allMatch" class="headerlink" title="allMatch"></a>allMatch</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.println(menu.stream()<br>        .allMatch(d -&gt; d.getCalories() &lt; <span class="hljs-number">1000</span>));	<span class="hljs-comment">// 所有都 &lt; 1000，才返回 true</span><br></code></pre></td></tr></table></figure>
 
@@ -448,7 +448,7 @@
 <ul>
 <li>找到第一个元素在并行上限制更多。如果不关心返回的元素是哪个，请使用 <code>findAny</code>，因为它在使用并行流时限制较少</li>
 </ul>
-<h3 id="6-2-4-归约"><a href="#6-2-4-归约" class="headerlink" title="6.2.4 归约"></a>6.2.4 归约</h3><p><code>reduce</code>：将流<strong>「归约」</strong>成一个值</p>
+<h3 id="5-2-4-归约"><a href="#5-2-4-归约" class="headerlink" title="5.2.4 归约"></a>5.2.4 归约</h3><p><code>reduce</code>：将流<strong>「归约」</strong>成一个值</p>
 <h4 id="1-sum"><a href="#1-sum" class="headerlink" title="1. sum"></a>1. sum</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; nums = Stream.iterate(<span class="hljs-number">0</span>, i -&gt; i + <span class="hljs-number">1</span>)<br>        .limit(<span class="hljs-number">10</span>)<br>        .collect(Collectors.toList());<br></code></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> sum = nums.stream().reduce(<span class="hljs-number">0</span>, (a, b) -&gt; a + b);	<span class="hljs-comment">// 从初始值 0 开始累加 nums 中的值</span><br><span class="hljs-keyword">int</span> sum = nums.stream().reduce(<span class="hljs-number">0</span>, Integer::sum);	<span class="hljs-comment">// 方法引用</span><br></code></pre></td></tr></table></figure>
@@ -465,7 +465,7 @@
 <h4 id="3-count"><a href="#3-count" class="headerlink" title="3. count"></a>3. count</h4><p>使用 <code>map</code> 和 <code>reduce</code> 统计元素个数，与 MapReduce 中的 word counting 一样</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> count = menu.stream()<br>    	.map(i -&gt; <span class="hljs-number">1</span>)<br>    	.reduce(<span class="hljs-number">0</span>, Integer::sum);<br><br><span class="hljs-keyword">long</span> count2 = menu.stream().count();<br></code></pre></td></tr></table></figure>
 
-<h3 id="6-2-5-Demo"><a href="#6-2-5-Demo" class="headerlink" title="6.2.5 Demo"></a>6.2.5 Demo</h3><h4 id="1-Need"><a href="#1-Need" class="headerlink" title="1. Need"></a>1. Need</h4><p>假如你是一个交易员，你需要得到以下八个查询结果</p>
+<h3 id="5-2-5-Demo"><a href="#5-2-5-Demo" class="headerlink" title="5.2.5 Demo"></a>5.2.5 Demo</h3><h4 id="1-Need"><a href="#1-Need" class="headerlink" title="1. Need"></a>1. Need</h4><p>假如你是一个交易员，你需要得到以下八个查询结果</p>
 <ol>
 <li>找出 <u>2011 年</u>发生的<u>所有交易</u>，并按<u>交易额</u>排序（从高到低）</li>
 <li>交易员都在哪些不同的<u>城市</u>工作过？</li>
@@ -483,7 +483,7 @@
 
 <h4 id="4-Output"><a href="#4-Output" class="headerlink" title="4. Output"></a>4. Output</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java">【<span class="hljs-number">1</span>】 找出 <span class="hljs-number">2011</span> 年发生的所有交易，并按交易额排序（从高到低）<br>[<br>Transaction &#123;<br>	trader = <br>		Trader &#123;name = <span class="hljs-string">&#x27;Raoul&#x27;</span>, city = <span class="hljs-string">&#x27;Cambridge&#x27;</span>&#125;,<br>	year = <span class="hljs-number">2011</span>,<br>	value = <span class="hljs-number">400</span><br>&#125;, <br>Transaction &#123;<br>	trader = <br>		Trader &#123;name = <span class="hljs-string">&#x27;Brian&#x27;</span>, city = <span class="hljs-string">&#x27;Cambridge&#x27;</span>&#125;,<br>	year = <span class="hljs-number">2011</span>,<br>	value = <span class="hljs-number">300</span><br>&#125;]<br><br>【<span class="hljs-number">2</span>】 交易员都在哪些不同的城市工作过？<br>[Cambridge, Milan]<br><br>【<span class="hljs-number">3</span>】 找出所有来自于剑桥的交易员，并按姓名字母顺序排序<br>[<br>		Trader &#123;name = <span class="hljs-string">&#x27;Alan&#x27;</span>, city = <span class="hljs-string">&#x27;Cambridge&#x27;</span>&#125;, <br>		Trader &#123;name = <span class="hljs-string">&#x27;Brian&#x27;</span>, city = <span class="hljs-string">&#x27;Cambridge&#x27;</span>&#125;, <br>		Trader &#123;name = <span class="hljs-string">&#x27;Raoul&#x27;</span>, city = <span class="hljs-string">&#x27;Cambridge&#x27;</span>&#125;, <br>		Trader &#123;name = <span class="hljs-string">&#x27;Raoul&#x27;</span>, city = <span class="hljs-string">&#x27;Cambridge&#x27;</span>&#125;]<br><br>【<span class="hljs-number">4</span>】 打印所有交易员的姓名，并按字母顺序排序<br>Milan, Cambridge<br><br>【<span class="hljs-number">5</span>】 有没有工作在米兰的交易员?<br><span class="hljs-keyword">true</span><br><br>【<span class="hljs-number">6</span>】 打印工作在剑桥的交易员的所有交易额<br><span class="hljs-number">300</span><br><span class="hljs-number">1000</span><br><span class="hljs-number">400</span><br><span class="hljs-number">950</span><br><br>【<span class="hljs-number">7</span>】 所有交易中，最高的交易额是多少？<br><span class="hljs-number">1000</span><br><br>【<span class="hljs-number">8</span>】 找出交易额最小的交易<br>Transaction &#123;<br>	trader = <br>		Trader &#123;name = <span class="hljs-string">&#x27;Brian&#x27;</span>, city = <span class="hljs-string">&#x27;Cambridge&#x27;</span>&#125;,<br>	year = <span class="hljs-number">2011</span>,<br>	value = <span class="hljs-number">300</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="6-2-6-数值流"><a href="#6-2-6-数值流" class="headerlink" title="6.2.6 数值流"></a>6.2.6 数值流</h3><p><code>map</code> + <code>reduce</code>：返回总热量</p>
+<h3 id="5-2-6-数值流"><a href="#5-2-6-数值流" class="headerlink" title="5.2.6 数值流"></a>5.2.6 数值流</h3><p><code>map</code> + <code>reduce</code>：返回总热量</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> calories = menu.stream()<br>        .map(Dish::getCalories)<br>        .reduce(<span class="hljs-number">0</span>, Integer::sum);	<span class="hljs-comment">// Stream&lt;T&gt; 没有定义 sum 方法</span><br></code></pre></td></tr></table></figure>
 
 <ul>
@@ -520,7 +520,7 @@
 <p>Output</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span><br><span class="hljs-number">5</span>, <span class="hljs-number">12</span>, <span class="hljs-number">13</span><br><span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span><br><span class="hljs-number">7</span>, <span class="hljs-number">24</span>, <span class="hljs-number">25</span><br><span class="hljs-number">8</span>, <span class="hljs-number">15</span>, <span class="hljs-number">17</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="6-2-7-生成流"><a href="#6-2-7-生成流" class="headerlink" title="6.2.7 生成流"></a>6.2.7 生成流</h3><h4 id="1-Stream-of"><a href="#1-Stream-of" class="headerlink" title="1. Stream.of"></a>1. Stream.of</h4><p><code>Stream.of</code>：由值生成流</p>
+<h3 id="5-2-7-生成流"><a href="#5-2-7-生成流" class="headerlink" title="5.2.7 生成流"></a>5.2.7 生成流</h3><h4 id="1-Stream-of"><a href="#1-Stream-of" class="headerlink" title="1. Stream.of"></a>1. Stream.of</h4><p><code>Stream.of</code>：由值生成流</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream&lt;String&gt; stream = Stream.of(<span class="hljs-string">&quot;Java 8 &quot;</span>, <span class="hljs-string">&quot;Lambdas &quot;</span>, <span class="hljs-string">&quot;In &quot;</span>, <span class="hljs-string">&quot;Action&quot;</span>);<br>stream.map(String::toUpperCase).forEach(System.out::println);<br><br>Stream&lt;String&gt; emptyStream = Stream.empty();	<span class="hljs-comment">// 使用 empty 得到一个空流</span><br></code></pre></td></tr></table></figure>
 
 <h4 id="2-Arrays-stream"><a href="#2-Arrays-stream" class="headerlink" title="2. Arrays.stream"></a>2. Arrays.stream</h4><p><code>Arrays.stream</code>：由数组生成流</p>
@@ -557,7 +557,7 @@
 <p>Output</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">0.0682192789949102</span><br><span class="hljs-number">0.5240741555145046</span><br><span class="hljs-number">0.532085234961741</span><br><span class="hljs-number">0.49163117456949623</span><br><span class="hljs-number">0.8569667696843923</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="6-3-收集器-Collectors"><a href="#6-3-收集器-Collectors" class="headerlink" title="6.3 收集器 Collectors"></a>6.3 收集器 Collectors</h2><h3 id="6-3-1-归约"><a href="#6-3-1-归约" class="headerlink" title="6.3.1 归约"></a>6.3.1 归约</h3><p><code>Collectors.counting</code>：统计菜的个数</p>
+<h2 id="5-3-收集器-Collectors"><a href="#5-3-收集器-Collectors" class="headerlink" title="5.3 收集器 Collectors"></a>5.3 收集器 Collectors</h2><h3 id="5-3-1-归约"><a href="#5-3-1-归约" class="headerlink" title="5.3.1 归约"></a>5.3.1 归约</h3><p><code>Collectors.counting</code>：统计菜的个数</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">long</span> dishCnt = menu.stream().collect(Collectors.counting());<br></code></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">long</span> dishCnt2 = menu.stream().mapToInt(d -&gt; <span class="hljs-number">1</span>).count();<br><span class="hljs-keyword">long</span> dishCnt3 = menu.stream().count();<br><span class="hljs-keyword">long</span> dishCnt4 = menu.size();<br></code></pre></td></tr></table></figure>
@@ -597,7 +597,7 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> maxCal2 = menu.stream().map(Dish::getCalories).reduce(<span class="hljs-number">100</span>, Integer::max);	<span class="hljs-comment">// 若为空流，返回 100</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="6-3-2-分组"><a href="#6-3-2-分组" class="headerlink" title="6.3.2 分组"></a>6.3.2 分组</h3><h4 id="1-groupingBy"><a href="#1-groupingBy" class="headerlink" title="1. groupingBy"></a>1. groupingBy</h4><h5 id="Map-lt-Type-List-lt-Dish-gt-gt"><a href="#Map-lt-Type-List-lt-Dish-gt-gt" class="headerlink" title="Map&lt;Type, List&lt;Dish&gt;&gt;"></a>Map&lt;Type, List&lt;Dish&gt;&gt;</h5><p><code>Collectors.groupingBy</code>：按 <code>Type </code> 分组</p>
+<h3 id="5-3-2-分组"><a href="#5-3-2-分组" class="headerlink" title="5.3.2 分组"></a>5.3.2 分组</h3><h4 id="1-groupingBy"><a href="#1-groupingBy" class="headerlink" title="1. groupingBy"></a>1. groupingBy</h4><h5 id="Map-lt-Type-List-lt-Dish-gt-gt"><a href="#Map-lt-Type-List-lt-Dish-gt-gt" class="headerlink" title="Map&lt;Type, List&lt;Dish&gt;&gt;"></a>Map&lt;Type, List&lt;Dish&gt;&gt;</h5><p><code>Collectors.groupingBy</code>：按 <code>Type </code> 分组</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Type</span> </span>&#123;MEAT, FISH, OTHER&#125;<br><br>Map&lt;Type, List&lt;Dish&gt;&gt; typeMap = menu.stream()<br>    	.collect(Collectors.groupingBy(Dish::getType));<br></code></pre></td></tr></table></figure>
 
 <ul>
@@ -654,7 +654,7 @@
 <p>Output</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&#123;FISH=[NORMAL, DIET], MEAT=[NORMAL, FAT, DIET], OTHER=[NORMAL, DIET]&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="6-3-3-分区"><a href="#6-3-3-分区" class="headerlink" title="6.3.3 分区"></a>6.3.3 分区</h3><p>分区是分组的特殊情况：分区函数是一个谓词（返回一个布尔值的函数）</p>
+<h3 id="5-3-3-分区"><a href="#5-3-3-分区" class="headerlink" title="5.3.3 分区"></a>5.3.3 分区</h3><p>分区是分组的特殊情况：分区函数是一个谓词（返回一个布尔值的函数）</p>
 <h4 id="1-partitioningBy"><a href="#1-partitioningBy" class="headerlink" title="1. partitioningBy"></a>1. partitioningBy</h4><h5 id="Map-lt-Boolean-List-lt-Dish-gt-gt"><a href="#Map-lt-Boolean-List-lt-Dish-gt-gt" class="headerlink" title="Map&lt;Boolean, List&lt;Dish&gt;&gt;"></a>Map&lt;Boolean, List&lt;Dish&gt;&gt;</h5><p>按 <code>isVegetarian</code> 分区</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Map&lt;Boolean, List&lt;Dish&gt;&gt; isVegPartition = menu.stream()<br>    .collect(Collectors.partitioningBy(Dish::isVegetarian));<br></code></pre></td></tr></table></figure>
 
@@ -686,7 +686,15 @@
 <p>Output</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&#123;<span class="hljs-keyword">false</span>=[<span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">12</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>, <span class="hljs-number">16</span>, <span class="hljs-number">18</span>, <span class="hljs-number">20</span>], <span class="hljs-keyword">true</span>=[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>, <span class="hljs-number">17</span>, <span class="hljs-number">19</span>]&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="6-4-收集器接口-Collector"><a href="#6-4-收集器接口-Collector" class="headerlink" title="6.4 收集器接口 Collector"></a>6.4 收集器接口 Collector</h3>
+<h2 id="5-4-收集器接口-Collector"><a href="#5-4-收集器接口-Collector" class="headerlink" title="5.4 收集器接口 Collector"></a>5.4 收集器接口 Collector</h2><p><code>Collector</code> 接口包含了一系列方法，为实现具体的归约操作（即收集器）提供了范本</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Collector</span>&lt;<span class="hljs-title">T</span>, <span class="hljs-title">A</span>, <span class="hljs-title">R</span>&gt; </span>&#123;<br>    <span class="hljs-function">Supplier&lt;A&gt; <span class="hljs-title">supplier</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function">BiConsumer&lt;A, T&gt; <span class="hljs-title">accumulator</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function">Function&lt;A, R&gt; <span class="hljs-title">finisher</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function">BinaryOperator&lt;A&gt; <span class="hljs-title">combiner</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function">Set&lt;Characteristics&gt; <span class="hljs-title">characteristics</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>T</code>：流中要收集的项目的泛型</li>
+<li><code>A</code>：累加器的类型，累加器是在收集过程中用于累积部分结果的对象</li>
+<li><code>R</code>：归约操作得到的对象（通常但并不一定是集合）的类型</li>
+</ul>
+
             </div>
             <hr>
             <div>
@@ -720,8 +728,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/05/23/Java/%E7%AC%AC5%E7%AB%A0%20Lambda%20%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
-                        <span class="hidden-mobile">第5章 Lambda 表达式</span>
+                      <a href="/2021/05/23/Java/%E7%AC%AC4%E7%AB%A0%20%20Lambda%20%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                        <span class="hidden-mobile">第4章 Lambda 表达式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
