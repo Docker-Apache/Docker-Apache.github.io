@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      927 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      11
        分钟
     </span>
   
@@ -247,18 +247,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">String letter = <span class="hljs-string">&quot;o&quot;</span>;<br>String s = <span class="hljs-string">&quot;hello&quot;</span>;<br>String t = <span class="hljs-string">&quot;hell&quot;</span> + letter; <span class="hljs-comment">// s 和 t 保存的文本完全一样</span><br><br><span class="hljs-keyword">if</span> (s == t) &#123;               <span class="hljs-comment">// 两个引用指向的不是同一个对象，为假</span><br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br><span class="hljs-keyword">if</span> (s.equals(t)) &#123;           <span class="hljs-comment">// 两个对象的内容相等，为真</span><br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li>比较基本值时，只判断两个值是否一样。即每一位的值都完全相同</li>
-<li>比较引用类型对象时，比较的是引用而不是对象。即 <code>==</code> 判断两个引用是否指向同一个对象，而不判断两个对象的内容是否相等</li>
-</ul>
-<h3 id="1-4-2-引用相同和对象相等"><a href="#1-4-2-引用相同和对象相等" class="headerlink" title="1.4.2  引用相同和对象相等"></a>1.4.2  引用相同和对象相等</h3><p>相同（identical）：引用相同（指向同一个对象）</p>
-<p>相等（equal）：对象的内容相等</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span>[] nums = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>, <span class="hljs-number">17</span>, <span class="hljs-number">19</span>, <span class="hljs-number">23</span>, <span class="hljs-number">29</span>&#125;;<br><span class="hljs-keyword">int</span>[] nums2 = nums;<br><span class="hljs-keyword">int</span>[] nums3 = nums.clone();<br><br><span class="hljs-comment">// 两个引用指向同一个对象，为真</span><br><span class="hljs-keyword">if</span> (nums.equals(nums2)) &#123;<br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">// 两个引用指向的不是同一个对象，为假</span><br><span class="hljs-keyword">if</span> (nums.equals(nums3)) &#123;<br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">// 两个对象的内容相等，为真</span><br><span class="hljs-keyword">if</span> (java.util.Arrays.equals(nums, nums3)) &#123;<br>    System.out.println(<span class="hljs-string">&quot;equal&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>若想判断两个不同的对象是否相等，可以在一个对象上调用 <code>equals()</code> 方法，然后把另一个对象传入这个方法</li>
-<li>所有对象都从 <code>Object</code> 类继承了 <code>equals()</code> 方法，但是默认的实现方式是使用 <code>==</code> 判断引用是否相同，而不判断对象内容是否相等</li>
-<li>数组没有自定义，但 <code>String</code> 类自定义了。因此，数组调用的 <code>equals()</code> 方法与 <code>==</code> 运算符的作用一样</li>
-<li>比较数组是否相等可以使用 <code>java.util.Arrays.equals()</code> 方法</li>
+<li><p>比较基本值时，只判断两个值是否一样。即每一位的值都完全相同</p>
+</li>
+<li><p>比较引用类型对象时，比较的是引用而不是对象。即 <code>==</code> 判断两个引用是否指向同一个对象，而不判断两个对象的内容是否相等</p>
+</li>
+<li></li>
 </ul>
 <h2 id="1-5-自动装包（装包和拆包转换）"><a href="#1-5-自动装包（装包和拆包转换）" class="headerlink" title="1.5 自动装包（装包和拆包转换）"></a>1.5 自动装包（装包和拆包转换）</h2><p>包装类：Boolean、Byte、Short、Character、Integer、Long、Float、Double，每个实例只保存一个基本值</p>
 <p>包装类一般在把基本值存储在集合中时使用，例如 <code>java.util.List</code></p>

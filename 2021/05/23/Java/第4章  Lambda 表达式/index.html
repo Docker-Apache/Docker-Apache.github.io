@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.6k 字
+      3.7k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      57
+      58
        分钟
     </span>
   
@@ -279,7 +279,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> x = <span class="hljs-number">10</span>;<br>Test1 t1 = () -&gt; System.out.println(x);<br>x = <span class="hljs-number">100</span>;	<span class="hljs-comment">// lambda 表达式已使用局部变量 x（被隐式声明为 final），不能再被修改</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="4-3-方法引用"><a href="#4-3-方法引用" class="headerlink" title="4.3 方法引用"></a>4.3 方法引用</h2><p>方法引用允许将 Lambda 表达式换成已有的方法，且无需指定方法参数</p>
-<p><strong>基本思想</strong>：如果一个 lambda 表达式描述的只是「直接调用某个方法」，那么应直接使用函数名来调用它，而不是描述如何调用它</p>
+<p><strong>基本思想</strong>：如果一个 Lambda 表达式描述的只是「直接调用某个方法」，那么应直接使用函数名来调用它，而不是描述如何调用它</p>
 <table>
 <thead>
 <tr>
@@ -310,7 +310,9 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">(obj, res) -&gt; obj.instanceMethod(res)<br>ClassName::instanceMethod<br></code></pre></td></tr></table></figure>
 
-<h4 id="3-指向外部对象的实例方法的方法引用"><a href="#3-指向外部对象的实例方法的方法引用" class="headerlink" title="3. 指向外部对象的实例方法的方法引用"></a>3. 指向外部对象的实例方法的方法引用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">ClassName obj = <span class="hljs-keyword">new</span> ClassName();<br>args -&gt; obj.instanceMethod(args);<br>ClassName::instanceMethod<br></code></pre></td></tr></table></figure>
+<h4 id="3-指向外部对象的实例方法的方法引用"><a href="#3-指向外部对象的实例方法的方法引用" class="headerlink" title="3. 指向外部对象的实例方法的方法引用"></a>3. 指向外部对象的实例方法的方法引用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">ClassName obj = <span class="hljs-keyword">new</span> ClassName();<br>args -&gt; obj.instanceMethod(args);<br>obj::instanceMethod<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> String str = <span class="hljs-string">&quot;Hello World&quot;</span>;<br>String&lt;Charater&gt; stream = Instream.range(<span class="hljs-number">0</span>, str.length())<br>    .mapToObj(str::charAt);		<span class="hljs-comment">// i -&gt; str.charAt(i)</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="4-3-2-构造函数引用"><a href="#4-3-2-构造函数引用" class="headerlink" title="4.3.2 构造函数引用"></a>4.3.2 构造函数引用</h3><p>可以使用构造函数的名称和关键字 <code>new</code> 来创建一个构造方法引用：<code>ClassName::new</code></p>
 <p>没有参数的构造函数 <code>Apple()</code></p>
