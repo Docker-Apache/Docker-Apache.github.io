@@ -227,9 +227,9 @@
             <h1 style="display: none">1 大数据算法</h1>
             
             <div class="markdown-body">
-              <h2 id="1-1-蓄水池抽样算法-Reservoir-Sampling"><a href="#1-1-蓄水池抽样算法-Reservoir-Sampling" class="headerlink" title="1.1 蓄水池抽样算法 Reservoir Sampling"></a>1.1 蓄水池抽样算法 Reservoir Sampling</h2><h3 id="1-1-1-问题"><a href="#1-1-1-问题" class="headerlink" title="1.1.1 问题"></a>1.1.1 问题</h3><p>在一个包含 $n$（ $n$ 未知，且 $n &gt; k$）个元素的源数据中随机抽样 $k$ 个元素，需保证每个元素被抽样的概率均为 $\frac{k}{n}$</p>
-<h3 id="1-1-2-算法思路"><a href="#1-1-2-算法思路" class="headerlink" title="1.1.2 算法思路"></a>1.1.2 算法思路</h3><p>使用一个大小为 $k$ 的数组 $reservoir$ 实时保存抽样的 $k$ 个元素，当遍历完一次源数据时，数组 $reservoir$ 即为最终结果</p>
-<p>首先，将源数据的前 $k$ 个元素直接添加到 $reservoir$ 中；然后，当遍历到第 $i(i &gt; k)$ 个元素时，第 $i$ 个元素以 $\frac{k}{i}$ 的概率替换 $reservoir$ 中的某个元素。例如，第 $k + 1$ 个元素替换 $reservoir$ 中某个元素的概率为 $\frac{k}{k+1}$</p>
+              <h2 id="1-1-蓄水池抽样算法-Reservoir-Sampling"><a href="#1-1-蓄水池抽样算法-Reservoir-Sampling" class="headerlink" title="1.1 蓄水池抽样算法 Reservoir Sampling"></a>1.1 蓄水池抽样算法 Reservoir Sampling</h2><h3 id="1-1-1-问题"><a href="#1-1-1-问题" class="headerlink" title="1.1.1 问题"></a>1.1.1 问题</h3><p>在一个包含 $n$（ $n$ 未知，且 $n &gt; k$）个元素的数据流中随机抽样 $k$ 个元素，需保证每个元素被抽样的概率均为 $\frac{k}{n}$</p>
+<h3 id="1-1-2-算法思路"><a href="#1-1-2-算法思路" class="headerlink" title="1.1.2 算法思路"></a>1.1.2 算法思路</h3><p>使用一个大小为 $k$ 的数组 $reservoir$ 实时保存抽样的 $k$ 个元素，当遍历完一次数据流时，数组 $reservoir$ 即为最终结果</p>
+<p>首先，将数据流的前 $k$ 个元素直接添加到 $reservoir$ 中；然后，当遍历到第 $i(i &gt; k)$ 个元素时，第 $i$ 个元素以 $\frac{k}{i}$ 的概率替换 $reservoir$ 中的某个元素。例如，第 $k + 1$ 个元素替换 $reservoir$ 中某个元素的概率为 $\frac{k}{k+1}$</p>
 <h4 id="1-当-i-gt-k-时，第-i-个元素一直在-reservoir-中的概率是多少？"><a href="#1-当-i-gt-k-时，第-i-个元素一直在-reservoir-中的概率是多少？" class="headerlink" title="1. 当 $i&gt;k$ 时，第 $i$ 个元素一直在 $reservoir$ 中的概率是多少？"></a>1. 当 $i&gt;k$ 时，第 $i$ 个元素一直在 $reservoir$ 中的概率是多少？</h4><p>第 $i(i&gt;k)$ 个元素以 $\frac{k}{i}$ 的概率替换 $reservoir$ 中的某个元素后，还需同时保证不被第 $i+1,i+2,…,n$ 个元素替换，最终才能一直在 $reservoir$ 中，即最终被抽样得到</p>
 <p>显然，当第 $i$ 个元素已经在 $reservoir$ 时，它被选中的概率为 $\frac{1}{k}$，而第 $i+1$ 个元素替换 $reservoir$ 中某个元素的概率为 $\frac{k}{i+1}$</p>
 <ul>
@@ -244,7 +244,7 @@
 <p>因此，第 $i$ 个元素一直在 $reservoir$ 中的概率为<br>$$<br>1×(1-\frac{1}{k+1})×(1-\frac{1}{k+2})×…×(1-\frac{1}{n})= 1×\frac{k}{k+1}×\frac{k+1}{k+2}×…×\frac{n-1}{n}=\frac{k}{n}<br>$$</p>
 <h4 id="3-替换概率-frac-k-i-如何实现？替换哪个元素？"><a href="#3-替换概率-frac-k-i-如何实现？替换哪个元素？" class="headerlink" title="3. 替换概率 $\frac{k}{i}$ 如何实现？替换哪个元素？"></a>3. 替换概率 $\frac{k}{i}$ 如何实现？替换哪个元素？</h4><p>可以发现，$i&gt;k$ 时，区间长度 $[1, k]$ 与 $[1,i]$ 的比值恰为 $\frac{k}{i}$</p>
 <p>因此，可以生成一个随机数 $r∈[1,i]$，当 $r≤k$ 时，第 $i$ 个元素以  $\frac{k}{i}$ 的概率替换 $reservoir$ 的第 $r$ 个元素</p>
-<h4 id="4-如何验证抽样概率-frac-k-n-？"><a href="#4-如何验证抽样概率-frac-k-n-？" class="headerlink" title="4. 如何验证抽样概率 $\frac{k}{n}$？"></a>4. 如何验证抽样概率 $\frac{k}{n}$？</h4><p>一次抽样结束后，$reservoir$ 中的元素即为抽样的值。为方便验证，将 $[1,n]$ 的整数作为数据源，对其进行 $experiments$ 次抽样，用一个数组 $ inReservoirCnts$ 统计源数据中每个元素 $num$ 被抽样的次数 $inReservoirCnts[num-1]$ </p>
+<h4 id="4-如何验证抽样概率-frac-k-n-？"><a href="#4-如何验证抽样概率-frac-k-n-？" class="headerlink" title="4. 如何验证抽样概率 $\frac{k}{n}$？"></a>4. 如何验证抽样概率 $\frac{k}{n}$？</h4><p>一次抽样结束后，$reservoir$ 中的元素即为抽样的值。为方便验证，将 $[1,n]$ 的整数作为数据源，对其进行 $experiments$ 次抽样，用一个数组 $ inReservoirCnts$ 统计数据流中每个元素 $num$ 被抽样的次数 $inReservoirCnts[num-1]$ </p>
 <p>当抽样次数 $experiments$ 足够大时，<br>$$<br>\frac{inReservoirCnts[num-1]}{experiments} → \frac{k}{n}<br>$$<br>对于误差分析，可以计算每个元素的相对误差 $relativeError[i]$，得到平均相对误差、最大相对误差</p>
 <h4 id="5-复杂度分析"><a href="#5-复杂度分析" class="headerlink" title="5. 复杂度分析"></a>5. 复杂度分析</h4><p>时间复杂度：$O(n)$</p>
 <p>空间复杂度：$O(k)$</p>
