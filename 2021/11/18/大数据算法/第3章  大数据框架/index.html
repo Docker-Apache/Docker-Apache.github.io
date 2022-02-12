@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="浮梁华生">
+  <meta name="keywords" content="">
+  <title>第3章  分区和采样 - 浮梁华生</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"docker-apache.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浮梁华生</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="第3章  分区和采样">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-18 13:28" pubdate>
+        2021年11月18日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第3章  分区和采样</h1>
+            
+            <div class="markdown-body">
+              <h2 id="3-1-中心思想"><a href="#3-1-中心思想" class="headerlink" title="3.1 中心思想"></a>3.1 中心思想</h2><h3 id="3-1-1-为什么写这篇文章（Why）"><a href="#3-1-1-为什么写这篇文章（Why）" class="headerlink" title="3.1.1 为什么写这篇文章（Why）"></a>3.1.1 为什么写这篇文章（Why）</h3><ul>
+<li>大多数现有的数据存储、处理和分析工具都不足以处理海量的数据。 因此，迫切需要更先进、更合适的大数据解决方案</li>
+<li>而已存在的研究在大数据框架的评估特性（没有同时比较批处理和流处理）和数量上都存在不足</li>
+</ul>
+<h3 id="3-1-2-文章的目的是什么（What）"><a href="#3-1-2-文章的目的是什么（What）" class="headerlink" title="3.1.2 文章的目的是什么（What）"></a>3.1.2 文章的目的是什么（What）</h3><ul>
+<li>对大数据框架在批处理和流处理情况下的性能进行综合比较</li>
+<li>给出了这些大数据框架在不同场景（流处理、小批处理、机器学习和图形处理）中的最佳实践</li>
+</ul>
+<h3 id="3-1-3-中心思想是什么（What）"><a href="#3-1-3-中心思想是什么（What）" class="headerlink" title="3.1.3 中心思想是什么（What）"></a>3.1.3 中心思想是什么（What）</h3><ul>
+<li><p>讨论已存在的关于大数据框架的比较和研究</p>
+</li>
+<li><p>概述几个最流行的大数据框架，并将它们按某些关键特性进行分类</p>
+</li>
+<li><p>在批处理和流处理的情况下，设计实验对这些大数据框架的性能进行评估</p>
+</li>
+<li><p>这些大数据框架在不同场景（流处理、小批处理、机器学习和图形处理）中各自的优势</p>
+</li>
+</ul>
+<h2 id="3-2-中心内容"><a href="#3-2-中心内容" class="headerlink" title="3.2 中心内容"></a>3.2 中心内容</h2><h3 id="3-2-3-BIG-DATA-FRAMEWORKS"><a href="#3-2-3-BIG-DATA-FRAMEWORKS" class="headerlink" title="3.2.3 BIG DATA FRAMEWORKS"></a>3.2.3 BIG DATA FRAMEWORKS</h3><p>五个框架中的 WordCount Exmaple</p>
+<h4 id="1-Hadoop"><a href="#1-Hadoop" class="headerlink" title="1. Hadoop"></a>1. Hadoop</h4><p>组成：HDFS + MapReduce + YARN</p>
+<h4 id="2-Spark"><a href="#2-Spark" class="headerlink" title="2. Spark"></a>2. Spark</h4><h4 id="3-Storm"><a href="#3-Storm" class="headerlink" title="3. Storm"></a>3. Storm</h4><h4 id="4-Samza"><a href="#4-Samza" class="headerlink" title="4. Samza"></a>4. Samza</h4><h4 id="5-Flink"><a href="#5-Flink" class="headerlink" title="5. Flink"></a>5. Flink</h4><h4 id="6-Categorization-of-Big-Data-Frameworks"><a href="#6-Categorization-of-Big-Data-Frameworks" class="headerlink" title="6. Categorization of Big Data Frameworks"></a>6. Categorization of Big Data Frameworks</h4><h4 id="7-Real-world-applications"><a href="#7-Real-world-applications" class="headerlink" title="7. Real-world applications"></a>7. Real-world applications</h4><ul>
+<li><p>Healthcare applications</p>
+</li>
+<li><p>Recommendation systems</p>
+</li>
+<li><p>Social media</p>
+</li>
+<li><p>Smart cities</p>
+</li>
+</ul>
+<h3 id="3-2-4-EXPERIMENTS"><a href="#3-2-4-EXPERIMENTS" class="headerlink" title="3.2.4 EXPERIMENTS"></a>3.2.4 EXPERIMENTS</h3><h4 id="1-Experimental-environment"><a href="#1-Experimental-environment" class="headerlink" title="1. Experimental environment"></a>1. Experimental environment</h4><h4 id="2-Experimental-protocol"><a href="#2-Experimental-protocol" class="headerlink" title="2. Experimental protocol"></a>2. Experimental protocol</h4><p>Batch mode、Stream mode</p>
+<h4 id="3-Experimental-results"><a href="#3-Experimental-results" class="headerlink" title="3.  Experimental results"></a>3.  Experimental results</h4><h5 id="（1）Batch-mode"><a href="#（1）Batch-mode" class="headerlink" title="（1）Batch mode"></a>（1）Batch mode</h5><ul>
+<li><p>Scalability</p>
+</li>
+<li><p>Iterative processing</p>
+</li>
+<li><p>Data partitioning</p>
+</li>
+<li><p>Impact of the cluster manager</p>
+</li>
+<li><p>Impact of bandwidth</p>
+</li>
+<li><p>Impact of some configuration parameters</p>
+</li>
+<li><p>Resources consumption（CPU、RAM、Disk I/O usage、Bandwidth consumption）</p>
+</li>
+</ul>
+<h5 id="（2）Stream-mode"><a href="#（2）Stream-mode" class="headerlink" title="（2）Stream mode"></a>（2）Stream mode</h5><p>CPU、RAM、Disk R/W usage、Bandwidth resource usage</p>
+<h4 id="4-Summary-of-the-evaluation"><a href="#4-Summary-of-the-evaluation" class="headerlink" title="4. Summary of the evaluation"></a>4. Summary of the evaluation</h4><h5 id="（1）Batch-mode-1"><a href="#（1）Batch-mode-1" class="headerlink" title="（1）Batch mode"></a>（1）Batch mode</h5><ul>
+<li>Spark 比 Hadoop 和 Flink 能更好地处理大型数据集。 尽管由于 RDD 的概念，Spark 被认为是最快的框架，但在内存处理任务密集的情况下，它并不是一个合适的选择。这个过程会降低 Spark 的性能，因为 SparkContext 会被引导找到未使用的 RDD 并删除它们以获得更多的空闲内存空间</li>
+<li>Hadoop 总体上表现良好。但它在将中间结果写入硬盘方面有一些限制，并且当数据大小增加时需要相当长的处理时间，尤其是在迭代应用场景中。</li>
+<li>根据 batch mode 下的资源消耗结果，与 Spark 和 Hadoop 相比，Flink 最大限度地利用了 CPU资源。这取决于 Flink 的流水线技术，它最大限度地减少了空闲资源的周期。但与 Hadoop 相比，Flink  对网络资源要求高</li>
+</ul>
+<h5 id="（2）Stream-mode-1"><a href="#（2）Stream-mode-1" class="headerlink" title="（2）Stream mode"></a>（2）Stream mode</h5><ul>
+<li>在流场景中，Flink、Samza 和 Storm 在数据处理方面非常相似。 事实上，它们最初是为流处理而设计的。</li>
+<li>Flink 低延迟，因为它基于管道处理和消息传递技术，而 Spark 基于 JVM，属于批处理模式框架的类别</li>
+<li>每个 Samza 作业被分成一个或多个分区，每个分区在一个独立的容器或执行器中处理，这能显示大量的流消息</li>
+<li>在调整框架时，考虑的另一个重要方面是集群管理器。 在 Standalone 模式下，Spark 和 Flink 中的资源分配由用户在提交作业时指定，而使用 Mesos 或 YARN 等集群管理器，资源的分配是自动完成的。</li>
+</ul>
+<h3 id="3-4-5-BEST-PRACTICES"><a href="#3-4-5-BEST-PRACTICES" class="headerlink" title="3.4.5 BEST PRACTICES"></a>3.4.5 BEST PRACTICES</h3><p><strong>挑战：</strong>各种类似的框架越来越多，选择正确的大数据框架是一个挑战</p>
+<p><strong>目的：</strong>本节旨在阐明上述框架在特定领域（流处理、小批处理、机器学习和图形处理）中的优势</p>
+<h4 id="1-Stream-processing"><a href="#1-Stream-processing" class="headerlink" title="1. Stream processing"></a>1. Stream processing</h4><ul>
+<li>流计算成为多个领域实时应用的基本能力，包括监控系统、智慧城市、金融市场和制造业</li>
+<li> Storm、Flink 适合流处理的情况下</li>
+<li>Storm 是面向大/高流的应用程序（每秒数十亿个事件/核心）的最佳选择。 正如所进行的实验所示，即使事件流变得重要，Storm 也表现良好并且可以节省资源。</li>
+</ul>
+<h4 id="2-Micro-batch-processing"><a href="#2-Micro-batch-processing" class="headerlink" title="2. Micro-batch processing"></a>2. Micro-batch processing</h4><ul>
+<li>在批处理的情况下，Spark 可能是处理周期性处理任务的合适框架，例如 Web 使用挖掘、欺诈检测</li>
+<li>在某些情况下，需要一种编程模型，在 lambda 架构中将批处理和流处理结合到庞大的数据量/频率上。在这种架构中，周期性分析任务在更大的窗口时间内执行。 这种行为称为微批处理。在这种情况下，像 Flink 和 Spark 这样的框架可能是不错的选择</li>
+</ul>
+<h4 id="3-Machine-learning-algorithms"><a href="#3-Machine-learning-algorithms" class="headerlink" title="3. Machine learning algorithms"></a>3. Machine learning algorithms</h4><ul>
+<li>机器学习算法是迭代的。上面讨论的大多数框架都通过一组库和 API 支持机器学习功能。 FlinkML 库包括 k-Means 聚类算法、逻辑回归和交替最小二乘法 (ALS) 的实现以进行推荐</li>
+<li>Spark 拥有更高效的机器学习算法集，例如 Spark MLlib 和 MLI。 Spark MLlib 是一个可扩展且快速的库，适用于一般需求和机器学习的大多数领域。 关于 Hadoop 框架，Apache Mahout 旨在在 Hadoop 之上构建可扩展和高性能的机器学习应用程序</li>
+</ul>
+<h4 id="4-Big-graph-processing"><a href="#4-Big-graph-processing" class="headerlink" title="4. Big graph processing"></a>4. Big graph processing</h4><ul>
+<li>Hadoop 不是图处理的最佳编程模型。Hadoop 使用粗粒度任务来完成它的工作，这对于图处理和迭代算法来说太重了。 此外，Hadoop 无法在内存中缓存中间数据以获得更快的性能</li>
+<li>大多数大数据框架都提供了与图相关的库（例如，Spark Graphx 和 Flink Flinkgelly）。 此外，已经提出了许多图处理系统，包括 Pregel、Graphlab、Bladyg 和 Trinity</li>
+</ul>
+<h2 id="3-3-总结"><a href="#3-3-总结" class="headerlink" title="3.3 总结"></a>3.3 总结</h2><ul>
+<li>本文调查了用于大规模数据处理的流行框架。 概述了大数据框架 Hadoop、Spark、Storm 和 Flink。根据一些主要特征对这些框架进行了分类，例如使用的编程模型、数据源的类型、支持的编程语言以及框架是否允许迭代处理</li>
+<li>对上述框架在批处理和流处理场景中进行了比较研究，并给出了不同框架在不同应用场景中的最佳实践</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/">大数据算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Hadoop/">Hadoop</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Spark/">Spark</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Flink/">Flink</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/12/Journals/Journal/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/19/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/%E7%AC%AC2%E7%AB%A0%20%E5%88%86%E5%8C%BA%E5%92%8C%E9%87%87%E6%A0%B7/">
+                        <span class="hidden-mobile">第2章  分区和采样</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,586 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="浮梁华生">
+  <meta name="keywords" content="">
+  <title>第1章  空间亚线性算法 - 浮梁华生</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"docker-apache.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浮梁华生</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="第1章  空间亚线性算法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-18 10:47" pubdate>
+        2021年6月18日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      49
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第1章  空间亚线性算法</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-1-蓄水池抽样算法-Reservoir-Sampling"><a href="#1-1-蓄水池抽样算法-Reservoir-Sampling" class="headerlink" title="1.1 蓄水池抽样算法 Reservoir Sampling"></a>1.1 蓄水池抽样算法 Reservoir Sampling</h2><h3 id="1-1-1-问题"><a href="#1-1-1-问题" class="headerlink" title="1.1.1 问题"></a>1.1.1 问题</h3><p>在一个包含 $n$（ $n$ 未知，且 $n &gt; k$）个元素的数据流中随机抽样 $k$ 个元素，需保证每个元素被抽样的概率均为 $\frac{k}{n}$</p>
+<h3 id="1-1-2-算法思路"><a href="#1-1-2-算法思路" class="headerlink" title="1.1.2 算法思路"></a>1.1.2 算法思路</h3><p>使用一个大小为 $k$ 的数组 $reservoir$ 实时保存抽样的 $k$ 个元素，当遍历完一次数据流时，数组 $reservoir$ 即为最终结果</p>
+<p>首先，将数据流的前 $k$ 个元素直接添加到 $reservoir$ 中；然后，当遍历到第 $i(i &gt; k)$ 个元素时，第 $i$ 个元素以 $\frac{k}{i}$ 的概率替换 $reservoir$ 中的某个元素。例如，第 $k + 1$ 个元素替换 $reservoir$ 中某个元素的概率为 $\frac{k}{k+1}$</p>
+<h4 id="1-当-i-gt-k-时，第-i-个元素一直在-reservoir-中的概率是多少？"><a href="#1-当-i-gt-k-时，第-i-个元素一直在-reservoir-中的概率是多少？" class="headerlink" title="1. 当 $i&gt;k$ 时，第 $i$ 个元素一直在 $reservoir$ 中的概率是多少？"></a>1. 当 $i&gt;k$ 时，第 $i$ 个元素一直在 $reservoir$ 中的概率是多少？</h4><p>第 $i(i&gt;k)$ 个元素以 $\frac{k}{i}$ 的概率替换 $reservoir$ 中的某个元素后，还需同时保证不被第 $i+1,i+2,…,n$ 个元素替换，最终才能一直在 $reservoir$ 中，即最终被抽样得到</p>
+<p>显然，当第 $i$ 个元素已经在 $reservoir$ 时，它被选中的概率为 $\frac{1}{k}$，而第 $i+1$ 个元素替换 $reservoir$ 中某个元素的概率为 $\frac{k}{i+1}$</p>
+<ul>
+<li><p>第 $i$ 个元素被第 $i+1$ 个元素替换的概率为 $\frac{1}{k}×\frac{k}{i+1}$</p>
+</li>
+<li><p>第 $i$ 个元素不被第 $i+1$ 个元素替换的概率为  $1-\frac{1}{k}×\frac{k}{i+1} = 1-\frac{1}{i+1}$</p>
+</li>
+</ul>
+<p>因此，第 $i$ 个元素一直在 $reservoir$ 中的概率为<br>$$<br>\frac{k}{i}×(1-\frac{1}{i+1})×(1-\frac{1}{i+2})×…×(1-\frac{1}{n})= \frac{k}{i}×\frac{i}{i+1}×\frac{i+1}{i+2}×…×\frac{n-1}{n}=\frac{k}{n}<br>$$</p>
+<h4 id="2-当-i≤k-时，第-i-个元素一直在-reservoir-中的概率是多少？"><a href="#2-当-i≤k-时，第-i-个元素一直在-reservoir-中的概率是多少？" class="headerlink" title="2. 当 $i≤k$ 时，第 $i$ 个元素一直在 $reservoir$ 中的概率是多少？"></a>2. 当 $i≤k$ 时，第 $i$ 个元素一直在 $reservoir$ 中的概率是多少？</h4><p>前面已经指出，前 $k$ 个元素被直接添加到 $reservoir$ 中，因此第 $i(i≤k)$ 个元素最开始在 $reservoir$ 中的概率为 $1$</p>
+<p>若第 $i$ 个元素想一直在 $reservoir$ 中，则需同时保证不被第 $k+1,k+2,…,n$ 个元素替换</p>
+<p>因此，第 $i$ 个元素一直在 $reservoir$ 中的概率为<br>$$<br>1×(1-\frac{1}{k+1})×(1-\frac{1}{k+2})×…×(1-\frac{1}{n})= 1×\frac{k}{k+1}×\frac{k+1}{k+2}×…×\frac{n-1}{n}=\frac{k}{n}<br>$$</p>
+<h4 id="3-替换概率-frac-k-i-如何实现？替换哪个元素？"><a href="#3-替换概率-frac-k-i-如何实现？替换哪个元素？" class="headerlink" title="3. 替换概率 $\frac{k}{i}$ 如何实现？替换哪个元素？"></a>3. 替换概率 $\frac{k}{i}$ 如何实现？替换哪个元素？</h4><p>可以发现，$i&gt;k$ 时，区间长度 $[1, k]$ 与 $[1,i]$ 的比值恰为 $\frac{k}{i}$</p>
+<p>因此，可以生成一个随机数 $r∈[1,i]$，当 $r≤k$ 时，第 $i$ 个元素以  $\frac{k}{i}$ 的概率替换 $reservoir$ 的第 $r$ 个元素</p>
+<h4 id="4-如何验证抽样概率-frac-k-n-？"><a href="#4-如何验证抽样概率-frac-k-n-？" class="headerlink" title="4. 如何验证抽样概率 $\frac{k}{n}$？"></a>4. 如何验证抽样概率 $\frac{k}{n}$？</h4><p>一次抽样结束后，$reservoir$ 中的元素即为抽样的值。为方便验证，将 $[1,n]$ 的整数作为数据源，对其进行 $experiments$ 次抽样，用一个数组 $ inReservoirCnts$ 统计数据流中每个元素 $num$ 被抽样的次数 $inReservoirCnts[num-1]$ </p>
+<p>当抽样次数 $experiments$ 足够大时，<br>$$<br>\frac{inReservoirCnts[num-1]}{experiments} → \frac{k}{n}<br>$$<br>对于误差分析，可以计算每个元素的相对误差 $relativeError[i]$，得到平均相对误差、最大相对误差</p>
+<h4 id="5-复杂度分析"><a href="#5-复杂度分析" class="headerlink" title="5. 复杂度分析"></a>5. 复杂度分析</h4><p>时间复杂度：$O(n)$</p>
+<p>空间复杂度：$O(k)$</p>
+<h3 id="1-1-3-Code"><a href="#1-1-3-Code" class="headerlink" title="1.1.3 Code"></a>1.1.3 Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservoirSampling</span> </span>&#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> experiments = <span class="hljs-number">100000</span>;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> n = <span class="hljs-number">100</span>;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> k = <span class="hljs-number">10</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Integer&gt; <span class="hljs-title">sample</span><span class="hljs-params">()</span> </span>&#123;<br>        List&lt;Integer&gt; reservoir = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        Random rand = <span class="hljs-keyword">new</span> Random();<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>            <span class="hljs-keyword">if</span> (i &lt;= k) &#123;<br>                reservoir.add(i);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">int</span> r = rand.nextInt(i) + <span class="hljs-number">1</span>;<br>                <span class="hljs-keyword">if</span> (r &lt;= k) &#123;<br>                    reservoir.set(r - <span class="hljs-number">1</span>, i);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> reservoir;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">errorAnalysis</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] inReservoirCnts)</span> </span>&#123;<br>        <span class="hljs-keyword">double</span> theoreticalPr = (<span class="hljs-keyword">double</span>) k / n;<br>        <span class="hljs-keyword">double</span>[] relativeError = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[n];<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            <span class="hljs-keyword">double</span> realPr = (<span class="hljs-keyword">double</span>) inReservoirCnts[i] / experiments;<br>            relativeError[i] = Double.parseDouble(<br>                    String.format(<span class="hljs-string">&quot;%.4f&quot;</span>, Math.abs(realPr - theoreticalPr) / theoreticalPr));<br>        &#125;<br>        System.out.println(Arrays.toString(relativeError));<br><br>        DoubleSummaryStatistics relativeErrorStatistics = Arrays.stream(relativeError).boxed()<br>                .collect(Collectors.summarizingDouble(d -&gt; d));<br>        System.out.println(<span class="hljs-string">&quot;平均相对误差:\t&quot;</span> + relativeErrorStatistics.getAverage());<br>        System.out.println(<span class="hljs-string">&quot;最大相对误差:\t&quot;</span> + relativeErrorStatistics.getMax());<br>        System.out.println(<span class="hljs-string">&quot;最小相对误差:\t&quot;</span> + relativeErrorStatistics.getMin());<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span>[] inReservoirCnts = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">long</span> e = <span class="hljs-number">0</span>; e &lt; experiments; e++) &#123;<br>            List&lt;Integer&gt; reservoir = sample();<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : reservoir) &#123;<br>                inReservoirCnts[num - <span class="hljs-number">1</span>]++;<br>            &#125;<br>        &#125;<br>        errorAnalysis(inReservoirCnts);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-1-4-Output"><a href="#1-1-4-Output" class="headerlink" title="1.1.4 Output"></a>1.1.4 Output</h3><p>$k=10,n=100,experiments=1000$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">平均相对误差:	<span class="hljs-number">0.0702</span><br>最大相对误差:	<span class="hljs-number">0.26</span><br>最小相对误差: <span class="hljs-number">0.0</span><br></code></pre></td></tr></table></figure>
+
+<p>$k=10,n=100,experiments=1000000$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">平均相对误差:	<span class="hljs-number">0.002421</span><br>最大相对误差:	<span class="hljs-number">0.0071</span><br>最小相对误差:	<span class="hljs-number">0.0</span><br></code></pre></td></tr></table></figure>
+
+<p>$k=50,n=100,experiments=1000$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">平均相对误差:	<span class="hljs-number">0.027999999999999997</span><br>最大相对误差:	<span class="hljs-number">0.08</span><br>最小相对误差:	<span class="hljs-number">0.0</span><br></code></pre></td></tr></table></figure>
+
+<p>$k=50,n=100,experiments=1000000$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">平均相对误差:	<span class="hljs-number">7.5E-4</span><br>最大相对误差:	<span class="hljs-number">0.0029</span><br>最小相对误差:	<span class="hljs-number">0.0</span><br></code></pre></td></tr></table></figure>
+
+<p>$k=50,n=1000,experiments=1000$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">平均相对误差:	<span class="hljs-number">0.10740000000000001</span><br>最大相对误差:	<span class="hljs-number">0.42</span><br>最小相对误差:	<span class="hljs-number">0.0</span><br></code></pre></td></tr></table></figure>
+
+<p>$k=50,n=1000,experiments=1000000$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">平均相对误差:	<span class="hljs-number">0.0034881</span><br>最大相对误差:	<span class="hljs-number">0.0161</span><br>最小相对误差:	<span class="hljs-number">0.0</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-1-5-结论"><a href="#1-1-5-结论" class="headerlink" title="1.1.5 结论"></a>1.1.5 结论</h3><ul>
+<li><p>$experiments$ 一定时，$\frac{k}{n}$ 越大，平均相对误差越小</p>
+</li>
+<li><p>$\frac{k}{n}$ 一定时，$experiments$ 越大，平均相对误差越小</p>
+</li>
+</ul>
+<h2 id="1-2-数据流的中位数"><a href="#1-2-数据流的中位数" class="headerlink" title="1.2 数据流的中位数"></a>1.2 数据流的中位数</h2><h3 id="1-2-1-问题"><a href="#1-2-1-问题" class="headerlink" title="1.2.1 问题"></a>1.2.1 问题</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/">LeetCode | 295. 数据流的中位数</a></p>
+<h3 id="1-2-2-算法思路"><a href="#1-2-2-算法思路" class="headerlink" title="1.2.2 算法思路"></a>1.2.2 算法思路</h3><h4 id="1-两个堆"><a href="#1-两个堆" class="headerlink" title="1. 两个堆"></a>1. 两个堆</h4><p>假设数据流大小为 $n$，对数据流进行升序排序。当 $n%2==1$ 时，中位数 = 中间元素 $mid$；当 $n%2==0$  时，中位数 = 中间两个元素 $mid1$ 和 $mid2$ 的平均值</p>
+<p>将有序数据流均分为左半部分 $left$ 和右半部分 $right$，将 $mid$ 划分到 $left$，则 $mid$ 是 $left$ 中的最大值；同理，$mid1$ 是 $left$ 中的最大值，$mid2$ 是 $right$ 中的最小值。可以发现，无需关心 $mid$ 和 $mid1$ 左边的元素，$mid2$ 右边的元素是否有序，只要能够快速找到左半部分的最大值和右半部分的最小值，即可得到数据流的中位数</p>
+<p>因此，可以使用一个「大顶堆」$low$ 保存数据流中较小的左半部分元素，一个「小顶堆」$high$ 保存数据流中较大的右半部分元素，同时，需保证 $low$ 的所有元素 $≤$ $high$ 的所有元素。当遍历完一遍数据流后，即可取出堆顶元素得到中位数</p>
+<h4 id="2-负载平衡"><a href="#2-负载平衡" class="headerlink" title="2. 负载平衡"></a>2. 负载平衡</h4><p>算法的关键在于负载平衡：$low.size()$ 至多比 $high.size()$ 大 $1$，同时需保证 $low$ 的所有元素 $≤$ $high$ 的所有元素</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$num$</td>
+<td>待入堆元素</td>
+</tr>
+<tr>
+<td>$push$</td>
+<td>入堆：将 $nums$ 添加到堆尾，并做向上调整，时间复杂度为 $O(\log \frac{n}{2})$</td>
+</tr>
+<tr>
+<td>$pop$</td>
+<td>出堆：弹出堆顶元素，并做向下调整，时间复杂度为 $O(\log \frac{n}{2})$</td>
+</tr>
+<tr>
+<td>$top$</td>
+<td>返回堆顶元素，不弹出</td>
+</tr>
+<tr>
+<td>$size$</td>
+<td>返回堆中的元素个数</td>
+</tr>
+</tbody></table>
+<p>（1）当 $low.size() == high.size()$ 时，执行 $low.push(num)$，此时 $low.size() == high.size() + 1$，可能会误认为满足算法要求，不必再进行任何操作。一种可能的情况：$num$ 入堆后，成为 $low$ 的堆顶元素，但不能保证 $num$ 比 $high$ 的堆顶元素小，因此必须执行 $high.push(low.pop())$</p>
+<p>（2）当 $low.size() == high.size() + 1$ 时，执行 $low.push(num)$，此时 $low.size() == high.size() + 2$，应做负载平衡，即 $high.push(low.pop())$</p>
+<p>综上所述，执行 $low.push(num)$ 后，应执行 $high.push(low.pop())$，最终 $low.size()$ 不变，$high.size() + 1$。在情况（1）中，会发生 $high.size() &gt; low.size()$，需再执行 $low.push(high.pop())$ 保持负载平衡</p>
+<h4 id="3-中位数"><a href="#3-中位数" class="headerlink" title="3. 中位数"></a>3. 中位数</h4><p>遍历完一遍数据流，即可得到中位数：<code>low.size() == high.size() ? (low.top() + high.top()) * 0.5 : low.top()</code></p>
+<h4 id="4-复杂度分析"><a href="#4-复杂度分析" class="headerlink" title="4. 复杂度分析"></a>4. 复杂度分析</h4><p>时间复杂度：最好情况下，入堆 $2$ 次，出堆 $1$ 次，时间复杂度为 $O(3\log \frac{n}{2})$；最坏情况下，入堆 $3$ 次，出堆 $2$ 次，时间复杂度为 $O(5\log \frac{n}{2})$。取出堆顶元素得到中位数的时间复杂度为 $O(1)$。因此，总的时间复杂度为 $O(\log n) + O(1) ≈ O(\log n)$</p>
+<p>空间复杂度：$O(n)$</p>
+<h3 id="1-2-3-进阶"><a href="#1-2-3-进阶" class="headerlink" title="1.2.3 进阶"></a>1.2.3 进阶</h3><h4 id="1-如果数据流中所有整数都在-0-到-100-范围内，如何优化算法？"><a href="#1-如果数据流中所有整数都在-0-到-100-范围内，如何优化算法？" class="headerlink" title="1. 如果数据流中所有整数都在 0 到 100 范围内，如何优化算法？"></a>1. 如果数据流中所有整数都在 0 到 100 范围内，如何优化算法？</h4><h5 id="（1）普通算法"><a href="#（1）普通算法" class="headerlink" title="（1）普通算法"></a>（1）普通算法</h5><p>声明一个数组 $count[0..100]$，$count[i]$ 中保存的是元素 $i$ 的个数</p>
+<p>首先，遍历一遍数据流并填充 $count$，同时累加得到数据流的总元素个数 $cnt$，那么需要查找的 $target$ 是第 $\frac{cnt+1}{2}$ 个元素</p>
+<p>若 $cnt$ 是奇数，则中位数是 $target$；若 $cnt$ 是偶数，则中位数是 $target$ 和 $target+1$ 的均值</p>
+<h5 id="（2）计数排序-二分查找"><a href="#（2）计数排序-二分查找" class="headerlink" title="（2）计数排序 + 二分查找"></a>（2）计数排序 + 二分查找</h5><p>声明一个数组 $count[0..100]$，与计数排序一样，$count[i]$ 中保存的是 $≤i$ 的个数，此时 $cnt=count[100]$</p>
+<p>显然，$count$ 中的值是非递减的，即升序，可以使用二分查找定位 $target$</p>
+<p>具体来说，若 $target&gt;count[mid]$，则 $left=mid+1$；否则 $right=mid$。只要出现 $right=mid$，$mid$ 就应取下界，避免发生死循环</p>
+<h4 id="2-如果数据流中-99-的整数都在-0-到-100-范围内，如何优化算法？"><a href="#2-如果数据流中-99-的整数都在-0-到-100-范围内，如何优化算法？" class="headerlink" title="2. 如果数据流中 99% 的整数都在 0 到 100 范围内，如何优化算法？"></a>2. 如果数据流中 99% 的整数都在 0 到 100 范围内，如何优化算法？</h4><p>显然，那剩余的 $1%$ 具体是什么并不重要，只需要知道它们的个数，就能定位 $target$，因为它们一定不在中位数所在的中间区间内</p>
+<p>因此，可以将 $&gt;100$ 的元素直接放入 $count[100]$ 内，用于统计个数，同样可以得到 $cnt=count[100]$</p>
+<p>事实上，只要保证 $target$ 不落在 $count[100$] 中，即有 $&gt;50%$ 的整数都在 $[0,100]$ 内，该优化算法都是有效的</p>
+<h4 id="3-上述算法的空间复杂度能否达到亚线性级，即-lt-O-n-，应存储哪些数据？（B-站哈工大的大数据算法：王宏志）"><a href="#3-上述算法的空间复杂度能否达到亚线性级，即-lt-O-n-，应存储哪些数据？（B-站哈工大的大数据算法：王宏志）" class="headerlink" title="3. 上述算法的空间复杂度能否达到亚线性级，即 $&lt; O(n)$，应存储哪些数据？（B 站哈工大的大数据算法：王宏志）"></a>3. 上述算法的空间复杂度能否达到亚线性级，即 $&lt; O(n)$，应存储哪些数据？（B 站哈工大的大数据算法：王宏志）</h4><h3 id="1-2-4-Code"><a href="#1-2-4-Code" class="headerlink" title="1.2.4 Code"></a>1.2.4 Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Median</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> maxVal = <span class="hljs-number">101</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 数据流的中位数 LeetCode 295</span><br><span class="hljs-comment">     * 时间：O(logn)</span><br><span class="hljs-comment">     * 空间：O(n)</span><br><span class="hljs-comment">     * [1, 2, 3] ------ 中位数：2</span><br><span class="hljs-comment">     * [1, 2, 3, 4] --- 中位数：2.5</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedian</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (nums.length &lt; <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-keyword">return</span> nums.length == <span class="hljs-number">1</span> ? nums[<span class="hljs-number">0</span>] : -<span class="hljs-number">1</span>;<br>        &#125;<br>		<br>        Heap low = <span class="hljs-keyword">new</span> Heap(Heap.HeapType.BIG);		<span class="hljs-comment">// Heap 类在堆排序中定义</span><br>        Heap high = <span class="hljs-keyword">new</span> Heap(Heap.HeapType.SMALL);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;<br>            low.push(num);<br>            high.push(low.pop());<br>            <span class="hljs-keyword">if</span> (low.size() &lt; high.size()) &#123;<br>                low.push(high.pop());<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> low.size() == high.size() ? (low.top() + high.top()) * <span class="hljs-number">0.5</span> : low.top();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 数据流的中位数</span><br><span class="hljs-comment">     * 优先队列 PriorityQueue</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedianPriorityQueue</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (nums.length &lt; <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-keyword">return</span> nums.length == <span class="hljs-number">1</span> ? nums[<span class="hljs-number">0</span>] : -<span class="hljs-number">1</span>;<br>        &#125;<br><br>        PriorityQueue&lt;Integer&gt; low = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;();<br>        PriorityQueue&lt;Integer&gt; high = <span class="hljs-keyword">new</span> PriorityQueue&lt;&gt;(Comparator.reverseOrder());<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;<br>            low.add(num);<br>            high.add(low.remove());<br>            <span class="hljs-keyword">if</span> (low.size() &lt; high.size()) &#123;<br>                low.add(high.remove());<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> low.size() == high.size() ? (low.element() + high.element()) * <span class="hljs-number">0.5</span> : low.element();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] count, <span class="hljs-keyword">int</span> target, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (left &lt; right) &#123;<br>            <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span> (target &gt; count[mid]) &#123;<br>                left = mid + <span class="hljs-number">1</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                right = mid;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> left;<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 如果数据流中所有整数都在 0 到 100 范围内，如何优化算法？</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedianBinarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> n = maxVal;<br>        <span class="hljs-keyword">int</span>[] count = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;<br>            count[num]++;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>            count[i] += count[i - <span class="hljs-number">1</span>];<br>        &#125;<br><br>        <span class="hljs-keyword">int</span> target = (count[n - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">int</span> search = binarySearch(count, target, <span class="hljs-number">0</span>, n - <span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">if</span> (count[n - <span class="hljs-number">1</span>] % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> search;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> target == count[search] ? (<span class="hljs-number">0.5</span> * (<span class="hljs-number">2</span> * search + <span class="hljs-number">1</span>)) : search;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 如果数据流中所有整数都在 0 到 100 范围内，如何优化算法？</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedianNormal</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> n = maxVal;<br>        <span class="hljs-keyword">int</span>[] count = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];<br>        <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;<br>            count[num]++;<br>            cnt++;<br>        &#125;<br><br>        <span class="hljs-keyword">int</span> target = (cnt + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            sum += count[i];<br>            <span class="hljs-keyword">if</span> (target &gt; sum - count[i] &amp;&amp; target &lt;= sum) &#123;<br>                <span class="hljs-keyword">if</span> (cnt % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>                    <span class="hljs-keyword">return</span> i;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">return</span> target == sum ? (<span class="hljs-number">0.5</span> * (<span class="hljs-number">2</span> * i + <span class="hljs-number">1</span>)) : i;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 如果数据流中 99% 的整数都在 0 到 100 范围内，如何优化算法？</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">findMedianBinarySearchPercent</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> n = maxVal;<br>        <span class="hljs-keyword">int</span>[] count = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;<br>            <span class="hljs-keyword">if</span> (num &gt;= n) &#123;<br>                count[n - <span class="hljs-number">1</span>]++;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                count[num]++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>            count[i] += count[i - <span class="hljs-number">1</span>];<br>        &#125;<br><br>        <span class="hljs-keyword">int</span> target = (count[n - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">int</span> search = binarySearch(count, target, <span class="hljs-number">0</span>, n - <span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">if</span> (count[n - <span class="hljs-number">1</span>] % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> search;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> target == count[search] ? (<span class="hljs-number">0.5</span> * (<span class="hljs-number">2</span> * search + <span class="hljs-number">1</span>)) : search;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 生成混合数据流 mixData</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> n        mixData 中元素的个数</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> percent1 mixData 中有 percent1 的元素位于 [0, maxVal-1]</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> mixData</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[] mixData(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">double</span> percent1) &#123;<br>        <span class="hljs-keyword">double</span> percent2 = <span class="hljs-number">1</span> - percent1;<br>        Random rand = <span class="hljs-keyword">new</span> Random();<br>        <span class="hljs-keyword">int</span>[] mix1 = rand.ints(<span class="hljs-number">0</span>, maxVal).limit((<span class="hljs-keyword">long</span>) (n * percent1)).toArray();<br>        <span class="hljs-keyword">int</span>[] mix2 = rand.ints(maxVal, <span class="hljs-number">5</span> * maxVal).limit((<span class="hljs-keyword">long</span>) (n * percent2)).toArray();<br>        <span class="hljs-keyword">int</span>[] mixData = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];<br><br>        System.arraycopy(mix1, <span class="hljs-number">0</span>, mixData, <span class="hljs-number">0</span>, mix1.length);<br>        System.arraycopy(mix2, <span class="hljs-number">0</span>, mixData, mix1.length, mix2.length);<br>        <span class="hljs-keyword">return</span> mixData;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-keyword">double</span> start;<br>        maxVal = <span class="hljs-number">101</span>;<br>        Random rand = <span class="hljs-keyword">new</span> Random();<br>        <span class="hljs-keyword">int</span>[] data = rand.ints(<span class="hljs-number">0</span>, maxVal).limit(<span class="hljs-number">100000000</span>).toArray();<br>        <span class="hljs-keyword">int</span>[] mix = mixData(<span class="hljs-number">100000</span>, <span class="hljs-number">0.99</span>);<br><br>        <span class="hljs-comment">// 混合数据流 mix</span><br>        start = System.nanoTime();<br>        System.out.print(<span class="hljs-string">&quot;Find median by Heap:\t\t\t\t\t&quot;</span> + findMedianByHeap(mix));<br>        System.out.println(<span class="hljs-string">&quot;\tuse &quot;</span> + (System.nanoTime() - start) / <span class="hljs-number">1_000_000</span> + <span class="hljs-string">&quot; ms&quot;</span>);<br><br>        start = System.nanoTime();<br>        System.out.print(<span class="hljs-string">&quot;Find median by PriorityQueue:\t\t\t&quot;</span> + findMedianByPriorityQueue(mix));<br>        System.out.println(<span class="hljs-string">&quot;\tuse &quot;</span> + (System.nanoTime() - start) / <span class="hljs-number">1_000_000</span> + <span class="hljs-string">&quot; ms&quot;</span>);<br><br>        start = System.nanoTime();<br>        System.out.print(<span class="hljs-string">&quot;Find median by findMedianPercent:\t\t&quot;</span> + findMedianBinarySearchPercent(mix));<br>        System.out.println(<span class="hljs-string">&quot;\tuse &quot;</span> + (System.nanoTime() - start) / <span class="hljs-number">1_000_000</span> + <span class="hljs-string">&quot; ms\n&quot;</span>);<br><br>        <span class="hljs-comment">// [0, 100] data</span><br>        start = System.nanoTime();<br>        System.out.print(<span class="hljs-string">&quot;Find median by findMedianNormal:\t\t&quot;</span> + findMedianNormal(data));<br>        System.out.println(<span class="hljs-string">&quot;\tuse &quot;</span> + (System.nanoTime() - start) / <span class="hljs-number">1_000_000</span> + <span class="hljs-string">&quot; ms&quot;</span>);<br><br>        start = System.nanoTime();<br>        System.out.print(<span class="hljs-string">&quot;Find median by findMedianBinarySearch:\t&quot;</span> + findMedianBinarySearch(data));<br>        System.out.println(<span class="hljs-string">&quot;\tuse &quot;</span> + (System.nanoTime() - start) / <span class="hljs-number">1_000_000</span> + <span class="hljs-string">&quot; ms&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-5-Output"><a href="#1-2-5-Output" class="headerlink" title="1.2.5 Output"></a>1.2.5 Output</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">Find median by Heap:					<span class="hljs-number">51.0</span>	use <span class="hljs-number">5184.6624</span> ms<br>Find median by PriorityQueue:			<span class="hljs-number">51.0</span>	use <span class="hljs-number">53.3883</span> ms<br>Find median by findMedianPercent:		<span class="hljs-number">51.0</span>	use <span class="hljs-number">2.1269</span> ms<br><br>Find median by findMedianNormal:		<span class="hljs-number">50.0</span>	use <span class="hljs-number">72.8294</span> ms<br>Find median by findMedianBinarySearch:	<span class="hljs-number">50.0</span>	use <span class="hljs-number">66.8815</span> ms<br></code></pre></td></tr></table></figure>
+
+<h2 id="1-3-基数估计-Cardinality-Estimation"><a href="#1-3-基数估计-Cardinality-Estimation" class="headerlink" title="1.3 基数估计 Cardinality Estimation"></a>1.3 基数估计 Cardinality Estimation</h2><p>基数估计：估算不同元素的个数</p>
+<h3 id="1-3-1-HyperLogLog"><a href="#1-3-1-HyperLogLog" class="headerlink" title="1.3.1 HyperLogLog"></a>1.3.1 HyperLogLog</h3><p><img src="https://e.im5i.com/2021/07/26/ok0FF.png" srcset="/img/loading.gif" alt="HyperLogLog 算法描述"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/">大数据算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%93%84%E6%B0%B4%E6%B1%A0%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95-Reservoir-Sampling/">蓄水池抽样算法 Reservoir Sampling</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">数据流的中位数</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/2%20%20%E6%8E%92%E5%BA%8F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2 排序</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/03/Java/%E7%AC%AC5%E7%AB%A0%20%20Stream/">
+                        <span class="hidden-mobile">第5章 Stream</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

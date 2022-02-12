@@ -1,0 +1,794 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="浮梁华生">
+  <meta name="keywords" content="">
+  <title>第2章 类型系统 - 浮梁华生</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"docker-apache.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浮梁华生</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="第2章 类型系统">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-17 13:09" pubdate>
+        2021年5月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      9.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      114
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第2章 类型系统</h1>
+            
+            <div class="markdown-body">
+              <h2 id="2-1-五种引用类型"><a href="#2-1-五种引用类型" class="headerlink" title="2.1 五种引用类型"></a>2.1 五种引用类型</h2><p>五种引用类型：数组、类、接口、枚举、注解</p>
+<h3 id="2-1-1-引用类型和基本类型"><a href="#2-1-1-引用类型和基本类型" class="headerlink" title="2.1.1 引用类型和基本类型"></a>2.1.1 引用类型和基本类型</h3><ul>
+<li>八种基本类型由 Java 语言定义，程序员不能定义新基本类型。引用类型由用户定义，因此有无限多个</li>
+<li>基本类型表示单个值。引用类型是聚合类型，可以保存零个或多个基本值或对象。假设 Point 类存储两个 double 类型的值，char[] 和 Point[] 数组类型是聚合类型，因为它们保存一些 char 类型的基本值和 Point 对象</li>
+<li><strong>「基本类型使用深复制」</strong>。把基本值赋给变量或传入方法时，会重新申请一块内存，在哪申请内存取决于变量类型。具体而言，局部变量在栈中，全局变量和静态变量都在全局（静态）存储区</li>
+<li><strong>「引用类型使用浅复制」</strong>。把对象赋给变量或传入方法时，不会重新申请一块内存，而是把这个内存的引用存储在变量中或传入方法。即只有一个对象的副本，但是这个对象的引用有两个副本<h3 id="2-1-2-数组的深复制"><a href="#2-1-2-数组的深复制" class="headerlink" title="2.1.2 数组的深复制"></a>2.1.2 数组的深复制</h3></li>
+</ul>
+<p>数组可以通过 <code>clone</code> 或 <code>System.arraycopy</code> 方法实现深复制</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 声明数组的两种方法</span><br><span class="hljs-keyword">int</span>[] srcNums = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>, <span class="hljs-number">17</span>, <span class="hljs-number">19</span>, <span class="hljs-number">23</span>, <span class="hljs-number">29</span>&#125;;<br><span class="hljs-keyword">int</span>[] srcNums = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>, <span class="hljs-number">17</span>, <span class="hljs-number">19</span>, <span class="hljs-number">23</span>, <span class="hljs-number">29</span>&#125;;<br><br><span class="hljs-comment">// 浅复制</span><br><span class="hljs-keyword">int</span>[] dstNums = srcNums;<br>dstNums[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span>;   <span class="hljs-comment">// srcNums[0] = 100</span><br><br><span class="hljs-comment">// 深复制</span><br><span class="hljs-keyword">int</span>[] dstNums = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[srcNums.length];<br>System.arraycopy(srcNums, <span class="hljs-number">0</span>, dstNums, <span class="hljs-number">0</span>, srcNums.length);<br>dstNums[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span>;   <span class="hljs-comment">// srcNums[0] = 2</span><br><br><span class="hljs-keyword">int</span>[] dstNums = srcNums.clone();<br>dstNums[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span>;   <span class="hljs-comment">// srcNums[0] = 2</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="2-2-接口"><a href="#2-2-接口" class="headerlink" title="2.2 接口"></a>2.2 接口</h2><h3 id="2-2-1-定义接口"><a href="#2-2-1-定义接口" class="headerlink" title="2.2.1 定义接口"></a>2.2.1 定义接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 若不声明为 public，则不能在包外访问该接口</span><br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Centered</span> </span>&#123;<br>    <span class="hljs-comment">// 解耦的所有成员都隐式声明为 public</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setCenter</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">getCenterX</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">getCenterY</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-接口的特性"><a href="#1-接口的特性" class="headerlink" title="1. 接口的特性"></a>1. 接口的特性</h4><ul>
+<li><p>接口中的所有「强制方法」（实现该接口的类必须实现的方法）都隐式声明为 <code>abstract</code> ，不能有方法主体，并使用分号</p>
+</li>
+<li><p>接口（包括注解）的所有成员都隐式声明为 <code>public</code>（若需要在包外访问该接口，则接口应声明为 <code>public</code>）。如果在接口中使用 <code>protected</code> 或 <code>private</code> 定义方法，会导致编译错误</p>
+</li>
+<li><p>接口中可以包含嵌套类型。嵌套类型隐式使用 <code>public</code> 和 <code>static</code> 声明</p>
+</li>
+<li><p>从 Java 8 开始，接口中可以定义静态方法和默认方法（声明为 <code>default</code> 的方法）</p>
+</li>
+</ul>
+<h4 id="2-接口的限制"><a href="#2-接口的限制" class="headerlink" title="2. 接口的限制"></a>2. 接口的限制</h4><ul>
+<li>接口不能定义任何实例字段，因为实例字段是实现细节。在接口中只能定义同时使用 <code>static</code> 和 <code>final</code> 声明的常量</li>
+<li>接口不能实例化，因此不定义构造方法</li>
+</ul>
+<h3 id="2-2-2-扩展接口"><a href="#2-2-2-扩展接口" class="headerlink" title="2.2.2 扩展接口"></a>2.2.2 扩展接口</h3><p><strong>接口使用关键字 <code>extends</code> 扩展接口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Positionable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Centered</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setUpperRightCorner</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">getUpperRightX</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">getUpperRightY</span><span class="hljs-params">()</span></span>;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Transformable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Scalable</span>, <span class="hljs-title">Translatable</span>, <span class="hljs-title">Rotatable</span> </span>&#123;&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">SuperShape</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Positionable</span>, <span class="hljs-title">Transformable</span> </span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>扩展多个接口的接口，会继承每个父接口中的所有方法和常量，且可以定义属于自己的方法和常量</li>
+<li>实现这个接口的类必须实现这个接口直接定义的抽象方法，以及从所有父接口中继承的全部抽象方法</li>
+</ul>
+<h3 id="2-2-3-实现接口"><a href="#2-2-3-实现接口" class="headerlink" title="2.2.3 实现接口"></a>2.2.3 实现接口</h3><p><strong>类使用关键字 <code>extends</code> 扩展超类，使用关键字 <code>implements</code> 实现接口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CenteredRectangle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Rectangle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Centered</span> </span>&#123;<br>    <span class="hljs-comment">// 新增的实例字段</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> cx, cy;<br><br>    <span class="hljs-comment">// 构造方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CenteredRectangle</span><span class="hljs-params">(<span class="hljs-keyword">double</span> cx, <span class="hljs-keyword">double</span> cy, <span class="hljs-keyword">double</span> w, <span class="hljs-keyword">double</span> h)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(w, h);<br>        <span class="hljs-keyword">this</span>.cx = cx;<br>        <span class="hljs-keyword">this</span>.cy = cy;<br>    &#125;<br><br>    <span class="hljs-comment">// 继承了 Rectangle 类中的所有方法</span><br>    <span class="hljs-comment">// 但要实现 Centered 接口中的所有强制方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCenter</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span> </span>&#123;<br>        cx = x;<br>        cy = y;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCenterX</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cx;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCenterY</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cy;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果实现接口的类没有实现接口中的所有抽象方法，那么这个类从接口中继承未实现的抽象方法，且必须声明为 <code>abstract</code> 类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CenteredRectangle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Rectangle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Centered</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> cx, cy;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CenteredRectangle</span><span class="hljs-params">(<span class="hljs-keyword">double</span> cx, <span class="hljs-keyword">double</span> cy, <span class="hljs-keyword">double</span> w, <span class="hljs-keyword">double</span> h)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(w, h);<br>        <span class="hljs-keyword">this</span>.cx = cx;<br>        <span class="hljs-keyword">this</span>.cy = cy;<br>    &#125;<br><br>    <span class="hljs-comment">// 没有实现 Centered 接口中的 setCenter 方法</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCenterX</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cx;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getCenterY</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cy;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>一个接口，多种实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java">CenteredRectangle rect = <span class="hljs-keyword">new</span> CenteredRectangle(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">2.0</span>);<br>CenteredRectangle squ = <span class="hljs-keyword">new</span> CenteredSquare(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">2.0</span>);<br><br><span class="hljs-keyword">if</span> (rect <span class="hljs-keyword">instanceof</span> Centered) &#123;<br>    System.out.println(<span class="hljs-string">&quot;Instance rect belongs to Interface Centered&quot;</span>)<br>&#125;<br><br>Centered cen = rect;            <span class="hljs-comment">// 放大转换</span><br><span class="hljs-keyword">double</span> rx = cen.getCenterX();   <span class="hljs-comment">// 调用 CenteredRectangle 类实现的接口方法</span><br><br>cen = suq;<br>duoble sx = cen.getCenterX();   <span class="hljs-comment">// 调用 CenteredSquare 类实现的接口方法</span><br><br><span class="hljs-comment">// 推荐写法</span><br>Centered cen = <span class="hljs-keyword">new</span> CenteredRectangle(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">2.0</span>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>如果一个类实现了一个接口，那么这个类的实例可以赋值给这个接口的变量 <strong>（不能称为实例，因为接口不能实例化）</strong></li>
+<li>不同类可以实现同一个接口的接口方法，将不同的类实例赋值给同一个接口变量，即可通过一个接口变量调用不同类实现的接口方法</li>
+</ul>
+<h3 id="2-2-4-实现多个接口"><a href="#2-2-4-实现多个接口" class="headerlink" title="2.2.4 实现多个接口"></a>2.2.4 实现多个接口</h3><p>一个类实现多个接口表明这个类要实现所有接口中的全部抽象方法，否则必须声明为 <code>abstract</code> 类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperDuperSquare</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Shape</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Centered</span>, <span class="hljs-title">UpperRightCornered</span>, <span class="hljs-title">Scalable</span> </span>&#123;<br>    <span class="hljs-comment">// 实现所有接口中的全部抽象方法</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-5-默认方法"><a href="#2-2-5-默认方法" class="headerlink" title="2.2.5 默认方法"></a>2.2.5 默认方法</h3><p>Java 8 出现后，接口中可以实现可选的默认方法</p>
+<p>目的是在接口中添加新方法时，不会出现实现该接口的类中没有实现添加的新方法而导师编译错误，从而更好地实现向后兼容</p>
+<p><strong>默认方法的特性</strong></p>
+<ul>
+<li>实现接口的类可以（但不是必须）实现默认方法</li>
+<li>如果实现接口的类实现了默认方法，那么将调用这个类中实现的方法（覆盖接口中的默认方法）</li>
+<li>如果找不到其他实现，那么将调用接口的默认方法</li>
+</ul>
+<h3 id="2-2-6-标记接口"><a href="#2-2-6-标记接口" class="headerlink" title="2.2.6 标记接口"></a>2.2.6 标记接口</h3><p><strong>标记接口是定义为全空的接口</strong></p>
+<ul>
+<li>标记接口提供了额外的信息。类实现这种接口时只需在 implements 子句中列出这个接口，而不用实现任何方法</li>
+<li><code>java.io.Serializable</code> 接口就是标记接口。实现 <code>Serializable</code> 接口的类告诉 <code>ObjectOutputStream</code> 类，这个类的实例可以安全地序列化</li>
+<li><code>java.util.RandomAccess</code> 接口也是标记接口。<code>java.util.List</code> 接口实现了这个接口，表明 <code>java.util.List</code> 接口支持随机访问。例如，<code>ArrayList</code> 类实现了 <code>RandomAccess</code> 接口，而 <code>LinkedList</code> 类没实现</li>
+</ul>
+<h2 id="2-3-泛型"><a href="#2-3-泛型" class="headerlink" title="2.3 泛型"></a>2.3 泛型</h2><h3 id="2-3-1-初识泛型"><a href="#2-3-1-初识泛型" class="headerlink" title="2.3.1 初识泛型"></a>2.3.1 初识泛型</h3><p>容器类型一般叫作 <strong>「泛型」</strong>，容器中保存的 <strong>「负载类型」</strong> 在尖括号 <strong>&lt;&gt;</strong> 中指定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Box</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">box</span><span class="hljs-params">(T t)</span></span>;<br>    <span class="hljs-function">T <span class="hljs-title">unbox</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>容器中实际保存的是负载类型（引用类型）的实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;CenteredCircle&gt; shapes = <span class="hljs-keyword">new</span> ArrayList&lt;CenteredCircle&gt;();<br>shapes.add(<span class="hljs-keyword">new</span> CenteredCircle(<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>));<br><br><span class="hljs-comment">// 编译出错，因为 List&lt;CenteredCircle&gt; 中保存的是 CenteredCircle 实例</span><br>shapes.add(<span class="hljs-keyword">new</span> CenteredSquare(<span class="hljs-number">2.5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>));<br><br><span class="hljs-comment">// List&lt;CenteredCircle&gt;::get() 返回一个 CenteredCircle 实例，放大转换无需校正</span><br>CenteredCircle c = shapes.get(<span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-2-类型参数"><a href="#2-3-2-类型参数" class="headerlink" title="2.3.2 类型参数"></a>2.3.2 类型参数</h3><p><strong>&lt;T&gt;</strong>  是负载类型，也是 <strong>「类型参数」</strong>。因此，泛型也被称为 <strong>「参数化类型」</strong>。这表明，容器类型由负载类型参数化</p>
+<p><strong>类型参数只能代表引用类型，类型参数的值不能是基本类型</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Integer 是类型参数的值</span><br>List&lt;Integer&gt; nums = <span class="hljs-keyword">new</span> ArrayList&lt;Integer&gt;();  <span class="hljs-comment">// 合法，Interger 是 int 的包装类，属于引用类型</span><br>List&lt;<span class="hljs-keyword">int</span>&gt; nums = <span class="hljs-keyword">new</span> ArrayList&lt;<span class="hljs-keyword">int</span>&gt;();          <span class="hljs-comment">// 不合法</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-3-菱形句法"><a href="#2-3-3-菱形句法" class="headerlink" title="2.3.3 菱形句法"></a>2.3.3 菱形句法</h3><p>创建泛型的实例时，推荐使用 <strong>「菱形句法」&lt;&gt;</strong> 省略赋值语句右侧重复的类型参数的值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;CenteredCircle&gt; shapes = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-4-类型擦除"><a href="#2-3-4-类型擦除" class="headerlink" title="2.3.4 类型擦除"></a>2.3.4 类型擦除</h3><p>通过 <strong>「类型擦除」</strong> 实现 <code>List</code> 和 <code>List&lt;String&gt;</code> 的兼容，非泛型的 <code>List</code> 一般被称为「原始类型」</p>
+<p><strong>擦除类型后只剩下容器的原始类型</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">OrderCounter</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">totalOrders</span><span class="hljs-params">(Map&lt;String, List&lt;String&gt;&gt; orders)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">totalOrders</span><span class="hljs-params">(Map&lt;String, Integer&gt; orders)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>看似合法，但无法编译。因为这两个方法虽然看起来像是常规的重载，但擦除类型后，两个方法的签名都变成了：<code>int totalOrders(Map);</code>。运行时无法通过签名区分这两个方法</li>
+<li>泛型的类型参数仅在编译时可见，在运行时不可见。即 Javac 会擦除类型参数，且在字节码中不体现出来</li>
+</ul>
+<h3 id="2-3-5-通配符"><a href="#2-3-5-通配符" class="headerlink" title="2.3.5 通配符"></a>2.3.5 通配符</h3><p>如果我们不知道对象的负载类型，那么应该怎样实例化对象？</p>
+<p>参数化类型，例如 <code>ArrayList&lt;T&gt;</code>，不能实例化。这是因为 <code>&lt;T&gt;</code> 是类型参数，只是真实类型的占位符。只有为类型参数提供具体的值之后（例如 <code>ArrayList&lt;String&gt;</code>），这个类型才算完整，才能实例化<br><img src="https://s.im5i.com/2021/06/02/eeZqo.png" srcset="/img/loading.gif" alt="通配符的子类关系"></p>
+<p><strong>使用 &lt;?&gt; 表示「未知类型」</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">ArrayList&lt;T&gt; mysteryList = unknownList();   <span class="hljs-comment">// 不合法</span><br><br>ArrayList&lt;?&gt; mysteryList = unknownList();   <span class="hljs-comment">// 合法</span><br>Object o = mysteryList.get(<span class="hljs-number">0</span>);<br><br>mysteryList.add(<span class="hljs-keyword">new</span> Object());              <span class="hljs-comment">// 不会编译</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ArrayList&lt;?&gt;</code> 和 <code>ArrayList&lt;T&gt;</code> 不一样，前者是变量可以使用的完整类型，后者是不能实例化的参数类型</li>
+<li>我们不知道 <code>mysteryList</code> 的负载类型。例如， 如果 <code>mysteryList</code> 是 <code>ArrayList&lt;String&gt;</code> 类型的实例，那么就不能把 <code>Object</code> 对象存入其中</li>
+</ul>
+<p><strong>String 是 Object 的子类型，但 List&lt;String&gt; 不是 List&lt;Object&gt; 的子类型。List&lt;String&gt; 是 List&lt;?&gt; 的子类型</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Object&gt; objects = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;(); <span class="hljs-comment">// 不会编译</span><br>List&lt;?&gt; objects = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;();      <span class="hljs-comment">// 合法</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>如果想让容器的类型具有父子关系，需要使用未知类型</li>
+<li>不管 <code>T</code> 的值是什么，<code>List&lt;?&gt;</code> 都不是 <code>List&lt;T&gt;</code> 的子类型</li>
+</ul>
+<h4 id="1-上界通配符-lt-extend-T-gt"><a href="#1-上界通配符-lt-extend-T-gt" class="headerlink" title="1. 上界通配符 &lt;? extend T&gt;"></a>1. 上界通配符 &lt;? extend T&gt;</h4><p>上界通配符 <code>&lt;? extend T&gt;</code> 匹配 T 及 T 的子类。例如，<code>List&lt;? extend Number&gt;</code> 表示 <code>List</code> 中可以存放 <code>Number</code> 及 <code>Number</code> 的子类的实例（但只能存放一种）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Calculate</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">sum</span><span class="hljs-params">(List&lt;? extend NUmber&gt; list)</span> </span>&#123;<br>        <span class="hljs-keyword">double</span> s = <span class="hljs-number">0.0</span>;<br>        <span class="hljs-keyword">for</span> (Number n : list) &#123;<br>            s += n.doubleValue();<br>        &#125;<br>        <span class="hljs-keyword">return</span> s;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        List&lt;Integer&gt; li = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br>		System.out.println(<span class="hljs-string">&quot;sum = &quot;</span> + sum(li));<br>        <br>        List&lt;Double&gt; ld = Arrays.asList(<span class="hljs-number">1.2</span>, <span class="hljs-number">2.3</span>, <span class="hljs-number">2.5</span>);<br>		System.out.println(<span class="hljs-string">&quot;sum = &quot;</span> + sum(ld));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>List&lt;? extend T&gt; get 合法，add 不合法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Food</span> </span>&#123;&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Fruit</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Food</span> </span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Apple 是 Fruit 的子类，List&lt;Apple&gt; 和 List&lt;Fruit&gt; 都是 List&lt; ? extends Fruit&gt; 的子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Apple</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Fruit</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// 合法</span><br>    	List&lt;? extend Fruit&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;Fruit&gt;();<br>    	List&lt;? extend Fruit&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;Apple&gt;();<br>        <br>        <span class="hljs-comment">// 不合法，必须是 Fruit 或 Fruit 的子类</span><br>    	List&lt;? extend Fruit&gt; slist = <span class="hljs-keyword">new</span> ArrayList&lt;Food&gt;();<br>        <br>        <span class="hljs-comment">// get 合法</span><br>        Fruit f = list.get(<span class="hljs-number">0</span>);<br>        Object f = list.get(<span class="hljs-number">0</span>);<br>        Apple f = (Apple) list.get(<span class="hljs-number">0</span>);<br>        <br>        <span class="hljs-comment">// get 不合法</span><br>        Apple f = list.get(<span class="hljs-number">0</span>);<br>        <br>        <span class="hljs-comment">// add 不合法</span><br>        list.add(<span class="hljs-keyword">new</span> Fruit());<br>        list.add(<span class="hljs-keyword">new</span> Apple());<br>        list.add((Fruit) <span class="hljs-keyword">new</span> Fruit());<br>        list.add((Fruit) <span class="hljs-keyword">new</span> Apple());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>get</code> 合法。因为取出的元素可以直接赋给 <code>Fruit</code>（推荐），也可以强制转换为 <code>Fruit</code> 的子类</li>
+<li><code>add</code> 不合法。因为 <code>List&lt;T&gt;</code> 中只能存放一种类型，而 <code>?</code> 具体是什么只有运行时才知道，假设运行时 ? 为 <code>Apple、Banana、Orange</code>（即 <code>new</code> 出的对象），显然不能统一隐式转换为它们的父类 <code>Fruit</code>，因为 <code>List&lt;T&gt;</code> 中存放的必须是 <code>T</code> 或 <code>T</code> 的子类</li>
+</ul>
+<h4 id="2-下界通配符-lt-super-T-gt"><a href="#2-下界通配符-lt-super-T-gt" class="headerlink" title="2. 下界通配符 &lt;? super T&gt;"></a>2. 下界通配符 &lt;? super T&gt;</h4><p>下界通配符 <code>&lt;? super T&gt;</code> 匹配 T 及 T 的父类。例如，<code>List&lt;? super Integer&gt;</code> 表示 <code>List</code> 中可以存放 <code>Integer</code> 及 <code>Integer</code> 的父类的实例（但只能存放一种）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addNumbers</span><span class="hljs-params">(List&lt;? <span class="hljs-keyword">super</span> Integer&gt; list)</span> </span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span>; i++) &#123;<br>        list.add(i);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>List&lt;? super T&gt; add 合法，get 不合法（只能赋给 Object 类，或使用强制转换）</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Apple</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Fruit</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// 合法</span><br>    	List&lt;? <span class="hljs-keyword">super</span> Fruit&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;Fruit&gt;();<br>    	List&lt;? <span class="hljs-keyword">super</span> Fruit&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;Apple&gt;();<br>        <br>        <span class="hljs-comment">// 不合法，必须是 Fruit 或 Fruit 的父类</span><br>    	List&lt;? <span class="hljs-keyword">super</span> Fruit&gt; slist = <span class="hljs-keyword">new</span> ArrayList&lt;Food&gt;();<br>        <br>        <span class="hljs-comment">// add 合法，但必须是 Fruit 或 Fruit 的子类，因为只有这样才能隐式转换为 Fruit 的对象</span><br>        list.add(<span class="hljs-keyword">new</span> Fruit);<br>        list.add(<span class="hljs-keyword">new</span> Apple);<br>        list.add((Fruit) <span class="hljs-keyword">new</span> Food());	<span class="hljs-comment">// 强制转换也是可以的</span><br>        <br>        <span class="hljs-comment">// add 不合法</span><br>        list.add(<span class="hljs-keyword">new</span> Food());<br>        <br>        <span class="hljs-comment">// get 合法</span><br>        Object a = list.get(<span class="hljs-number">0</span>);<br>        Fruit a = (Fruit) list.get(<span class="hljs-number">0</span>);<br>        Apple a = (Apple) list.get(<span class="hljs-number">0</span>);<br>        <br>        <span class="hljs-comment">// get 不合法</span><br>        list.add(<span class="hljs-keyword">new</span> Apple());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-无界通配符-lt-gt"><a href="#2-无界通配符-lt-gt" class="headerlink" title="2. 无界通配符 &lt;?&gt;"></a>2. 无界通配符 &lt;?&gt;</h4><p>无界通配符 <code>&lt;?&gt;</code> 实际上是 <code>&lt;? extends Object&gt;</code>，因此所有 <code>List&lt;Integer&gt;、List&lt;Double&gt;</code> 等都是 <code>List&lt;?&gt;</code> 的子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">printList</span><span class="hljs-params">(List&lt;?&gt; list)</span> </span>&#123;<br>    <span class="hljs-keyword">for</span> (Object elem : list)<br>        System.out.print(elem + <span class="hljs-string">&quot; &quot;</span>);<br>    System.out.println();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-通配符的继承关系"><a href="#4-通配符的继承关系" class="headerlink" title="4. 通配符的继承关系"></a>4. 通配符的继承关系</h4><p>箭头表示的继承关系：<code>List&lt;Integer&gt;</code> 是 <code>List&lt;? extends Integer</code> 的子类</p>
+<p><img src="https://s.im5i.com/2021/06/02/eeZqo.png" srcset="/img/loading.gif" alt="通配符的继承关系"></p>
+<h3 id="2-3-6-编译时和运行时类型"><a href="#2-3-6-编译时和运行时类型" class="headerlink" title="2.3.6 编译时和运行时类型"></a>2.3.6 编译时和运行时类型</h3><p><code>l</code> 是什么类型？答案取决于在编译时（javac 看到的类型），还是运行时（JVM 看到的类型）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; l = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>System.out.println(l);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>javac 把 <code>l</code> 看成 <code>List-of-String</code> 类型，而且会用这个类型信息仔细检查句法错误，例如不能使用 <code>add()</code> 方法添加不合法的类型</li>
+<li>JVM 把 <code>l</code> 看成 <code>ArrayList</code> 类型的对象。因为编译时 javac 已擦除类型，所以运行时 <code>l</code> 是原始类型</li>
+</ul>
+<p>编译时和运行时的类型稍微有些不同。这个不同点是，运行时类型既比编译时类型精确，又没有编译时类型精确</p>
+<ul>
+<li>运行时类型没有编译时类型精确。因为负载类型的信息被擦除了，运行时的类型只是原始类型</li>
+<li>编译时类型没有运行时类型精确。因为不知道 <code>l</code> 具体是什么类型（只有运行时才知道），只知道是一种和 <code>List</code> 兼容的类型</li>
+</ul>
+<h2 id="2-4-枚举和注解"><a href="#2-4-枚举和注解" class="headerlink" title="2.4 枚举和注解"></a>2.4 枚举和注解</h2><h3 id="2-4-1-枚举"><a href="#2-4-1-枚举" class="headerlink" title="2.4.1 枚举"></a>2.4.1 枚举</h3><p><code>PrimaryColor</code> 类型的实例可以按照静态字段的方式引用：<code>PrimaryColor.RED、PrimaryColor.GREEN、PrimaryColor.BLUE</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">PrimaryColor</span> </span>&#123;<br>    <span class="hljs-comment">// 实例列表末尾的分号是可选的</span><br>    RED, GREEN, BLUE<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果字段或方法有主体，那么实例列表后面必须加上分号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">RegularPolygon</span> </span>&#123;<br>    <span class="hljs-comment">// 有参数的枚举必须使用分号</span><br>    TRIANGLE(<span class="hljs-number">3</span>), SQUARE(<span class="hljs-number">4</span>), PENTAGON(<span class="hljs-number">5</span>), HEXAGON(<span class="hljs-number">6</span>);<br><br>    <span class="hljs-keyword">private</span> Shape shape;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Shape <span class="hljs-title">getShape</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> shape;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">RegularPolygon</span><span class="hljs-params">(<span class="hljs-keyword">int</span> sides)</span> </span>&#123;<br>        <span class="hljs-keyword">switch</span> (sides) &#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>                shape = <span class="hljs-keyword">new</span> Triangle(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">60</span>,<span class="hljs-number">60</span>,<span class="hljs-number">60</span>);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>                shape = <span class="hljs-keyword">new</span> Rectangle(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:<br>                shape = <span class="hljs-keyword">new</span> Pentagon(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">108</span>,<span class="hljs-number">108</span>,<span class="hljs-number">108</span>,<span class="hljs-number">108</span>,<span class="hljs-number">108</span>);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:<br>                shape = <span class="hljs-keyword">new</span> Hexagon(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">120</span>,<span class="hljs-number">120</span>,<span class="hljs-number">120</span>,<span class="hljs-number">120</span>,<span class="hljs-number">120</span>,<span class="hljs-number">120</span>);<br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-枚举的特性"><a href="#1-枚举的特性" class="headerlink" title="1. 枚举的特性"></a>1. 枚举的特性</h4><ul>
+<li>枚举都隐式扩展自 <code>java.lang.Enum</code> 类</li>
+<li>可以实现接口</li>
+</ul>
+<h4 id="2-枚举的限制"><a href="#2-枚举的限制" class="headerlink" title="2. 枚举的限制"></a>2. 枚举的限制</h4><ul>
+<li>不能泛型化，不能被扩展</li>
+<li>如果枚举中的所有值都有实现主体，那么只能定义为抽象方法</li>
+<li>只能有一个私有（或使用默认访问权限）的构造方法</li>
+</ul>
+<h3 id="2-4-2-注解"><a href="#2-4-2-注解" class="headerlink" title="2.4.2 注解"></a>2.4.2 注解</h3><p>注解没有直接作用。例如，<code>@Override</code> 只是为注解的方法提供额外的信息，注明这个方法覆盖了超类中的方法。如果开发者把方法的名称拼写错了，而这个方法本来是要覆盖超类的方法，那么，在这个名称拼错的方法上使用 <code>@Override</code> 注解，可以提醒编译器什么地方出错了</p>
+<p><strong>与普通的接口相比，注解的特殊特性</strong></p>
+<h4 id="1-注解的特性"><a href="#1-注解的特性" class="headerlink" title="1. 注解的特性"></a>1. 注解的特性</h4><ul>
+<li>注释都隐式扩展自 <code>java.lang.annotation.Annotation</code> 接口</li>
+<li>接口（包括注解）的所有成员都隐式声明为 <code>public</code></li>
+</ul>
+<h4 id="2-注解的限制"><a href="#2-注解的限制" class="headerlink" title="2. 注解的限制"></a>2. 注解的限制</h4><ul>
+<li>不能泛型化（接口可以泛型化），不能扩展其他接口</li>
+<li>只能定义没有参数的方法</li>
+<li>不能定义会抛出异常的方法</li>
+<li>方法的返回类型有限制，方法可以有一个默认返回值</li>
+</ul>
+<h2 id="2-5-嵌套类型"><a href="#2-5-嵌套类型" class="headerlink" title="2.5 嵌套类型"></a>2.5 嵌套类型</h2><p>嵌套类型有两个独立的目的，但都和封装有关</p>
+<ul>
+<li>如果某个类型需要特别深入地访问另一个类型的内部实现，可以嵌套定义这个类型。作为成员类型的嵌套类型，其访问方式与访问成员变量和方法的方式一样，且能打破封装的规则</li>
+<li>某个类型可能只在特定的情况下需要使用，而且只在非常小的代码区域使用。这个类型应该密封在一个小范围内，因为它其实是实现细节的一部分，应该封装在一个系统的其他部分无法接触到的地方</li>
+</ul>
+<p><strong>嵌套类型实现的四种方式</strong></p>
+<p><strong>1. 静态成员类型</strong></p>
+<p>静态成员类型是声明为 <code>static</code> 的成员类型。嵌套的「接口、枚举和注解」都隐式声明为静态成员类型（不管是否使用 <code>static</code> 关键字）</p>
+<p><strong>2. 非静态成员类</strong></p>
+<p>非静态成员类是没有声明为 <code>static</code> 的成员类。只有「类」才能作为非静态成员类型</p>
+<p><strong>2. 局部类</strong></p>
+<p>局部类是在 Java 代码块中定义的类，只在这个块中可见。「<del>接口、枚举和注解</del>」不能定义为局部类型</p>
+<p><strong>2. 匿名类</strong></p>
+<p>匿名类是一种局部类，但没有名称。「<del>接口、枚举和注解</del>」不能定义为匿名类型</p>
+<h3 id="2-5-1-静态成员类型"><a href="#2-5-1-静态成员类型" class="headerlink" title="2.5.1 静态成员类型"></a>2.5.1 静态成员类型</h3><p>静态成员类型是声明为 <code>static</code> 的成员类型。嵌套的「接口、枚举和注解」都隐式声明为静态成员类型（不管是否使用 <code>static</code> 关键字）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedStack</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> a = <span class="hljs-number">10</span>;<br><br>    <span class="hljs-comment">// 静态成员接口。static 是可选的，因为所有嵌套接口都是静态成员类型</span><br>    <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Linkable</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> b = a;      <span class="hljs-comment">// 静态成员类型只能访问外层类型的「静态成员」</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">getNext</span><span class="hljs-params">()</span></span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setNext</span><span class="hljs-params">(Linkable node)</span></span>;<br>    &#125;<br><br>    Linkable head;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(Linkable node)</span> </span>&#123; ... &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123; ... &#125;<br>&#125;<br><br><span class="hljs-comment">// 这个类实现前面定义的静态成员接口</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkableInteger</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">LinkedStack</span>.<span class="hljs-title">Linkable</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i;<br>    LinkedStack.Linkable next;      <span class="hljs-comment">// Linkable 接口声明为 public</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">LinkableInteger</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.i = i;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> LinkedStack.<span class="hljs-function">Linkable <span class="hljs-title">getNext</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> next;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setNext</span><span class="hljs-params">(LinkedStack.Linkable node)</span> </span>&#123;<br>        next = node;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>允许（但不推荐）使用 <code>import</code> 直接或间接导入静态成员类型。导入后，虽然引用嵌套类型时可以直接使用 <code>Linkable</code>，但丢失了一定的信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> pkg.LinkedStack.Linkable;<br><span class="hljs-keyword">import</span> pkg.LinkedStack.*;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-静态成员类型的特性"><a href="#1-静态成员类型的特性" class="headerlink" title="1. 静态成员类型的特性"></a>1. 静态成员类型的特性</h4><ul>
+<li>静态成员类型类似于类的其他静态成员：静态字段和静态方法</li>
+<li>静态成员类型使用其他静态成员时，无需使用所在类型的名称限定成员的名称</li>
+<li>嵌套的「接口、枚举和注解」都隐式声明为静态成员类型（不管是否使用 <code>static</code> 关键字）</li>
+<li>接口（包括注解）的所有成员都隐式声明为 <code>public</code>，所以嵌套在接口或注解中的静态成员类型不能声明为 <code>protected</code> 或 <code>private</code></li>
+</ul>
+<h4 id="2-静态成员类型的限制"><a href="#2-静态成员类型的限制" class="headerlink" title="2. 静态成员类型的限制"></a>2. 静态成员类型的限制</h4><ul>
+<li><p>静态成员类型和所在类的任何实例都不关联（即没有 <code>this</code> 对象）</p>
+</li>
+<li><p>静态成员类型只能在「顶层类型、其他静态成员类型」中定义，不能在其他嵌套类型中定义</p>
+</li>
+<li><p>静态成员类型的代码只能访问外层类型的「静态成员」（包括私有成员和其他静态成员类型）</p>
+</li>
+<li><p>但是，导入嵌套类型模糊了这个类型和外层类型之间的关系，而这种关系往往很重要，因此很少这么做</p>
+</li>
+</ul>
+<h3 id="2-5-2-非静态成员类"><a href="#2-5-2-非静态成员类" class="headerlink" title="2.5.2 非静态成员类"></a>2.5.2 非静态成员类</h3><p>非静态成员类是没有声明为 <code>static</code> 的成员类，只有「类」才能作为非静态成员类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.Iterator;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedStack</span> </span>&#123;<br>    <span class="hljs-comment">// 静态成员接口，隐式声明为 static</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Linkable</span> </span>&#123;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">getNext</span><span class="hljs-params">()</span></span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setNext</span><span class="hljs-params">(Linkable node)</span></span>;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> Linkable head;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(Linkable node)</span> </span>&#123; ... &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123; ... &#125;<br><br>    <span class="hljs-comment">// 返回一个 Iterator 对象，供 LinkedStack 类使用</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Iterator&lt;Linkable&gt; <span class="hljs-title">iterator</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> LinkedIterator();<br>    &#125;<br><br>    <span class="hljs-comment">// 定义一个非静态成员类实现 Iterator 接口</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedIterator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Iterator</span>&lt;<span class="hljs-title">Linkable</span>&gt; </span>&#123;<br>        Linkable current;<br><br>        <span class="hljs-comment">// 非静态成员类的代码可以访问外层类型的所有字段和方法（静态和非静态的都能访问，不管是否声明为 private）</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">LinkedIterator</span><span class="hljs-params">()</span> </span>&#123;<br>            current = head;                         <span class="hljs-comment">// 隐式引用</span><br>            <span class="hljs-comment">// 因为成员类不能和任何外层类同名，所以，引用外层实例时，推荐在 this 前面使用外层类名</span><br>            <span class="hljs-keyword">this</span>.current = LinkedStack.<span class="hljs-keyword">this</span>.head;   <span class="hljs-comment">// 显式引用（推荐）</span><br>        &#125;<br><br>        <span class="hljs-comment">// 实现 Iterator 接口的方法</span><br>        <span class="hljs-meta">@Override</span>   <span class="hljs-comment">// 注解</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>&#123;<br>            <span class="hljs-keyword">return</span> current != <span class="hljs-keyword">null</span>;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>&#123;<br>            <span class="hljs-keyword">if</span> (current == <span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> java.util.NoSuchElementException();<br>            &#125;<br>            Linkable value = current;<br>            current = current.getNext();<br>            <span class="hljs-keyword">return</span> value;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">()</span> </span>&#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UnsupportedOperationException();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>非静态成员类和类的任何成员一样，可以使用一个标准的访问控制修饰符。例如，<code>LinkedIterator</code> 类声明为 <code>protected</code>，所以使用 <code>LinkedStack</code> 类的代码（不同包）不能访问 <code>LinkedIterator</code> 类，但是 <code>LinkedStack</code> 的子类可以访问（不管是否与 <code>LinkedStack</code> 同包）</li>
+</ul>
+<h4 id="1-非静态成员类的特性"><a href="#1-非静态成员类的特性" class="headerlink" title="1. 非静态成员类的特性"></a>1. 非静态成员类的特性</h4><ul>
+<li>如果把「静态成员类型」比作类字段或类方法，那么「非静态成员类」可以比作实例字段或实例方法</li>
+<li>一个非静态成员类的实例始终关联一个外层类型的实例</li>
+<li>非静态成员类的代码可以访问外层类型的所有成员（包括私有成员、静态成员和非静态成员）</li>
+</ul>
+<h4 id="2-非静态成员类的限制"><a href="#2-非静态成员类的限制" class="headerlink" title="2. 非静态成员类的限制"></a>2. 非静态成员类的限制</h4><ul>
+<li>非静态成员类不能和任何外层类或包同名。这是一个重要的规则，但不适用于字段和方法</li>
+<li>非静态成员类不能包含任何 「<del>静态字段、方法或类型</del>」，但可以包含同时声明为 <code>static</code> 和 <code>final</code> 的常量字段</li>
+</ul>
+<h4 id="3-两种独立的层次结构"><a href="#3-两种独立的层次结构" class="headerlink" title="3. 两种独立的层次结构"></a>3. 两种独立的层次结构</h4><p>第一种是从「超类到子类」的 <strong>「继承层次结构」</strong>，定义成员类继承的字段和方法<br>第二种是从「外层类到内层类」的 <strong>「包含层次结构」</strong>，定义在成员类作用域中的字段和方法</p>
+<ul>
+<li>这两种层次结构完全相互独立，一定不能混淆</li>
+<li>避免命名冲突，即超类的字段或方法不能和外层类的字段或方法同名</li>
+<li>如果出现了命名冲突，那么继承的字段或方法取代外层类的同名字段或方法</li>
+<li>继承的字段和方法作用域在继承它们的类中，会取代外层作用域中的同名字段和方法</li>
+<li>为了避免混淆继承层次结构和包含层次结构，包含层次结构不要太深</li>
+<li>如果类嵌套超过两层，可能导致更大的混乱</li>
+<li>如果类的继承层次结构很深（即有很多祖先），可以考虑不把它定义为非静态成员类，而是定义为顶层类</li>
+</ul>
+<h3 id="2-5-3-局部类"><a href="#2-5-3-局部类" class="headerlink" title="2.5.3 局部类"></a>2.5.3 局部类</h3><p>局部类在一个 Java 代码块中声明，不是类的成员，只有「类」才能局部定义。「<del>接口、枚举和注解</del>」不能局部定义</p>
+<p><strong>局部类通常在方法中定义</strong>，但也可以在类的静态初始化程序或实例初始化程序中定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedStack</span> </span>&#123;<br>    <span class="hljs-comment">// 静态成员接口，隐式声明为 static</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Linkable</span> </span>&#123;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">getNext</span><span class="hljs-params">()</span></span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setNext</span><span class="hljs-params">(Linkable node)</span></span>;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> Linkable head;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(Linkable node)</span> </span>&#123; ... &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123; ... &#125;<br><br>    <span class="hljs-comment">// ---------------------- 局部类通常在方法中定义 -------------------</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Iterator&lt;Linkable&gt; <span class="hljs-title">Iterator</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">// 局部类不能声明为 public、protected、private 或 static</span><br>        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedIterator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Iterator</span>&lt;<span class="hljs-title">Linkable</span>&gt; </span>&#123;<br>            Linkable current;<br><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">LinkedIterator</span><span class="hljs-params">()</span> </span>&#123;<br>                current = head;                         <span class="hljs-comment">// 隐式引用</span><br>                <span class="hljs-keyword">this</span>.current = LinkedStack.<span class="hljs-keyword">this</span>.head;   <span class="hljs-comment">// 显式引用（推荐）</span><br>            &#125;<br><br>            <span class="hljs-comment">// 实现 Iterator 接口的方法</span><br>            <span class="hljs-meta">@Override</span>                                   <span class="hljs-comment">// 注解（覆盖接口的实例方法）</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>&#123;<br>                <span class="hljs-keyword">return</span> current != <span class="hljs-keyword">null</span>;<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>&#123;<br>                <span class="hljs-keyword">if</span> (current == <span class="hljs-keyword">null</span>) &#123;<br>                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> java.util.NoSuchElementException();<br>                &#125;<br>                Linkable value = current;<br>                current = current.getNext();<br>                <span class="hljs-keyword">return</span> value;<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">()</span> </span>&#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UnsupportedOperationException();<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> LinkedIterator();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showIterator</span><span class="hljs-params">()</span> </span>&#123;<br>        Iterator&lt;Linkable&gt; it = Iterator();<br>        it.hashNext();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-局部类的特性"><a href="#1-局部类的特性" class="headerlink" title="1. 局部类的特性"></a>1. 局部类的特性</h4><ul>
+<li>与成员类（静态和非静态）一样，局部类的代码可以访问外层类型的所有字段和方法（静态和非静态的都能访问，不管是否声明为 <code>private</code>）</li>
+<li>局部类访问的「局部方法」中的「局部变量、方法参数和常参数」都隐式声明为 <code>final</code>，局部类访问后都不能被修改</li>
+<li><strong>因为，局部类对象的生命周期可能比它所在局部方法的生命周期长。如果局部类中使用了局部方法中的普通变量，当创建完局部类对象后（退出局部方法），局部类对象不能再访问局部方法中的非 final 变量，而 final 变量存放在常量区，其作用域在定义它的局部方法之外仍有效</strong></li>
+<li>局部类用到的每个局部变量都有一个私有副本（这些副本由 javac 自动生成）。因此，局部类没有访问局部变量，真正访问的是局部变量的私有副本，只有 <code>final</code> 局部变量才能保证局部变量和私有副本始终保持一致</li>
+</ul>
+<h4 id="2-局部类的限制"><a href="#2-局部类的限制" class="headerlink" title="2. 局部类的限制"></a>2. 局部类的限制</h4><ul>
+<li>局部类不能声明为 <code>public、protected、private、static</code></li>
+<li>局部类的名称只存在于定义它的块中，在块的外部不能使用。但在类的作用域中创建的局部类实例，在这个作用域之外仍能使用</li>
+<li>与成员类一样，局部类不能包含任何 「<del>静态字段、方法或类型</del>」。但可以包含同时声明为 <code>static final</code> 的常量字段</li>
+<li>局部类和成员类一样，不能与任何外层类同名</li>
+</ul>
+<h4 id="2-局部类的作用域"><a href="#2-局部类的作用域" class="headerlink" title="2. 局部类的作用域"></a>2. 局部类的作用域</h4><p>局部类可以访问的字段和变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>&#123; <span class="hljs-keyword">protected</span> <span class="hljs-keyword">char</span> a = <span class="hljs-string">&#x27;a&#x27;</span>; &#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> </span>&#123; <span class="hljs-keyword">protected</span> <span class="hljs-keyword">char</span> b = <span class="hljs-string">&#x27;b&#x27;</span>; &#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">char</span> c = <span class="hljs-string">&#x27;c&#x27;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">char</span> d = <span class="hljs-string">&#x27;d&#x27;</span>;<br><br>   <span class="hljs-comment">// 嵌套的「接口、枚举和注解」都隐式声明为静态成员类型，不管是否使用 static 关键字</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IntLocal</span> </span>&#123;<br>        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span></span>;           <span class="hljs-comment">// 接口（包括注解）的所有成员都隐式声明为 public</span><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> IntLocal <span class="hljs-title">createLocal</span><span class="hljs-params">(<span class="hljs-keyword">final</span> <span class="hljs-keyword">char</span> e)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">char</span> f = <span class="hljs-string">&#x27;f&#x27;</span>;<br>        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Local</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">B</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IntLocal</span> </span>&#123;<br>            <span class="hljs-keyword">char</span> g = <span class="hljs-string">&#x27;g&#x27;</span>;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>&#123;<br>                System.out.println(a);      <span class="hljs-comment">// C.this.a --- 外层类继承的实例字段</span><br>                System.out.println(b);      <span class="hljs-comment">// this.b ----- 这个类继承的实例字段</span><br>                System.out.println(c);      <span class="hljs-comment">// C.this.c --- 外层类的实例字段</span><br>                System.out.println(d);      <span class="hljs-comment">// C.d -------- 外层类的类字段</span><br>                System.out.println(e);      <span class="hljs-comment">// e ---------- 声明为 final 的局部参数</span><br>                System.out.println(f);      <span class="hljs-comment">// f ---------- 声明为 final 的局部变量</span><br>                System.out.println(g);      <span class="hljs-comment">// this.g ----- 这个类的实例字段</span><br>                System.out.println(i);      <span class="hljs-comment">// i ---------- 局部方法的局部变量</span><br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">// 局部变量 i 在局部类中被访问，因此 i 被隐式声明为 final，以后都不能再被修改</span><br>        i = <span class="hljs-number">1</span>;<br><br>        <span class="hljs-comment">// 不必显示转换 return (IntLocal) new Local();</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Local();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">char</span> e = <span class="hljs-string">&#x27;e&#x27;</span>;<br>        IntLocal loc = createLocal(e);<br>        loc.print();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        C c = <span class="hljs-keyword">new</span> C();<br>        c.show();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-5-4-匿名类"><a href="#2-5-4-匿名类" class="headerlink" title="2.5.4 匿名类"></a>2.5.4 匿名类</h3><p><strong>匿名类是没有名称的局部类</strong>，局部类是 Java 代码块中的一个语句，而匿名类是一个表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedStack</span> </span>&#123;<br>    <span class="hljs-comment">// 静态成员接口，隐式声明为 static</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Linkable</span> </span>&#123;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">getNext</span><span class="hljs-params">()</span></span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setNext</span><span class="hljs-params">(Linkable node)</span></span>;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> Linkable head;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(Linkable node)</span> </span>&#123; ... &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123; ... &#125;<br><br>    <span class="hljs-comment">// ---------------------- 匿名类在 return 语句中定义 -------------------</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Iterator&lt;Linkable&gt; <span class="hljs-title">Iterator</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">// 定义匿名类时，在父类后面的括号中指定的参数，会隐式传给父类的构造方法</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Iterator&lt;Linkable&gt;() &#123;<br>            Linkable current;<br><br>            <span class="hljs-comment">// 匿名类没有名称，因此不能定义构造方法。把构造方法换成实例初始化程序</span><br>            &#123; current = head; &#125;<br><br>            <span class="hljs-comment">// 实现 Iterator 接口的方法</span><br>            <span class="hljs-meta">@Override</span>   <span class="hljs-comment">// 注解（覆盖接口的实例方法）</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>&#123;<br>                <span class="hljs-keyword">return</span> current != <span class="hljs-keyword">null</span>;<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> Linkable <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>&#123;<br>                <span class="hljs-keyword">if</span> (current == <span class="hljs-keyword">null</span>) &#123;<br>                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> java.util.NoSuchElementException();<br>                &#125;<br>                Linkable value = current;<br>                current = current.getNext();<br>                <span class="hljs-keyword">return</span> value;<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">()</span> </span>&#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UnsupportedOperationException();<br>            &#125;<br>        &#125;;  <span class="hljs-comment">// 注意，需要使用分号，结束 return 语句</span><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showIterator</span><span class="hljs-params">()</span> </span>&#123;<br>        Iterator&lt;Linkable&gt; it = Iterator();<br>        it.hashNext();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-匿名类的特性"><a href="#1-匿名类的特性" class="headerlink" title="1. 匿名类的特性"></a>1. 匿名类的特性</h4><ul>
+<li>匿名类使用 <code>new</code> 运算符同时声明和实例化一个类。Java 8 之后，大多数情况下都把匿名类换成了 <code>lambda</code> 表达式</li>
+<li>定义匿名类时，在父类后面的括号中指定的参数，会隐式传给父类的构造方法</li>
+<li>匿名类一般用于创建构造方法不接受任何参数的简单类的子类。所以，在定义匿名类的句法中，括号经常都是空的</li>
+</ul>
+<h4 id="2-匿名类的限制"><a href="#2-匿名类的限制" class="headerlink" title="2. 匿名类的限制"></a>2. 匿名类的限制</h4><ul>
+<li>匿名类没有名称，因此不能定义构造方法。如果类需要构造方法，必须使用局部类。也可以把构造方法换成实例（或静态）初始化程序，详见 2.2.4 节</li>
+<li>虽然实例（或静态）初始化程序不局限于在匿名类中使用，但就是因为在匿名类中不能定义构造方法才引入 Java 的</li>
+<li>匿名类无法指定 <code>extends</code> 子句和 <code>implements</code> 子句</li>
+<li>匿名类就是一种局部类，与局部类和成员类一样。匿名类不能包含任何 「<del>静态字段、方法或类型</del>」。但可以包含同时声明为 <code>static final</code> 的常量字段</li>
+<li>与局部类一样，匿名类不能声明为 <code>public、private、protected、static</code></li>
+<li>定义匿名类的同时实例化了这个类。如果每次执行外层块时创建的实例不止一个，那么就不能用匿名类代替局部类</li>
+</ul>
+<h3 id="2-5-5-嵌套类型的运作方式"><a href="#2-5-5-嵌套类型的运作方式" class="headerlink" title="2.5.5 嵌套类型的运作方式"></a>2.5.5 嵌套类型的运作方式</h3><p>引入嵌套类型后，Java 虚拟机和 Java 类文件的格式并没有变化。对 Java 解释器而言，并没有所谓的嵌套类型，所有类都是普通的顶层类。</p>
+<p>为了让嵌套类型看起来是在另一个类中定义的，Java 编译器会在它生成的类中插入 「隐藏字段、方法和构造方法参数」。这些隐藏字段和方法经常称为 <strong>「合成物」</strong>。可以使用反汇编程序 javap 反汇编某些嵌套类型的类文件</p>
+<p>在第一个 <code>LinkedStack</code> 类的示例中，定义了一个 <code>Linkable</code> 的静态成员接口。编译这个 <code>LinkedStack</code> 类时，编译器会生成两个类文件：第一个是预期的 <code>LinkedStack.class</code>；第二个类文件名为 <code>LinkedStack$Linkable.class</code>，其中，<code>$</code> 由 javac 自动插入。这个类文件中包含静态成员接口 <code>Linkable</code> 的实现</p>
+<p>因为嵌套类型编译成普通的顶层类，所以不能直接访问外层类型中有特定权限的成员。因此，如果静态成员类型使用了外层类型的私有成员（或具有其他权限的成员），编译器会生成合成的访问方法（具有默认的包访问权限），然后把访问私有成员的表达式转换成调用合成方法的表达式</p>
+<h4 id="1-四种嵌套类型的类文件的命名规约"><a href="#1-四种嵌套类型的类文件的命名规约" class="headerlink" title="1. 四种嵌套类型的类文件的命名规约"></a>1. 四种嵌套类型的类文件的命名规约</h4><h5 id="（1）静态或非静态成员类型"><a href="#（1）静态或非静态成员类型" class="headerlink" title="（1）静态或非静态成员类型"></a>（1）静态或非静态成员类型</h5><p>根据 <code>EnclosingType$Member.class</code> 格式命名成员类型的类文件</p>
+<h5 id="（2）匿名类"><a href="#（2）匿名类" class="headerlink" title="（2）匿名类"></a>（2）匿名类</h5><p>匿名类没有名称，所以类文件的名称由实现细节决定。Oracle/OpenJDK 中的 javac 使用数字表示匿名类的名称。例如 <code>EnclosingType$1.class</code></p>
+<h5 id="（3）局部类"><a href="#（3）局部类" class="headerlink" title="（3）局部类"></a>（3）局部类</h5><p>局部类的类文件综合使用前两种方式命名。例如 <code>EnclosingType$1Member.class</code></p>
+<h4 id="2-为每种嵌套类型提供合成访问能力"><a href="#2-为每种嵌套类型提供合成访问能力" class="headerlink" title="2. 为每种嵌套类型提供合成访问能力"></a>2. 为每种嵌套类型提供合成访问能力</h4><h5 id="（1）非静态成员类的实现"><a href="#（1）非静态成员类的实现" class="headerlink" title="（1）非静态成员类的实现"></a>（1）非静态成员类的实现</h5><p>非静态成员类的每个实例都和一个外层类的实例关联</p>
+<p>为了实现这种关联，编译器为每个成员类定义了一个名为 <code>this$0</code> 的合成字段，用于保存一个外层实例的引用。编译器为每个非静态成员类的构造方法提供了一个额外的参数，用于初始化这个字段。每次调用成员类的构造方法时，编译器都会自动把这个额外参数的值设为外层类的引用</p>
+<h5 id="（2）局部类和匿名类的实现"><a href="#（2）局部类和匿名类的实现" class="headerlink" title="（2）局部类和匿名类的实现"></a>（2）局部类和匿名类的实现</h5><p>局部类之所以能访问外层类的字段和方法，原因和非静态成员类一模一样。编译器把一个外层类的隐藏引用传入局部类的构造方法，并且把这个引用存储在编译器合成的一个私有字段中</p>
+<p>和非静态成员类一样，局部类也能使用外层类的私有字段和方法，因为编译器会插入任何所需的访问器方法</p>
+<h2 id="2-6-代理"><a href="#2-6-代理" class="headerlink" title="2.6 代理"></a>2.6 代理</h2><h3 id="2-6-1-何时使用代理"><a href="#2-6-1-何时使用代理" class="headerlink" title="2.6.1 何时使用代理"></a>2.6.1 何时使用代理</h3><p>假设有一个表示接口的对象，它的确切类型在编译时无法知道。要想构造一个实现这些接口的类，就需要使用 <code>newlnstance</code> 方法或「反射」找出这个类的构造器</p>
+<p>但是，接口不能实例化，需要在程序处于运行状态时定义一个新类</p>
+<p>为了解决这个问题，有些程序将会生成代码；将这些代码放置在一个文件中；调用编译器；然后再加载结果类文件。显然，这样做的速度会比较慢，并且需要将编译器与程序放在一起</p>
+<p><strong>「代理」</strong>是一种更好的解决方案。代理类可以在运行时创建全新的类，代理类能够实现指定接口（通常是 <code>InvocationHandler</code> 接口）。代理类具有以下方法：</p>
+<ul>
+<li>接口中的全部抽象方法</li>
+<li><code>Object</code> 类中的全部方法。例如，<code>toString、equals</code></li>
+</ul>
+<p>然而，不能在运行时定义这些方法的新代码，而是提供一个调用处理器。<strong>「调用处理器」</strong>是实现了 <code>InvocationHandler</code> 接口的类对象。这个接口中只有一个抽象方法 <code>invoke</code> </p>
+<p><strong>代理的用途</strong></p>
+<ul>
+<li>路由对远程服务器的方法调用</li>
+<li>在程序运行期间，将用户接口事件与动作关联起来</li>
+<li>调试，跟踪方法调用</li>
+</ul>
+<h3 id="2-6-2-创建代理对象"><a href="#2-6-2-创建代理对象" class="headerlink" title="2.6.2 创建代理对象"></a>2.6.2 创建代理对象</h3><p>使用 <code>Proxy</code> 类的 <code>newProxylnstance</code> 方法创建一个代理对象，该方法包含三个参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Class[] interfaces = <span class="hljs-keyword">new</span> Class[]&#123;Comparable.class&#125;;<br>InvocationHandler handler = <span class="hljs-keyword">new</span> TraceHandler(value);	<span class="hljs-comment">// TraceHandler：实现了 InvocationHandler 接口的类</span><br>Object proxy = Proxy.newProxyInstance(<span class="hljs-keyword">null</span>, interfaces, handler);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>类加载器：Java 安全模型的一部分，对于系统类和从因特网上下载下来的类，可以使用不同的类加载器。目前，用 <code>null</code> 表示使用默认的类加载器</li>
+<li><code>Class</code> 对象数组：每个元素都是需要实现的接口</li>
+<li>调用处理器 <code>hander</code></li>
+</ul>
+<h3 id="2-6-3-跟踪二分查找的方法调用"><a href="#2-6-3-跟踪二分查找的方法调用" class="headerlink" title="2.6.3 跟踪二分查找的方法调用"></a>2.6.3 跟踪二分查找的方法调用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TraceHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InvocationHandler</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object target;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">invoke</span><span class="hljs-params">(Object proxy, Method method, Object[] args)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>        System.out.print(target);<br>        System.out.print(<span class="hljs-string">&quot;.&quot;</span> + method.getName() + <span class="hljs-string">&quot;(&quot;</span>);<br>        <span class="hljs-keyword">if</span> (args != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; args.length; i++) &#123;<br>                System.out.print(args[i]);<br>                <span class="hljs-keyword">if</span> (i &lt; args.length - <span class="hljs-number">1</span>) &#123;<br>                    System.out.print(<span class="hljs-string">&quot;, &quot;</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br>        System.out.println(<span class="hljs-string">&quot;)&quot;</span>);<br>        <span class="hljs-keyword">return</span> method.invoke(target, args);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TraceHandler</span><span class="hljs-params">(Object target)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.target = target;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Object[] nums = <span class="hljs-keyword">new</span> Object[<span class="hljs-number">1000</span>];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>            Integer value = i + <span class="hljs-number">1</span>;<br>            Class[] interfaces = <span class="hljs-keyword">new</span> Class[]&#123;Comparable.class&#125;;<br>            <span class="hljs-comment">// 调用处理器</span><br>            InvocationHandler handler = <span class="hljs-keyword">new</span> TraceHandler(value);<br>            Object proxy = Proxy.newProxyInstance(<span class="hljs-keyword">null</span>, interfaces, handler);<br>            nums[i] = proxy;<br>        &#125;<br><br>        Integer key = <span class="hljs-keyword">new</span> Random().nextInt(nums.length) + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">int</span> res = Arrays.binarySearch(nums, key);<br>        <span class="hljs-keyword">if</span> (res &gt;= <span class="hljs-number">0</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;key:\t&quot;</span> + nums[res]);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Output</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">500.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">250.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">125.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">187.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">218.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">202.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">194.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">190.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">192.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">191.</span>compareTo(<span class="hljs-number">191</span>)<br><span class="hljs-number">191.</span>toString()<br>key:	<span class="hljs-number">191</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>代理对象 <code>proxy</code> 是在运行时创建的代理类（如 <code>$ProxyO</code> ) 的对象，这个类也实现了 <code>Comparable</code> 接口，它的 <code>compareTo</code> 方法调用了代理处理器的 <code>invoke</code> 方法，这个方法打印出了方法名和参数，之后用包装好的 <code>Integer</code> 对象 <code>value</code> 调用 <code>compareTo</code></li>
+<li>所有的代理类都扩展自 <code>Proxy</code> 类。一个代理类只有一个实例域（调用处理器），它定义在 <code>Proxy</code> 的超类中。为了履行代理对象的职责， 所需的任何数据都必须存储在调用处理器中。例如，代理 <code>Comparable</code> 对象时，<code>TraceHandler</code> 包装了实际的对象</li>
+<li>所有的代理类都覆盖了 <code>Object</code> 类中的方法 <code>toString、equals、hashCode</code>。和所有的代理方法一样， 这些方法仅仅调用了调用处理器的 <code>invoke</code> 方法</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8E%A5%E5%8F%A3/">接口</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">枚举和注解</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/">嵌套类型</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/19/MySQL/%E7%AC%AC1%E7%AB%A0%20%20%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">相关配置</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/15/Git/gitee_depositary/">
+                        <span class="hidden-mobile">Git 基础操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

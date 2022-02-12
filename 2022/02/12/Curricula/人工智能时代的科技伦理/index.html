@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="浮梁华生">
+  <meta name="keywords" content="">
+  <title>浮梁华生</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"docker-apache.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浮梁华生</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-12 14:30" pubdate>
+        2022年2月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <h1 id="1-人工智能时代的科技伦理"><a href="#1-人工智能时代的科技伦理" class="headerlink" title="1 人工智能时代的科技伦理"></a>1 人工智能时代的科技伦理</h1><h2 id="1-1-人工智能"><a href="#1-1-人工智能" class="headerlink" title="1.1 人工智能"></a>1.1 人工智能</h2><h3 id="1-1-1-三大挑战"><a href="#1-1-1-三大挑战" class="headerlink" title="1.1.1 三大挑战"></a>1.1.1 三大挑战</h3><p>人工智能只能处理特定边界的问题，目前，人工智能面临烦人三大挑战分别是：<strong>综合认知的能力、理解他人的能力和自我决定的能力。</strong></p>
+<ul>
+<li>人工智能无法回答跨界问题、常识问题</li>
+<li>无法回答需要因人而异、体察人情的问题</li>
+<li>不会做这样的决定，因为它并没有对于自我的了解、自我的认知</li>
+<li>这种能够从自己出发做决定的能力，也能够看得出来人工智能和人的区别。</li>
+</ul>
+<p>综合认知的能力：现在的深度学习网络，一个网络只能够学习一件事情，这在科学界被称为<strong>遗忘的灾难</strong>。一个这样的人工智能只能干一件事情，不可能像我们人一样有通识的能力，这是人类和人工智能很大的不同，人是触类旁通的。</p>
+<p>理解他人的能力：现在是有一些人工智能和人的语言对话，但自然语言处理仍然还是一个难题，只有在特定领域的专业问答，才可以有比较好的答案匹配，</p>
+<p>自我决定的能力：需要两个方面的突破，一是自我表征的能力，人工智能需要能够自己说出来，我做这个事情是为什么；此外，人工智能没有自我意识。</p>
+<p>人工智能最大的威胁，并不是取代工作，它们会取代一部分工作，但是他们会制造出更多更多的就业岗位。<strong>“人工智能对我们最大的威胁就在于，当我们过于依赖很多的数据系统以后，我们自己如果变得懒于思考、懒于自我反思，而让我们自己的智慧退化的话，这是对人类最大的威胁。”</strong> —— 中国科幻作家、第74届雨果奖获得者郝景芳</p>
+<h3 id="1-1-2-通用人工智能-AGI"><a href="#1-1-2-通用人工智能-AGI" class="headerlink" title="1.1.2 通用人工智能 AGI"></a>1.1.2 通用人工智能 AGI</h3><p>真正的人工智能是 AGI（Artificial General Intelligence），即通用人工智能。人的智能是通用智能，人类经过学习可以做任何事情。人工智能要达到像人类一样的通用智能，才谈得上是真正的人工智能。通用人工智能如何实现以及何时实现，都还是个未知数。</p>
+<h2 id="1-2-人工智能时代的科技伦理"><a href="#1-2-人工智能时代的科技伦理" class="headerlink" title="1.2 人工智能时代的科技伦理"></a>1.2 人工智能时代的科技伦理</h2><h3 id="1-2-1-科技向善"><a href="#1-2-1-科技向善" class="headerlink" title="1.2.1 科技向善"></a>1.2.1 科技向善</h3><h4 id="科技伦理为科技创新及其应用划定底线和边界以指明科技向善的发展方向"><a href="#科技伦理为科技创新及其应用划定底线和边界以指明科技向善的发展方向" class="headerlink" title="科技伦理为科技创新及其应用划定底线和边界以指明科技向善的发展方向"></a>科技伦理为科技创新及其应用划定底线和边界以指明科技向善的发展方向</h4><p>对于未来可能出现的通用人工智能和超级人工智能，如果不加约束地发展应用，就有可能威胁到人类整体的利益。国际社会已在积极推动AI伦理研究并争取最大范围的共识。因此，亟需为新技术应用划定伦理底线和边界，以确保向善的发展方向。</p>
+<ul>
+<li>一方面，科技伦理可以使科学技术的应用得到明确的道德理性的引导，从而最大限度地减少出于邪恶目的利用科技成果的可能性</li>
+<li>另一方面，作为道德理性的科技伦理又可以弥补单纯的科技理性之不足，增强科技工作者对于科技开发之后果的道德责任感，从而以道德理性的自觉来最大限度地消解科技理性在社会负面作用上的不自觉。</li>
+</ul>
+<h3 id="1-2-2-自律作用"><a href="#1-2-2-自律作用" class="headerlink" title="1.2.2 自律作用"></a>1.2.2 自律作用</h3><h4 id="科技伦理在人工智能技术的治理中发挥越来越重要的软法规约作用"><a href="#科技伦理在人工智能技术的治理中发挥越来越重要的软法规约作用" class="headerlink" title="科技伦理在人工智能技术的治理中发挥越来越重要的软法规约作用"></a>科技伦理在人工智能技术的治理中发挥越来越重要的软法规约作用</h4><p>北京大学法学院教授、副院长薛军在《数字经济立法与执法应当审慎、包容》一文中所言，由于技术以及商业模式快速发展和迭代，草率的立法，不可能期待会产生正面的效果；除了法律之外，也完全可以通过国家标准、行业公约、最佳实践、技术指南等“软法”性质的规范来调整数字经济领域的事项。</p>
+<p>因此，<strong>作为对技术应用的“软法”规制，可以通过科技伦理来对科技行业的狭隘的技术向度和利益局限进行矫正。</strong></p>
+<p>另一方面，<strong>科技伦理水平直接衡量着科技发展的成熟度，完善的科技伦理制度意味着能够更好地防范、缓解科技发展应用带来的负面影响，从而营造积极健康的发展氛围</strong></p>
+<p><strong>国外：</strong>近几年来，谷歌、微软、Facebook、DeepMind 等科技公司多举措加强人工智能伦理的自律建设，包括发起成立行业组织（比如 Partnership on AI），成立伦理部门（比如伦理委员会），提出人工智能伦理和技术相关的原则、准则、指南、最佳实践等，加强人工智能伦理与社会研究。</p>
+<p><strong>国内：</strong>当前需要加强科技伦理的制度化建设，发挥科技伦理的行业自律作用，通过伦理审查、自律组织、行业标准、最佳实践、技术指南等方式来支持、促进行业自律，以确保科技发展应用的正确方向。而立法与执法应当坚持审慎、包容的指导思想。</p>
+<h3 id="1-2-3-数字福祉"><a href="#1-2-3-数字福祉" class="headerlink" title="1.2.3 数字福祉"></a>1.2.3 数字福祉</h3><h4 id="科技伦理推动互联网发展从获取用户注意力向促进用户数字福祉转变"><a href="#科技伦理推动互联网发展从获取用户注意力向促进用户数字福祉转变" class="headerlink" title="科技伦理推动互联网发展从获取用户注意力向促进用户数字福祉转变"></a>科技伦理推动互联网发展从获取用户注意力向促进用户数字福祉转变</h4><p>相关研究已经开始思考数字技术可能会对我们的健康、思维、自主性等产生什么样的负面影响，尤其是数字技术对未成年人的潜在影响。此外，随着个性化推荐算法在互联网领域的广泛应用，人们也开始担心推荐算法也可能给用户带来网络过度使用、信息茧房、算法偏见等负面影响。</p>
+<p>比如，限制用户对信息的自由选择，将用户置于算法建立起来的泡沫之中，只接触到自己喜欢或认同的内容，从而可能给用户造成信息茧房、自我封闭和偏见，进而影响用户的思维模式并可能扭曲用户的认知，并不利于用户的长远发展。</p>
+<p><strong>数字福祉（Digital Wellbeing）有两大内涵</strong></p>
+<ul>
+<li>一方面，人人都可享受到数字技术带来的便利和红利，最大化地实现普惠和赋能</li>
+<li>另一方面，促进个人对数字技术和网络服务的高质量使用，减小、防止数字技术对个人的负面影响</li>
+</ul>
+<p>例如，iOS 12推出了 “屏幕使用时间” 功能，同样意在帮助用户将手机和网络使用控制在合理的限度，防止过度使用。Facebook 则发布了“数字福祉”工具，允许用户监测自己花在社交网络上的时间并设定时长限制，同时更容易地关闭推送通知。</p>
+<h3 id="1-2-4-数字信任"><a href="#1-2-4-数字信任" class="headerlink" title="1.2.4 数字信任"></a>1.2.4 数字信任</h3><h4 id="科技伦理最终是要实现数字信任，践行科技向善"><a href="#科技伦理最终是要实现数字信任，践行科技向善" class="headerlink" title="科技伦理最终是要实现数字信任，践行科技向善"></a>科技伦理最终是要实现数字信任，践行科技向善</h4><p><strong>信任是一切社会的基础，数字信任是数字社会的基础。</strong>需要依靠社会习俗、伦理道德、法律规范等一起来协同构建，以保障数字经济社会的健康发展。</p>
+<p>数字信任体现在四个维度</p>
+<ul>
+<li>安全的维度，产品服务安全可靠，包括网络安全、个人隐私安全等</li>
+<li>透明的维度，保障用户的参与和知情</li>
+<li>责任的维度，确保相关主体负责任地提供产品服务，并为其行为承担责任</li>
+<li>伦理的维度，秉持正确的价值观，不作恶。在数字文明下，科技伦理旨在维护、促进数字信任，呼吁践行科技向善，让大数据、人工智能等数字技术最大程度地造福于人类和人类社会</li>
+</ul>
+<p>在人工智能研发应用方面，<strong>腾讯提出并倡导人工智能“四可”理念，即可用、可靠、可知、可控（英文简写为 ARCC，寓意“方舟”）。</strong>正如传说中拯救人类文明的诺亚方舟一样，人工智能领域的 ARCC 也将在未来的人工智能时代尤其是可能到来的 AGI 和 ASI 时代，确保人类与机器之间友好、和谐的关系，最大化地促进人类的发展，并避免潜在负面影响。</p>
+<h2 id="1-3-总结"><a href="#1-3-总结" class="headerlink" title="1.3 总结"></a>1.3 总结</h2><p><strong>科技伦理是创新驱动发展战略、数字中国建设、数字时代商业竞争的重要保障。</strong></p>
+<p><strong>科技创新是手段，科技伦理是保障，科技向善是目的，三者配合才能确保科技向善的发展方向，最大化促进人类福祉。</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/12/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/%E6%91%98%E8%A6%81/">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

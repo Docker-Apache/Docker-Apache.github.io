@@ -1,0 +1,577 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="浮梁华生">
+  <meta name="keywords" content="">
+  <title>浮梁华生</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"docker-apache.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浮梁华生</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-12 14:30" pubdate>
+        2022年2月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <p>根据挖掘任务可分为五种:分类与回归、聚类分析、关联分析、时间序列分析和偏差检测。在数据库挖掘中，C4.5（决策树算法），遗传算法等，其中决策树方法与神经网络方法是其关键方法。<br>而挖掘方法又可以分为：机器学习方法、统计方法、神经网络方法。机器学习中，可细分为：归纳学习方法（决策树、规则归纳等）、基于范例学习、遗传算法等。统计方法中，可细分为：回归分析（多元回归、自回归等）、判别分析（贝叶斯判别、费歇尔判别、非参数判别等）、聚类分析（系统聚类、动态聚类等）、探索性分析（主元分析法、相关分析法等）等。神经网络方法中，可细分为：前向神经网络（BP 算法等）、自组织神经网络（自组织特征映射、竞争学习等）等。</p>
+<h2 id="分类与回归"><a href="#分类与回归" class="headerlink" title="分类与回归"></a>分类与回归</h2><p>分类与回归都是<strong>对输入做出预测</strong>，并且<strong>都是监督学习</strong>。</p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul>
+<li>分类问题输出的是物体所属的类别，回归问题输出的是物体的值。</li>
+<li>分类问题输出的值是离散的，回归问题输出的值是连续的。</li>
+<li>分类问题输出的值是定性的，回归问题输出的值是定量的。</li>
+<li>分类与回归问题可以相互转换。</li>
+</ul>
+<h3 id="决策树（Decision-Tree）"><a href="#决策树（Decision-Tree）" class="headerlink" title="决策树（Decision Tree）"></a>决策树（Decision Tree）</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
+<li>学习时，利用训练数据，根据<strong>损失函数最小化</strong>的原则建立决策树模型。</li>
+<li>预测时，对新的数据，利用决策树模型进行分类。其中每个非叶节点表示一个特征属性上的测试，每个分支代表这个特征属性在某个值域上的输出，而每个叶节点存放一个类别。</li>
+</ul>
+<p><img src="C:\Users\11026\AppData\Roaming\Typora\typora-user-images\image-20220105092700193.png" srcset="/img/loading.gif" alt="image-20220105092700193"></p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li><p>简单直观，生成的决策树很直观。</p>
+</li>
+<li><p>基本不需要预处理，不需要提前归一化，处理缺失值。</p>
+</li>
+<li><p>使用决策树预测的代价是O(log2m)。 m为样本数。</p>
+</li>
+<li><p>既可以处理离散值也可以处理连续值。很多算法只是专注于离散值或者连续值。</p>
+</li>
+<li><p>可以处理多维度输出的分类问题。</p>
+</li>
+<li><p>相比于神经网络之类的黑盒分类模型，决策树在逻辑上可以得到很好的解释。</p>
+</li>
+<li><p>可以交叉验证的剪枝来选择模型，从而提高泛化能力。</p>
+</li>
+<li><p>对于异常点的容错能力好，健壮性高。</p>
+</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>决策树算法非常容易过拟合，导致泛化能力不强。可以通过设置节点最少样本数量和限制决策树深度来改进。</li>
+<li>策树会因为样本发生一点点的改动（特别是在节点的末梢），导致树结构的剧烈改变。这个可以通过集成学习之类的方法解决。</li>
+<li>寻找最优的决策树是一个NP难的问题，我们一般是通过启发式方法，容易陷入局部最优。可以通过集成学习之类的方法来改善。</li>
+<li>有些比较复杂的关系，决策树很难学习，比如异或。这个就没有办法了，一般这种关系可以换神经网络分类方法来解决。</li>
+<li>如果某些特征的样本比例过大，生成决策树容易偏向于这些特征。这个可以通过调节样本权重来改善。</li>
+</ul>
+<h4 id="学习过程"><a href="#学习过程" class="headerlink" title="学习过程"></a>学习过程</h4><p><strong>决策树学习的关键：</strong>如何选择最优划分属性（特征选择）。一般而言，随着划分过程不断进行，希望决策树的分支结点所包含的样本尽可能属于同一类别，即<strong>结点的 “纯度” (purity) 越高越好。</strong>学习过程包含以下三步：</p>
+<ul>
+<li>特征选择：从训练数据中众多的特征中选择一个特征作为当前节点的分裂标准，如何选择特征有着很多不同量化评估标准标准，从而衍生出不同的决策树算法。</li>
+<li>决策树生成： 根据选择的特征评估标准，从上至下递归地生成子节点，直到数据集不可分则停止决策树停止生长。</li>
+<li>剪枝：决策树容易过拟合，一般来需要剪枝，缩小树结构规模、缓解过拟合。剪枝技术有<strong>预剪枝</strong>和<strong>后剪枝</strong>两种。</li>
+</ul>
+<p><strong>基尼指数：</strong>总体内包含的类别越杂乱，GINI 指数就越大（跟熵的概念很相似）。</p>
+<h4 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h4><p>ID3 算法使用<strong>信息增益 Gain</strong> 准则来选择特征，递归的构建决策树。具体方法：从根节点开始，对节点计算所有可能的特征的信息增益，选择信息增益最大的特征作为节点的特征。</p>
+<p><strong>缺点：</strong>信息增益准则偏向选择取值较多的属性。如果一个特征所取不同值的个数越多，则该特征就越可能用来做分裂点。最极端的情况就是该特征每个结果都对应一个不同的特征取值，那么，求得信息熵为0，信息增益最大。</p>
+<h4 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h4><p>C4.5 算法不直接选择<strong>信息增益率</strong>最大的候选划分属性，候选划分属性中找出信息增益高于平均水平的属性（这样保证了大部分好的特征），再从中选择增益率最高的（又保证了不会出现编号特征这种极端的情况）。</p>
+<h4 id="CART（Classification-And-Regression-Tree）"><a href="#CART（Classification-And-Regression-Tree）" class="headerlink" title="CART（Classification And Regression Tree）"></a>CART（Classification And Regression Tree）</h4><p>既可以做分类，也可以做回归。只能形成二叉树。<br>分支条件：二分类问题<br>分支方法：对于连续特征的情况：比较阈值，高于某个阈值就属于某一类，低于某个阈值属于另一类。对于离散特征：抽取子特征，比如颜值这个特征，有帅、丑、中等三个水平，可以先分为帅和不帅的，不帅的里面再分成丑和中等的。<br>得分函数（y）：就是上面提到的gt(x)，对于分类树取得是分类最多的那个结果（也即众数），对于回归树取得是均值。</p>
+<p>损失函数：分类准则，也就是求最优化的准则</p>
+<ul>
+<li><p>对于分类树（目标变量为离散变量）：同一层所有分支假设函数的基尼系数的平均。</p>
+</li>
+<li><p>对于回归树（目标变量为连续变量）：同一层所有分支假设函数的平方差损失。</p>
+</li>
+</ul>
+<p>分裂准则：</p>
+<ul>
+<li>对于分类树（目标变量为离散变量）：使用<strong>基尼指数（基尼不纯度）</strong>作为分裂规则。比较分裂前的 gini 和分裂后的 gini 减少多少，减少的越多，则选取该分裂规则。</li>
+<li>对于回归树（目标变量为连续变量）：使用<strong>最小方差</strong>作为分裂规则。</li>
+</ul>
+<h4 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>支持模型</th>
+<th>树结构</th>
+<th>特征选择</th>
+<th>连续值处理</th>
+<th>缺失值处理</th>
+<th>剪枝</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID3</td>
+<td>分类</td>
+<td>多叉树</td>
+<td>信息增益</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>C4.5</td>
+<td>分类</td>
+<td>多叉树</td>
+<td>信息增益率</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>CART</td>
+<td>分类，回归</td>
+<td>二叉树</td>
+<td>基尼指数，均方差</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+</tbody></table>
+<h4 id="国内外研究现状"><a href="#国内外研究现状" class="headerlink" title="国内外研究现状"></a>国内外研究现状</h4><p>Yoo et al. [1] 研究调查了使用基于深度学习的决策树分类器从 CXR 图像中检测 COVID-19 的可行性。所提出的分类器包括三个二元决策树，每个树都由一个基于 PyTorch 框架的带有卷积神经网络的深度学习模型训练。识别信息特征已成为数据挖掘的重要步骤，不仅可以规避维数灾难，还可以减少需要处理的数据量。Rao et al. [2] 提出了一种基于蜂群和梯度提升决策树的新特征选择方法，旨在解决所选特征的效率和信息质量等问题。传统的信息熵和皮尔逊相关系数通常被用作分裂规则的度量，以寻找最佳分裂属性。然而，这些方法无法衡量属性之间的关系和属性的无序程度。Li et al. [3] 提出邓熵作为分裂规则的度量来构建模糊数据集分类的证据决策树。与传统的BBA组合组合规则相比，证据决策树可以直接应用于分类，有效降低了算法的复杂度。</p>
+<p>梯度提升决策树 (GBDT) 是一种流行的机器学习算法，并且有很多有效的实现，例如 XGBoost 和 pGBRT。但在特征维数高、数据量大的情况下，效率和可扩展性仍然不尽如人意。一个主要原因是对于每个特征，他们需要扫描所有的数据实例来估计所有可能的分割点的信息增益，这是非常耗时的。为了解决这个问题，Ke et al. [4] 提出了两种新技术：基于梯度的单侧采样（GOSS）和专有特征捆绑（EFB）。使用 GOSS，我们排除了很大一部分具有小梯度的数据实例，仅使用其余部分来估计信息增益。Velásquez et al [5] 根据大理石花纹程度对牛肉进行分类。通过400-1000 nm的高光谱成像系统在反射模式下扫描了总共35个样品的背最长肌。 选择528nm波长对样品和背景进行分割，440nm用于样品分类。 对感兴趣区域采用基于决策树方法的图像处理算法，在构建阶段获得0.08%的分类误差。</p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/f8cd8cc5ba09b2fef8bed86c5a53e3ae1d551b12">Deep Learning-Based Decision-Tree Classifier for COVID-19 Diagnosis From Chest X-ray Imaging</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/484c4178ae2e60cb7ceb81de484335b3d19eaffa">Feature selection based on artificial bee colony and gradient boosting decision tree</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/9eb04b5bb74ecc5781b62214b628813e9150196b">Evidential Decision Tree Based on Belief Entropy</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/497e4b08279d69513e4d2313a7fd9a55dfb73273">LightGBM: A Highly Efficient Gradient Boosting Decision Tree</a></p>
+<p>[5] <a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/feaa37c21048c7779ec3a722c5c3703ae500b2e6">An application based on the decision tree to classify the marbling of beef by hyperspectral imaging.</a></p>
+<h2 id="聚类分析"><a href="#聚类分析" class="headerlink" title="聚类分析"></a>聚类分析</h2><h3 id="K-means-聚类"><a href="#K-means-聚类" class="headerlink" title="K-means 聚类"></a>K-means 聚类</h3><h2 id="关联分析"><a href="#关联分析" class="headerlink" title="关联分析"></a>关联分析</h2><h3 id="Apriori-算法"><a href="#Apriori-算法" class="headerlink" title="Apriori 算法"></a>Apriori 算法</h3><h3 id="FP-growth-算法"><a href="#FP-growth-算法" class="headerlink" title="FP-growth 算法"></a>FP-growth 算法</h3><h2 id="集成学习"><a href="#集成学习" class="headerlink" title="集成学习"></a>集成学习</h2><h3 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h3><h2 id="时间序列分析"><a href="#时间序列分析" class="headerlink" title="时间序列分析"></a>时间序列分析</h2><h2 id="偏差检测"><a href="#偏差检测" class="headerlink" title="偏差检测"></a>偏差检测</h2>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/12/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/%E6%91%98%E8%A6%81/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/12/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/Introduction/">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

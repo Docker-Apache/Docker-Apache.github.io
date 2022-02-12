@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="浮梁华生">
+  <meta name="keywords" content="">
+  <title>1 动态规划 - 浮梁华生</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"docker-apache.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浮梁华生</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="1 动态规划">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-31 16:01" pubdate>
+        2021年1月31日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">1 动态规划</h1>
+            
+            <div class="markdown-body">
+              <h2 id="3-1-最长回文子串"><a href="#3-1-最长回文子串" class="headerlink" title="3.1 最长回文子串"></a>3.1 最长回文子串</h2><h3 id="3-1-1-题目地址"><a href="#3-1-1-题目地址" class="headerlink" title="3.1.1 题目地址"></a>3.1.1 题目地址</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/">LeetCode | 5. 最长回文子串</a></p>
+<h3 id="3-1-2-解题思路"><a href="#3-1-2-解题思路" class="headerlink" title="3.1.2 解题思路"></a>3.1.2 解题思路</h3><h4 id="1-状态"><a href="#1-状态" class="headerlink" title="1. 状态"></a>1. 状态</h4><p>$dp[i][j]$ 表示子串 $s[i..j]$ 是否为回文串，<strong>注意 $j &gt; i$</strong></p>
+<h4 id="2-初始化"><a href="#2-初始化" class="headerlink" title="2. 初始化"></a>2. 初始化</h4><p>每个字符本身是一个长度为 1 的回文子串，故 $dp[i][i] = true$<br>要求 $j &gt; i$，故对角线左下方的值应初始化为 $false$，实际上并不会用到该部分的值</p>
+<h4 id="3-边界条件"><a href="#3-边界条件" class="headerlink" title="3. 边界条件"></a>3. 边界条件</h4><p>$j &gt; i$，即只需关心 $dp[i][j]$ 对角线右上方的值<br>$j - i &lt; 3$，即 $s[i..j]$ 长度为 2 或 3 时，不用检查子串 $dp[i+1][j-1]$ 是否是回文串</p>
+<h4 id="4-状态转移方程"><a href="#4-状态转移方程" class="headerlink" title="4. 状态转移方程"></a>4. 状态转移方程</h4><ul>
+<li><p>$s[i] ≠ s[j]$ 时，$dp[i][j] = false$</p>
+</li>
+<li><p>$s[i] = s[j]$ 时，若 $j - i &lt; 3$，则 $dp[i][j] = true$。如 $aba,aa$<br>否则 $dp[i][j] = dp[i+1][j-1]$。如 $abca$，$j - i = 3$，需要参考 $dp[i+1][j-1]$ 的状态</p>
+</li>
+</ul>
+<h4 id="5-输出"><a href="#5-输出" class="headerlink" title="5. 输出"></a>5. 输出</h4><p>$dp[i][j] = true$ 时，若当前长度 &gt; 最大长度，则记录当前起始位置并更新最大长度，填完表后再截取</p>
+<h4 id="6-填表方向"><a href="#6-填表方向" class="headerlink" title="6. 填表方向"></a>6. 填表方向</h4><p>因为 $dp[i][j]$ 可能会参考其左下方 $dp[i+1][j-1]$ 的值，故须保证 $dp[i+1][j-1]$ 的值已经给出，即填表方向应为上下左右（或下上左右）</p>
+<h3 id="3-1-3-Code"><a href="#3-1-3-Code" class="headerlink" title="3.1.3 Code"></a>3.1.3 Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = s.size();<br>    <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> s;<br><br>    <span class="hljs-keyword">int</span> begin = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">1</span>;<br><br>    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; dp(n, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(n));<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>        dp[i][i] = <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; n; ++j) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; j; ++i) &#123;<br>            <span class="hljs-keyword">if</span> (s[i] != s[j]) &#123;<br>                dp[i][j] = <span class="hljs-literal">false</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">if</span> (j - i &lt; <span class="hljs-number">3</span>) &#123;<br>                    dp[i][j] = <span class="hljs-literal">true</span>;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    dp[i][j] = dp[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];<br>                &#125;<br>            &#125;<br><br>            <span class="hljs-comment">// dp[i][j] == true, 表示 s[i..j] 是回文，此时记录回文长度和其实位置</span><br>            <span class="hljs-keyword">if</span> (dp[i][j] &amp;&amp; j - i + <span class="hljs-number">1</span> &gt; maxLen) &#123;<br>                maxLen = j - i + <span class="hljs-number">1</span>;<br>                begin = i;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> s.substr(begin, maxLen);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-2-最长公共子序列"><a href="#3-2-最长公共子序列" class="headerlink" title="3.2 最长公共子序列"></a>3.2 最长公共子序列</h2><h3 id="3-2-1-题目地址"><a href="#3-2-1-题目地址" class="headerlink" title="3.2.1 题目地址"></a>3.2.1 题目地址</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-common-subsequence/">LeetCode | 1143. 最长公共子序列</a></p>
+<h3 id="3-2-2-解题思路"><a href="#3-2-2-解题思路" class="headerlink" title="3.2.2 解题思路"></a>3.2.2 解题思路</h3><h4 id="1-状态-1"><a href="#1-状态-1" class="headerlink" title="1. 状态"></a>1. 状态</h4><p>$dp[i][j]$ 表示 $text1[1..i],text2[1..j]$ 的最长公共子序列的长度</p>
+<h4 id="2-初始化-1"><a href="#2-初始化-1" class="headerlink" title="2. 初始化"></a>2. 初始化</h4><p>$dp[0][0:] = dp[0:][0] = 0$</p>
+<ul>
+<li>$dp[0][0:]$ 表示第 0 行的第 0 列及其后面的所有元素，$dp[0:][0]$ 同理</li>
+<li>在 $text1$ 前面插入一个任意字符（下方代码以一个空格为例），保证下标都从 1 开始，同时初始化后使得代码更加简洁</li>
+<li>并将该字符即 $text1[0]$ 看作是一个空字符</li>
+<li>则 $dp[0][0..j]$ 表示 $text1[0]$ 和 $text2[0..j]$ 的最长公共子序列的长度。显然，$dp[0][0:] = 0$</li>
+<li>同理，$dp[0:][0] = 0$</li>
+</ul>
+<h4 id="3-边界条件-1"><a href="#3-边界条件-1" class="headerlink" title="3. 边界条件"></a>3. 边界条件</h4><p>$1 ≤ i ≤ M,1 ≤ j ≤  N$，其中 $M, N$ 分别表示 $text1, text2$ 插入首字符前的长度</p>
+<h4 id="4-状态转移方程-1"><a href="#4-状态转移方程-1" class="headerlink" title="4. 状态转移方程"></a>4. 状态转移方程</h4><p>$text1[i] = text2[j]$ 时，$dp[i][j] = dp[i-1][j-1] + 1$<br>$text1[i] ≠ text2[j]$ 时，$dp[i][j] = max(dp[i][j-1], dp[i-1][j])$</p>
+<h4 id="5-输出-1"><a href="#5-输出-1" class="headerlink" title="5. 输出"></a>5. 输出</h4><p>$dp[M][N]$ 表示 $text1, text2$ 的最长公共子序列的长度</p>
+<h4 id="6-填表方向-1"><a href="#6-填表方向-1" class="headerlink" title="6. 填表方向"></a>6. 填表方向</h4><p>左右上下（或上下左右）</p>
+<h3 id="3-2-3-Code"><a href="#3-2-3-Code" class="headerlink" title="3.2.3 Code"></a>3.2.3 Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(<span class="hljs-built_in">string</span> text1, <span class="hljs-built_in">string</span> text2)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> M = text1.size();<br>    <span class="hljs-keyword">int</span> N = text2.size();<br><br>    text1 = <span class="hljs-string">&#x27; &#x27;</span> + text1;	<span class="hljs-comment">// 在 text1 和 text2 前面插入任意字符(这里插入一个空格)</span><br>    text2 = <span class="hljs-string">&#x27; &#x27;</span> + text2;	<span class="hljs-comment">// 保证下标都从1开始，同时初始化后使得代码更加简洁</span><br>    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dp(M + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(N + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>));	<span class="hljs-comment">// 初始化为 0</span><br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= M; ++i) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= N; ++j) &#123;<br>            <span class="hljs-keyword">if</span> (text1[i] == text2[j]) &#123;<br>                dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                dp[i][j] = max(dp[i][j - <span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][j]);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp[M][N];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-4-拓展：输出最长公共子序列"><a href="#3-2-4-拓展：输出最长公共子序列" class="headerlink" title="3.2.4 拓展：输出最长公共子序列"></a>3.2.4 拓展：输出最长公共子序列</h3><h4 id="1-解题思路"><a href="#1-解题思路" class="headerlink" title="1. 解题思路"></a>1. 解题思路</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++">从 dp[M][N] 出发<br><span class="hljs-keyword">if</span> (text1[M] == text2[N]) &#123;<br>    比较 text1[M<span class="hljs-number">-1</span>] 和 text2[N<span class="hljs-number">-1</span>]<br>    并记录 text1[M]<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">if</span> (dp[M]&#123;N&#125; == dp[M][N<span class="hljs-number">-1</span>]) 比较 text1[M] 和 text2[N<span class="hljs-number">-1</span>]<br>    <span class="hljs-keyword">if</span> (dp[M]&#123;N&#125; == dp[M<span class="hljs-number">-1</span>][N]) 比较 text1[M<span class="hljs-number">-1</span>] 和 text2[N]<br>&#125;<br>边界条件：M &gt; <span class="hljs-number">0</span> &amp;&amp; N &gt; <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s.im5i.com/2021/05/13/9dUYy.png" srcset="/img/loading.gif" alt="Longest common subsequence"></p>
+<h4 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printLCS</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-built_in">string</span> res;<br>    <span class="hljs-keyword">while</span> (M &gt; <span class="hljs-number">0</span> &amp;&amp; N &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">if</span> (text1[M] == text2[N]) &#123;<br>            res = text1[M] + res;<br>            --M;<br>            --N;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">if</span> (dp[M][N] == dp[M][N - <span class="hljs-number">1</span>]) &#123;<br>                --N;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                --M;<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-3-不同的二叉搜索树"><a href="#3-3-不同的二叉搜索树" class="headerlink" title="3.3 不同的二叉搜索树"></a>3.3 不同的二叉搜索树</h2><h3 id="3-3-1-题目地址"><a href="#3-3-1-题目地址" class="headerlink" title="3.3.1 题目地址"></a>3.3.1 题目地址</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/">LeetCode | 95. 不同的二叉搜索树</a></p>
+<h3 id="3-3-2-解题思路"><a href="#3-3-2-解题思路" class="headerlink" title="3.3.2 解题思路"></a>3.3.2 解题思路</h3><h4 id="1-状态-2"><a href="#1-状态-2" class="headerlink" title="1. 状态"></a>1. 状态</h4><p>$dp[i]$ 表示 $i$ 个结点构成的二叉搜索树（BST）个数</p>
+<h4 id="2-初始化-2"><a href="#2-初始化-2" class="headerlink" title="2. 初始化"></a>2. 初始化</h4><p>$i = 0$ 时，无根结点时 (空树)，BST 个数规定为 1，即 $dp[0] = 1$<br>$i = 1$ 时，根结点为 1 时，BST 个数 = 1，即 $dp[1] = dp[0]×dp[0] = 1$</p>
+<h4 id="3-状态转移方程"><a href="#3-状态转移方程" class="headerlink" title="3. 状态转移方程"></a>3. 状态转移方程</h4><p>设根结点为 $j\in [1,i]$ 的 BST 个数为 $root(j)$<br>(左子树) $j-1$ 个结点构成的 BST 个数为 $dp[j-1]$<br>(右子树) $i-j$ 个结点构成的 BST 个数为 $dp[i-j]$</p>
+<p>则 $$dp[i] = \sum_{j=1}^i root(j) = \sum_{j=1}^i (dp[j-1] × dp[i-j])$$</p>
+<h5 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h5><p>$dp[1] = dp[0]×dp[0]$<br>$dp[2] = dp[0]×dp[1] + dp[1]×dp[0] = 1 + 1 =2$<br>$dp[3] = dp[0]×dp[2] + dp[1]×dp[1] + dp[2]×dp[0] = 2 + 1 + 2 = 5$</p>
+<p><img src="https://s.im5i.com/2021/05/13/9ddVh.png" srcset="/img/loading.gif" alt="Different binary search trees"></p>
+<h4 id="4-输出"><a href="#4-输出" class="headerlink" title="4. 输出"></a>4. 输出</h4><p>$dp[n]$ 表示 $n$ 个结点构成的二叉搜索树（BST）个数</p>
+<h4 id="5-填表方向"><a href="#5-填表方向" class="headerlink" title="5. 填表方向"></a>5. 填表方向</h4><p>左右</p>
+<h3 id="3-2-3-Code-1"><a href="#3-2-3-Code-1" class="headerlink" title="3.2.3 Code"></a>3.2.3 Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">numTrees</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)</span></span>;<br>    dp[<span class="hljs-number">0</span>] = dp[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; ++i) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; ++j) &#123;<br>            dp[i] += dp[j - <span class="hljs-number">1</span>] * dp[i - j];<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[n];<br>&#125;<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/08/LeetCode/5%20%20%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">3 二分查找</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/21/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95/">
+                        <span class="hidden-mobile">面试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

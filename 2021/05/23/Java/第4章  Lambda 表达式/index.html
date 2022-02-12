@@ -1,0 +1,629 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="浮梁华生">
+  <meta name="keywords" content="">
+  <title>第4章 Lambda 表达式 - 浮梁华生</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"docker-apache.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浮梁华生</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="第4章 Lambda 表达式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-23 13:09" pubdate>
+        2021年5月23日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      58
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第4章 Lambda 表达式</h1>
+            
+            <div class="markdown-body">
+              <h2 id="4-1-函数式接口"><a href="#4-1-函数式接口" class="headerlink" title="4.1 函数式接口"></a>4.1 函数式接口</h2><p>Lambda 表达式以「匿名方法」的形式实现「函数式接口」中的一个强制方法。函数式接口的强制方法的签名称为<strong>「函数描述符」</strong></p>
+<p>函数式接口是只有一个强制方法的接口。不包括默认方法、静态方法、继承的方法（继承的方法可以不重写）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test1</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test2</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;&#125;  <span class="hljs-comment">// 默认方法不是强制方法</span><br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test3</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;&#125;   <span class="hljs-comment">// 静态方法不是强制方法</span><br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test4</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function">String <span class="hljs-title">toString</span><span class="hljs-params">()</span></span>;       <span class="hljs-comment">// toString() 方法从根类 Object 类中继承，可以不重写</span><br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test5</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">default</span> vodi <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;&#125;<br>    <span class="hljs-function">String <span class="hljs-title">toString</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不是函数式接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test6</span> </span>&#123;<br>                            <span class="hljs-comment">// 空接口没有一个强制方法</span><br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test7</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;&#125; <span class="hljs-comment">// 默认方法不是强制方法</span><br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test8</span> </span>&#123;<br>    <span class="hljs-function">String <span class="hljs-title">toString</span><span class="hljs-params">()</span></span>;      <span class="hljs-comment">// 可重写，可不重写，不是强制方法</span><br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Tese8</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Test1</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">(String s)</span></span>;	<span class="hljs-comment">// 定义了两个强制方法，其中一个从超类 Test1 中继承</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-1-1-FunctionalInterface"><a href="#4-1-1-FunctionalInterface" class="headerlink" title="4.1.1 @FunctionalInterface"></a>4.1.1 @FunctionalInterface</h3><p>注解 @FunctionalInterface 可以检查接口是否是一个函数式接口。如果不是，则会报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@FunctionalInterface</span><br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test1</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-1-2-内置的函数式接口"><a href="#4-1-2-内置的函数式接口" class="headerlink" title="4.1.2 内置的函数式接口"></a>4.1.2 内置的函数式接口</h3><h4 id="1-Predicate"><a href="#1-Predicate" class="headerlink" title="1. Predicate"></a>1. Predicate</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@FunctionalInterface</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">test</span><span class="hljs-params">(T t)</span></span>;			<span class="hljs-comment">// 谓词：返回 boolean 的函数</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-Consumer"><a href="#2-Consumer" class="headerlink" title="2. Consumer"></a>2. Consumer</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@FunctionalInterface</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Consumer</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(T t)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-Function"><a href="#3-Function" class="headerlink" title="3. Function"></a>3. Function</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@FunctionalInterface</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Function</span>&lt;<span class="hljs-title">T</span>, <span class="hljs-title">R</span>&gt; </span>&#123;<br>	<span class="hljs-function">R <span class="hljs-title">apply</span><span class="hljs-params">(T t)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-Demo"><a href="#4-Demo" class="headerlink" title="4. Demo"></a>4. Demo</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.function.Predicate;<br><span class="hljs-keyword">import</span> java.util.function.Consumer;<br><span class="hljs-keyword">import</span> java.util.function.Function;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">List&lt;T&gt; <span class="hljs-title">filter</span><span class="hljs-params">(List&lt;T&gt; list, Predicate&lt;T&gt; p)</span> </span>&#123;<br>        List&lt;T&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        <span class="hljs-keyword">for</span>(T s: list)&#123;<br>            <span class="hljs-keyword">if</span>(p.test(s))&#123;<br>                res.add(s);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">forEach</span><span class="hljs-params">(List&lt;T&gt; list, Consumer&lt;T&gt; c)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (T i : list) &#123;<br>            c.accept(i);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T, R&gt; <span class="hljs-function">List&lt;R&gt; <span class="hljs-title">map</span><span class="hljs-params">(List&lt;T&gt; list, Function&lt;T, R&gt; f)</span> </span>&#123;<br>        List&lt;R&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        <span class="hljs-keyword">for</span>(T s: list)&#123;<br>            res.add(f.apply(s));<br>        &#125;<br>    	<span class="hljs-keyword">return</span> res;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        List&lt;String&gt; nonEmpty = filter(Arrays.asList(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;lambda&quot;</span>, <span class="hljs-string">&quot;in&quot;</span>, <span class="hljs-string">&quot;action&quot;</span>), s -&gt; !s.isEmpty());<br>        System.out.println(nonEmpty);	<span class="hljs-comment">// 输出：[lambda, in, action]</span><br><br>        forEach(Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>), x -&gt; System.out.println(x));<br>        forEach(Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>), System.out.println);<br><br>        List&lt;Integer&gt; list = map(Arrays.asList(<span class="hljs-string">&quot;lambda&quot;</span>, <span class="hljs-string">&quot;in&quot;</span>, <span class="hljs-string">&quot;action&quot;</span>), x -&gt; x.length());<br>        List&lt;Integer&gt; list = map(Arrays.asList(<span class="hljs-string">&quot;lambda&quot;</span>, <span class="hljs-string">&quot;in&quot;</span>, <span class="hljs-string">&quot;action&quot;</span>), String::length);<br>        System.out.println(list);		<span class="hljs-comment">// 输出：[6, 2, 6]</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-2-Lambda-表达式"><a href="#4-2-Lambda-表达式" class="headerlink" title="4.2 Lambda 表达式"></a>4.2 Lambda 表达式</h2><h3 id="4-2-1-三大组成部分"><a href="#4-2-1-三大组成部分" class="headerlink" title="4.2.1 三大组成部分"></a>4.2.1 三大组成部分</h3><ul>
+<li>参数列表：参数列表必须与函数式接口中要实现的强制方法匹配，可以不用指定参数类型</li>
+<li>箭头：**-&gt;** 把参数列表与 Lambda 主体分隔开</li>
+<li>Lambda 主体：实现的强制方法中的方法主体，可以为一条或多条语句。lambda 主体中隐含 <code>return</code> 语句</li>
+</ul>
+<p>有效的 lambda 表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">() -&gt; &#123;&#125;                    <span class="hljs-comment">// 无参数，无返回值。两者都不能省</span><br>() -&gt; <span class="hljs-string">&quot;hello&quot;</span>               <span class="hljs-comment">// 无参数，返回 String</span><br>() -&gt; &#123;<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>;&#125;     <span class="hljs-comment">// 显式使用 return，注意 return ; &#123;&#125; 要么同时出现，要么都不出现</span><br></code></pre></td></tr></table></figure>
+
+<p>无效的 lambda 表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">(String s) -&gt; <span class="hljs-keyword">return</span> s + <span class="hljs-string">&quot;hello&quot;</span>;   <span class="hljs-comment">// 必须使用花括号 &#123;&#125;</span><br>(String s) -&gt; &#123;<span class="hljs-string">&quot;hello&quot;</span>;&#125;            <span class="hljs-comment">// 必须使用 return</span><br></code></pre></td></tr></table></figure>
+
+<p>修改后的 lambda 表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">s -&gt; &#123;<span class="hljs-keyword">return</span> s + <span class="hljs-string">&quot;hello&quot;</span>;&#125;<br>s -&gt; &#123;<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>;&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-2-可行性建议"><a href="#4-2-2-可行性建议" class="headerlink" title="4.2.2 可行性建议"></a>4.2.2 可行性建议</h3><ul>
+<li>参数列表的类型可省。因为参数列表必须与函数描述符保持一致，可自动进行类型推导</li>
+<li>只有一个参数时，<code>()</code> 可省</li>
+<li>无参数时，<code>()</code> 不能省</li>
+<li>无 lambda 主体时，<code>&#123;&#125;</code> 不能省</li>
+<li>不推荐使用 <code>return</code> 语句，直接写出需返回的表达式更加简洁</li>
+</ul>
+<h3 id="4-2-3-使用-Lambda-表达式"><a href="#4-2-3-使用-Lambda-表达式" class="headerlink" title="4.2.3 使用 Lambda 表达式"></a>4.2.3 使用 Lambda 表达式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Lambda</span> </span>&#123;<br>    <span class="hljs-comment">// 函数式接口 --- 静态成员接口</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test1</span> </span>&#123;<br>        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test2</span> </span>&#123;<br>        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">(String s)</span></span>;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test3</span> </span>&#123;<br>        <span class="hljs-function">String <span class="hljs-title">test</span><span class="hljs-params">(String s)</span></span>;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Test4</span> </span>&#123;<br>        <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">test</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Test1 t1 = () -&gt; System.out.println(<span class="hljs-string">&quot;Test1&quot;</span>);	<span class="hljs-comment">// 输出一条语句，返回空</span><br>        t1.test();<br><br>        Test1 s1 = () -&gt; &#123;&#125;;							<span class="hljs-comment">// 输出空，返回空</span><br>        s1.test();<br><br>        Test2 t2 = x -&gt; System.out.println(x + <span class="hljs-string">&quot; Test2&quot;</span>);<br>        t2.test(<span class="hljs-string">&quot;hello&quot;</span>);<br><br>        Test3 t3 = s -&gt; s + <span class="hljs-string">&quot; Test3&quot;</span>;<br>        System.out.println(t3.test(<span class="hljs-string">&quot;hello&quot;</span>));<br><br>        Test4 t4 = (a, b) -&gt; a + b;<br>        System.out.println(t4.test(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));<br><br>        <span class="hljs-comment">// lambda 表达式可以替换为方法引用</span><br>       	Test4 s4 = Integer::sum;<br>        System.out.println(s4.test(<span class="hljs-number">100</span>, <span class="hljs-number">200</span>));<br><br>        <span class="hljs-comment">// lambda 主体中可以包含多条语句</span><br>        Test4 p4 = (a, b) -&gt; &#123;<br>            System.out.println(a + b);<br>            System.out.println(a - b);<br>            System.out.println(a * b);<br>            System.out.println(a / b);<br>            <span class="hljs-keyword">return</span> a * <span class="hljs-number">100</span> + b * <span class="hljs-number">100</span>;		<span class="hljs-comment">// 有 &#123;&#125; 时，return 不能省</span><br>        &#125;;<br>        System.out.println(p4.test(<span class="hljs-number">4</span>, <span class="hljs-number">2</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Output</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">Test1<br><br>hello Test2<br>hello Test3<br><span class="hljs-number">3</span><br><span class="hljs-number">300</span><br><span class="hljs-number">6</span><br><span class="hljs-number">2</span><br><span class="hljs-number">8</span><br><span class="hljs-number">2</span><br><span class="hljs-number">600</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="Apple-类"><a href="#Apple-类" class="headerlink" title="Apple 类"></a>Apple 类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Apple</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String color;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Integer weight;<br><br>    Apple(String color, Integer weight) &#123;<br>        <span class="hljs-keyword">this</span>.color = color;<br>        <span class="hljs-keyword">this</span>.weight = weight;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getColor</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> color;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getWeight</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> weight;<br>    &#125;<br><br>    <span class="hljs-comment">// 用作方法引用，且必须声明为 static。方法签名必须与函数式接口中的强制方法的签名相同</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isGreen</span><span class="hljs-params">(Apple apple)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Green&quot;</span>.equals(apple.getColor());<br>    &#125;<br><br>    <span class="hljs-meta">@FunctionalInterface</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">P</span>&gt; </span>&#123;<br>        <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">test</span><span class="hljs-params">(P p)</span></span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Apple&gt; <span class="hljs-title">filter</span><span class="hljs-params">(List&lt;Apple&gt; appleList, Predicate&lt;Apple&gt; p)</span> </span>&#123;<br>        List&lt;Aplle&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (Apple apple : appleList) &#123;<br>            <span class="hljs-comment">// 过滤器模式</span><br>            <span class="hljs-keyword">if</span> (p.test(apple)) &#123;<br>                res.add(apple);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        List&lt;Apple&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        list.add(<span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">100</span>));<br>        list.add(<span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">200</span>));<br>        list.add(<span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">180</span>));<br>        list.add(<span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">200</span>));<br><br>        <span class="hljs-comment">// 推荐这样初始化 list</span><br>        List&lt;Apple&gt; aList = Arrays.asList(<br>            	<span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">100</span>),<br>                <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">200</span>),<br>                <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">120</span>),<br>                <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">150</span>));<br><br>        List&lt;Apple&gt; greenApples = Apple.filter(list, a -&gt; <span class="hljs-string">&quot;Green&quot;</span>.equals(a.getColor()));<br>        List&lt;Apple&gt; heavyApples = Apple.filter(list, a -&gt; a.getWight() &gt; <span class="hljs-number">150</span>);<br>        List&lt;Apple&gt; ghApples = Apple.filter(list, a -&gt; <span class="hljs-string">&quot;Green&quot;</span>.equals(a.getColor() &amp;&amp; a.getWight() &gt; <span class="hljs-number">150</span>);<br><br>        <span class="hljs-comment">// lambda 表达式可以换成方法引用</span><br>        List&lt;Apple&gt; greenApples = Apple.filter&lt;list, a -&gt; isGreen(a));<br>        List&lt;Apple&gt; greenApples = Apple.filter&lt;list, Apple::isGreen);	<span class="hljs-comment">// 不用传入参数</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-4-闭包"><a href="#4-2-4-闭包" class="headerlink" title="4.2.4 闭包"></a>4.2.4 闭包</h3><p>闭包就是一个函数的实例，它可以作为参数传递给方法，且可以访问其作用域之外的变量。Java 8 的 Lambda 和匿名类就类似于闭包</p>
+<p><strong>局部变量的限制</strong></p>
+<p>与局部类一样，lambda 表达式中访问的局部变量（实际上访问的是局部变量的副本）隐式声明为 <code>final</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> x = <span class="hljs-number">10</span>;<br>Test1 t1 = () -&gt; System.out.println(x);<br>x = <span class="hljs-number">100</span>;	<span class="hljs-comment">// lambda 表达式已使用局部变量 x（被隐式声明为 final），不能再被修改</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="4-3-方法引用"><a href="#4-3-方法引用" class="headerlink" title="4.3 方法引用"></a>4.3 方法引用</h2><p>方法引用允许将 Lambda 表达式换成已有的方法，且无需指定方法参数</p>
+<p><strong>基本思想</strong>：如果一个 Lambda 表达式描述的只是「直接调用某个方法」，那么应直接使用函数名来调用它，而不是描述如何调用它</p>
+<table>
+<thead>
+<tr>
+<th align="left">Lambda 表达式</th>
+<th>方法引用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>(Apple a) -&gt; a.getWeight()</code></td>
+<td><code>Apple::getWeight</code></td>
+</tr>
+<tr>
+<td align="left"><code>() -&gt; Thread.currentThread().dumpStack()</code></td>
+<td><code>Thread.currentThread()::dumpStack</code></td>
+</tr>
+<tr>
+<td align="left"><code>(String s, int i) -&gt; s.substring(i)</code></td>
+<td><code>String::substring</code></td>
+</tr>
+<tr>
+<td align="left"><code>(String s) -&gt; System.out.println(s)</code></td>
+<td><code>System.out::println</code></td>
+</tr>
+</tbody></table>
+<h3 id="4-3-1-分类"><a href="#4-3-1-分类" class="headerlink" title="4.3.1 分类"></a>4.3.1 分类</h3><h4 id="1-指向静态方法的方法引用"><a href="#1-指向静态方法的方法引用" class="headerlink" title="1. 指向静态方法的方法引用"></a>1. 指向静态方法的方法引用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">args -&gt; ClassName.staticMethod(args)<br>ClassName::staticMethod<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-指向参数对象的实例方法的方法引用"><a href="#2-指向参数对象的实例方法的方法引用" class="headerlink" title="2. 指向参数对象的实例方法的方法引用"></a>2. 指向参数对象的实例方法的方法引用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">obj -&gt; obj.instanceMethod()<br>ClassName::instanceMethod<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">(obj, res) -&gt; obj.instanceMethod(res)<br>ClassName::instanceMethod<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-指向外部对象的实例方法的方法引用"><a href="#3-指向外部对象的实例方法的方法引用" class="headerlink" title="3. 指向外部对象的实例方法的方法引用"></a>3. 指向外部对象的实例方法的方法引用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">ClassName obj = <span class="hljs-keyword">new</span> ClassName();<br>args -&gt; obj.instanceMethod(args);<br>obj::instanceMethod<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> String str = <span class="hljs-string">&quot;Hello World&quot;</span>;<br>String&lt;Charater&gt; stream = Instream.range(<span class="hljs-number">0</span>, str.length())<br>    .mapToObj(str::charAt);		<span class="hljs-comment">// i -&gt; str.charAt(i)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-3-2-构造函数引用"><a href="#4-3-2-构造函数引用" class="headerlink" title="4.3.2 构造函数引用"></a>4.3.2 构造函数引用</h3><p>可以使用构造函数的名称和关键字 <code>new</code> 来创建一个构造方法引用：<code>ClassName::new</code></p>
+<p>没有参数的构造函数 <code>Apple()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Supplier&lt;Apple&gt; c1 = () -&gt; <span class="hljs-keyword">new</span> Apple();<br>Supplier&lt;Apple&gt; c1 = Apple::<span class="hljs-keyword">new</span>;<br><span class="hljs-comment">// 初始化对象</span><br>Apple a1 = c1.get();<br></code></pre></td></tr></table></figure>
+
+<p>一个参数的构造函数 <code>Apple(Integer weight)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Function&lt;Integer, Apple&gt; c2 = w -&gt; <span class="hljs-keyword">new</span> Apple(w);<br>Function&lt;Integer, Apple&gt; c2 = Apple::<span class="hljs-keyword">new</span>;<br><span class="hljs-comment">// 初始化对象（给定 Apple 的重量）</span><br>Apple a2 = c2.apply(<span class="hljs-number">100</span>);<br></code></pre></td></tr></table></figure>
+
+<p>两个参数的构造函数 <code>Apple(String color, Integer weight)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">BiFunction&lt;String, Integer, Apple&gt; c3 = Apple::<span class="hljs-keyword">new</span>;<br><span class="hljs-comment">// 初始化对象（给定 Apple 的颜色和重量）</span><br>Apple a3 = c3.apply(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">100</span>);<br></code></pre></td></tr></table></figure>
+
+<p>初始化一系列对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; weights = Arrays.asList(<span class="hljs-number">7</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">10</span>);<br>List&lt;Apple&gt; apples = map(weights, Apple::<span class="hljs-keyword">new</span>);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T, R&gt; <span class="hljs-function">List&lt;R&gt; <span class="hljs-title">map</span><span class="hljs-params">(List&lt;T&gt; list, Function&lt;T, R&gt; f)</span> </span>&#123;<br>    List&lt;R&gt; res = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>    <span class="hljs-keyword">for</span>(T s: list)&#123;<br>        res.add(f.apply(s));<br>    &#125;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用 <code>Map</code> 将构造函数映射到字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">static</span> Map&lt;String, Function&lt;Integer, Fruit&gt;&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br><span class="hljs-comment">// 静态初始化程序</span><br><span class="hljs-keyword">static</span> &#123;<br>    map.put(<span class="hljs-string">&quot;apple&quot;</span>, Apple::<span class="hljs-keyword">new</span>);<br>    map.put(<span class="hljs-string">&quot;orange&quot;</span>, Orange::<span class="hljs-keyword">new</span>);<br>&#125;<br><br><span class="hljs-comment">// 返回重量为 weight 的水果 fruit</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Fruit <span class="hljs-title">giveFruit</span><span class="hljs-params">(String fruit, Integer weight)</span></span>&#123;<br>	<span class="hljs-keyword">return</span> map.get(fruit.toLowerCase()).apply(weight);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-4-复合-Lambda-表达式"><a href="#4-4-复合-Lambda-表达式" class="headerlink" title="4.4 复合 Lambda 表达式"></a>4.4 复合 Lambda 表达式</h2><h3 id="4-4-1-排序"><a href="#4-4-1-排序" class="headerlink" title="4.4.1 排序"></a>4.4.1 排序</h3><h4 id="1-int-、Integer-、String"><a href="#1-int-、Integer-、String" class="headerlink" title="1. int[]、Integer[]、String[]"></a>1. int[]、Integer[]、String[]</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java">Integer[] nums = <span class="hljs-keyword">new</span> Integer[]&#123;<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>&#125;;	<span class="hljs-comment">// 在堆中</span><br>Integer[] nums = &#123;<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>&#125;;				<span class="hljs-comment">// 在栈中</span><br><br>Arrays.sort(nums);								<span class="hljs-comment">// 升序</span><br>Arrays.sort(nums, Comparator.reverseOrder());	<span class="hljs-comment">// 降序</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Comparator.reverseOrder() 实际上调用 Collection.reverseOrder()</span><br><span class="hljs-comment"> * 但 Collection.reverseOrder() 返回类型为 Comparator&lt;T&gt;</span><br><span class="hljs-comment"> * 而 Arrays.sort 的第二个入参也为 Comparator&lt;T&gt;</span><br><span class="hljs-comment"> * 可见，Comparator&lt;T&gt; 是统一的对外接口</span><br><span class="hljs-comment"> */</span><br>Arrays.sort(nums, Comparator.naturalOrder());	<span class="hljs-comment">// 升序</span><br>Arrays.sort(nums, Collection.naturalOrder());	<span class="hljs-comment">// 升序</span><br>Arrays.sort(nums, Collection.reverseOrder());	<span class="hljs-comment">// 降序</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span>[] nums = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>&#125;;<br><span class="hljs-keyword">int</span>[] nums = &#123;<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>&#125;;<br><br>Arrays.sort(nums);	<span class="hljs-comment">// 只能升序，降序必须将 int[] 声明为包装类数组 Integer[]</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">String[] str = <span class="hljs-keyword">new</span> &#123;<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>, <span class="hljs-string">&quot;bcd&quot;</span>&#125;;<br>String[] str = &#123;<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>, <span class="hljs-string">&quot;bcd&quot;</span>&#125;;<br><br>Arrays.sort(str);								<span class="hljs-comment">// 升序</span><br>Arrays.sort(str, Comparator.reverseOrder());	<span class="hljs-comment">// 降序</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-List-lt-Integer-gt-、List-lt-String-gt"><a href="#2-List-lt-Integer-gt-、List-lt-String-gt" class="headerlink" title="2. List&lt;Integer&gt;、List&lt;String&gt;"></a>2. List&lt;Integer&gt;、List&lt;String&gt;</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; list = Arrays.asList(<span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>);<br>list.sort(Comparator.naturalOrder());	<span class="hljs-comment">// 升序</span><br>list.sort(Comparator.reverseOrder());	<span class="hljs-comment">// 降序</span><br><br>List&lt;String&gt; slist = Arrays.asList(<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>, <span class="hljs-string">&quot;def&quot;</span>);<br>slist.sort(Comparator.naturalOrder());	<span class="hljs-comment">// 升序</span><br>slist.sort(Comparator.reverseOrder())	<span class="hljs-comment">// 降序</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-List-lt-Apple-gt"><a href="#3-List-lt-Apple-gt" class="headerlink" title="3. List&lt;Apple&gt;"></a>3. List&lt;Apple&gt;</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Apple&gt; alist = Arrays.asList(<br>        <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">100</span>),<br>        <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">200</span>),<br>        <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">100</span>),<br>        <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">150</span>));<br><br>Function&lt;Apple, Integer&gt; f = a -&gt; a.getWeight();<br><br>Comparator&lt;Apple&gt; c = Comparator.comparing(f);<br>Comparator&lt;Apple&gt; c = Comparator.comparing(a -&gt; a.getWeight());<br>Comparator&lt;Apple&gt; c = Comparator.comparing(Apple::getWeight);<br>Comparator&lt;Apple&gt; c = (a1, a2) -&gt; a1.getWeight().compareTo(a2.getWeight());<br><br>alist.sort(c);				<span class="hljs-comment">// 升序</span><br>alist.sort(c.reversed());	<span class="hljs-comment">// 降序</span><br><br><span class="hljs-comment">// 注意：没有 Comparator.naturalOrder(c)、Comparator.reverseOrder(c)</span><br>alist.sort(Collections.naturalOrder(c));<br>alist.sort(Collections.reverseOrder(c));	<span class="hljs-comment">// c.reversed() 实际上调用 Collections.reverseOrder(c)</span><br><br><span class="hljs-comment">// 推荐</span><br>alist.sort(Comparator.comparing(Apple::getWeight));<br>alist.sort(Comparator.comparing(Apple::getWeight).reversed());<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-List-lt-int-gt"><a href="#4-List-lt-int-gt" class="headerlink" title="4. List&lt;int[]&gt;"></a>4. List&lt;int[]&gt;</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 先按下标 0 升序；若相等，再按下标 1 升序</span><br>list.sort((a1, a2) -&gt; (a1[<span class="hljs-number">0</span>] == a2[<span class="hljs-number">0</span>]) ? (a1[<span class="hljs-number">1</span>] - a2[<span class="hljs-number">1</span>]) : (a1[<span class="hljs-number">0</span>] - a2[<span class="hljs-number">0</span>]));<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-4-2-比较器链"><a href="#4-4-2-比较器链" class="headerlink" title="4.4.2 比较器链"></a>4.4.2 比较器链</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Apple</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">forEach</span><span class="hljs-params">(List&lt;Apple&gt; list, BiConsumer&lt;String, Integer&gt; bc)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (Apple a : list) &#123;<br>            bc.accept(a.getColor(), a.getWeight());<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Comparator&lt;Apple&gt; <span class="hljs-title">myComparing</span><span class="hljs-params">(Function&lt;Apple, Integer&gt; f1, Function&lt;Apple, String&gt; f2)</span> </span>&#123;<br>        <span class="hljs-comment">// 三种写法</span><br>        <span class="hljs-keyword">return</span> (o1, o2) -&gt; &#123;<br>            <span class="hljs-keyword">int</span> res = f1.apply(o1).compareTo(f1.apply(o2));<br>            <span class="hljs-keyword">return</span> res != <span class="hljs-number">0</span> ? res : f2.apply(o1).compareTo(f2.apply(o2));<br>        &#125;;<br><br>        <span class="hljs-keyword">return</span> (o1, o2) -&gt; &#123;<br>            <span class="hljs-keyword">if</span> (f1.apply(o1).equals(f1.apply(o2))) &#123;<br>                <span class="hljs-keyword">return</span> f2.apply(o1).compareTo(f2.apply(o2));<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">return</span> f1.apply(o1).compareTo(f1.apply(o2));<br>            &#125;<br>        &#125;;<br><br>        <span class="hljs-keyword">return</span> Comparator.comparingInt(f1::apply).thenComparing(f2::apply);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        List&lt;Apple&gt; alist = Arrays.asList(<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Red&quot;</span>, <span class="hljs-number">100</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Red&quot;</span>, <span class="hljs-number">160</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">100</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">200</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">100</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">150</span>));<br><br>        <span class="hljs-comment">// 按重量进行升序排序</span><br>        alist.sort(Comparator&gt;comparing(Apple::getWeight));<br>        forEach(list, (c, w) -&gt; System.out.println(c + <span class="hljs-string">&quot;\t&quot;</span> + w));<br>        System.out.println();<br><br>        <span class="hljs-comment">// 先按重量进行升序排序；当重量相同时，再按颜色进行升序排序</span><br>        alist.sort(Comparator.comparing(Apple::getWeight).thenComparing(Apple::getCountry));<br>        forEach(list, (c, w) -&gt; System.out.println(c + <span class="hljs-string">&quot;\t&quot;</span> + w));<br><br>        <span class="hljs-comment">// 使用自己定义的比较器链</span><br>        alist.sort(myComparing(Apple::getWeight, Apple::getColor));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Output</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java">Red 	<span class="hljs-number">100</span><br>Green 	<span class="hljs-number">100</span><br>Blue 	<span class="hljs-number">100</span><br>Blue 	<span class="hljs-number">150</span><br>Red 	<span class="hljs-number">160</span><br>Green 	<span class="hljs-number">200</span><br><br>Blue 	<span class="hljs-number">100</span><br>Green	<span class="hljs-number">100</span><br>Red 	<span class="hljs-number">100</span><br>Blue 	<span class="hljs-number">150</span><br>Red 	<span class="hljs-number">160</span><br>Green 	<span class="hljs-number">200</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-4-3-复合谓词"><a href="#4-4-3-复合谓词" class="headerlink" title="4.4.3 复合谓词"></a>4.4.3 复合谓词</h3><p>谓词接口 <code>Predicate&lt;T&gt;</code> 包括三个方法：<code>and、or、negate</code>，分别对应「与、或、非」</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Apple</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        List&lt;Apple&gt; alist = Arrays.asList(<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Red&quot;</span>, <span class="hljs-number">100</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Red&quot;</span>, <span class="hljs-number">160</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">100</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-number">200</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">100</span>),<br>            <span class="hljs-keyword">new</span> Apple(<span class="hljs-string">&quot;Blue&quot;</span>, <span class="hljs-number">150</span>));<br><br>        Predicate&lt;Apple&gt; redApple = a -&gt; <span class="hljs-string">&quot;Red&quot;</span>.equals(a.getColor());<br><br>        <span class="hljs-comment">// 不是红苹果 --- negate</span><br>        alist&lt;Apple&gt; nonRedApple = filter(alist, redApple.negate());<br>        alist&lt;Apple&gt; nonRedApple = filter(alist, a -&gt; !(<span class="hljs-string">&quot;Red&quot;</span>.equals(a.getColor())));<br><br>        <span class="hljs-comment">// 比较重的红苹果 --- and</span><br>        alist&lt;Apple&gt; redHeavyApple = filter(alist, redApple.and(a -&gt; a.getWeight() &gt; <span class="hljs-number">150</span>));<br>        alist&lt;Apple&gt; redHeavyApple = filter(alist, a -&gt; <span class="hljs-string">&quot;Red&quot;</span>.equals(a.getColor()) &amp;&amp; a.getWeight() &gt; <span class="hljs-number">150</span>);<br><br>        <span class="hljs-comment">// 要么是重的红苹果，要么是绿苹果 --- and.or</span><br>        alist&lt;Apple&gt; redHeavyOrGreenApple = filter(alist, redApple.and(a -&gt; a.getWeight() &gt; <span class="hljs-number">150</span>)<br>                                                  				.or(a -&gt; <span class="hljs-string">&quot;Green&quot;</span>.equals(a.getColor())));<br>        alist&lt;Apple&gt; redHeavyOrGreenApple = filter(alist, a -&gt; ((<span class="hljs-string">&quot;Red&quot;</span>.equals(a.getColor())<br>                                                                &amp;&amp; a.getWeight() &gt; <span class="hljs-number">150</span>))<br>                                                   			    || <span class="hljs-string">&quot;Green&quot;</span>.equals(a.getColor()));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-4-4-复合-Lambda-表达式"><a href="#4-4-4-复合-Lambda-表达式" class="headerlink" title="4.4.4 复合 Lambda 表达式"></a>4.4.4 复合 Lambda 表达式</h3><p>使用接口 <code>Function&lt;T, R&gt;</code> 的 <code>andThen、compose</code> 方法复合 Lambda 表达式</p>
+<h4 id="1-andThen-——-g-f-x"><a href="#1-andThen-——-g-f-x" class="headerlink" title="1. andThen —— g(f(x))"></a>1. andThen —— g(f(x))</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Function&lt;Integer, Integer&gt; f = x -&gt; x + <span class="hljs-number">1</span>;<br>Function&lt;Integer, Integer&gt; g = x -&gt; x * <span class="hljs-number">2</span>;<br>Function&lt;Integer, Integer&gt; h = f.andThen(g);	<span class="hljs-comment">// g(f(x))</span><br><span class="hljs-keyword">int</span> result = h.apply(<span class="hljs-number">1</span>);						<span class="hljs-comment">// 输出：(x + 1) * 2 = 4</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-compose-——-f-g-x"><a href="#2-compose-——-f-g-x" class="headerlink" title="2. compose —— f(g(x))"></a>2. compose —— f(g(x))</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Function&lt;Integer, Integer&gt; f = x -&gt; x + <span class="hljs-number">1</span>;<br>Function&lt;Integer, Integer&gt; g = x -&gt; x * <span class="hljs-number">2</span>;<br>Function&lt;Integer, Integer&gt; h = f.compose(g);	<span class="hljs-comment">// f(g(x))</span><br><span class="hljs-keyword">int</span> result = h.apply(<span class="hljs-number">1</span>);						<span class="hljs-comment">// 输出：(x * 2) + 1 = 3</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="4-5-小结"><a href="#4-5-小结" class="headerlink" title="4.5 小结"></a>4.5 小结</h2><ul>
+<li>Lambda 表达式可以理解为一种匿名函数：它没有名称，但有参数列表、函数主体、返回类型，可能还有一个可以抛出的异常的列表- </li>
+<li>函数式接口就是仅仅声明了一个抽象方法的接口</li>
+<li>Lambda 表达式让你可以简洁地传递代码，只有在接受函数式接口的地方才可以使用 Lambda 表达式</li>
+<li>Lambda表达式允许你直接内联，为函数式接口的抽象方法提供实现，并且将整个表达式作为函数式接口的一个实例</li>
+<li>Java 8 自带一些常用的函数式接口，放在 java.util.function 包里，包括 Predicate&lt;T&gt;、Function&lt;T, R&gt;、Supplier&lt;T&gt;、Consumer&lt;T&gt; 和 BinaryOperator&lt;T&gt;</li>
+<li>为了避免装箱操作，对 Predicate&lt;T&gt; 和 Function&lt;T, R&gt; 等通用函数式接口的原始类型特化：IntPredicate、IntToLongFunction</li>
+<li>环绕执行模式（即在方法所必需的代码中间，你需要执行点儿什么操作，比如资源分配和清理）可以配合 Lambda 表达式提高灵活性和可重用性</li>
+<li>Lambda 表达式所需要代表的类型称为目标类型</li>
+<li>方法引用让你重复使用现有的方法实现并直接传递它们</li>
+<li>Comparator、Predicate 和 Function 等函数式接口都有几个可以用来结合 Lambda 表达式的默认方法</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Lambda 表达式</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">函数式接口</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/">方法引用</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/03/Java/%E7%AC%AC5%E7%AB%A0%20%20Stream/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第5章 Stream</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/19/Java/%E7%AC%AC3%E7%AB%A0%20%20%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                        <span class="hidden-mobile">第3章 正则表达式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,899 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="浮梁华生">
+  <meta name="keywords" content="">
+  <title>浮梁华生</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"docker-apache.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浮梁华生</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="What's past is prologue.
+一切过往，皆为序章">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/06/18/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/%E7%AC%AC1%E7%AB%A0%20%20%E7%A9%BA%E9%97%B4%E4%BA%9A%E7%BA%BF%E6%80%A7%E7%AE%97%E6%B3%95/">第1章  空间亚线性算法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/06/18/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/%E7%AC%AC1%E7%AB%A0%20%20%E7%A9%BA%E9%97%B4%E4%BA%9A%E7%BA%BF%E6%80%A7%E7%AE%97%E6%B3%95/">
+          
+          
+            
+          
+          1.1 蓄水池抽样算法 Reservoir Sampling1.1.1 问题在一个包含 $n$（ $n$ 未知，且 $n &gt; k$）个元素的数据流中随机抽样 $k$ 个元素，需保证每个元素被抽样的概率均为 $\frac{k}{n}$
+1.1.2 算法思路使用一个大小为 $k$ 的数组 $reservoir$ 实时保存抽样的 $k$ 个元素，当遍历完一次数据流时，数组 $reservoir$ 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-18 10:47" pubdate>
+              2021-06-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/">大数据算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%93%84%E6%B0%B4%E6%B1%A0%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95-Reservoir-Sampling/">蓄水池抽样算法 Reservoir Sampling</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">数据流的中位数</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/06/03/Java/%E7%AC%AC5%E7%AB%A0%20%20Stream/">第5章 Stream</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/06/03/Java/%E7%AC%AC5%E7%AB%A0%20%20Stream/">
+          
+          
+            
+          
+          5.1 引入流5.1.1 流简介Stream 以声明性方式处理数据集合（通过查询语句来表达，而不是临时编写一个实现）。流可以看做是遍历数据集的高级迭代器，同时，流可以透明地实现并行（无需写任何多线程代码）
+1. 流：从支持数据处理操作的数据源生成的元素序列
+元素序列：与集合一样，流也提供了一个接口，可以访问特定元素类型的一组有序值。集合是数据结构，所以它的主要目的是以特定的时间或空间复杂度存储和访
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-03 10:47" pubdate>
+              2021-06-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Stream/">Stream</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/23/Java/%E7%AC%AC4%E7%AB%A0%20%20Lambda%20%E8%A1%A8%E8%BE%BE%E5%BC%8F/">第4章 Lambda 表达式</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/23/Java/%E7%AC%AC4%E7%AB%A0%20%20Lambda%20%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+          
+          
+            
+          
+          4.1 函数式接口Lambda 表达式以「匿名方法」的形式实现「函数式接口」中的一个强制方法。函数式接口的强制方法的签名称为「函数描述符」
+函数式接口是只有一个强制方法的接口。不包括默认方法、静态方法、继承的方法（继承的方法可以不重写）
+123456789101112131415161718192021interface Test1 &#123;    void test();&#125;inte
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-23 13:09" pubdate>
+              2021-05-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Lambda 表达式</a>
+            
+              <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">函数式接口</a>
+            
+              <a href="/tags/%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/">方法引用</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/19/Java/%E7%AC%AC3%E7%AB%A0%20%20%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">第3章 正则表达式</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/19/Java/%E7%AC%AC3%E7%AB%A0%20%20%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+          
+          
+            
+          
+          3.1 字符匹配符
+
+
+符号
+说明
+示例
+说明
+匹配结果
+
+
+
+[]
+匹配 [] 中的任意一个
+[abc]
+a、b、c 中的任意一个字符
+a
+
+
+[^]
+匹配除 [] 中的任意一个
+[^abc]
+除 a、b、c 外的任意一个字符
+d
+
+
+-
+连字符
+a-z
+任意一个小写字母
+g
+
+
+.
+除 \n 外的任意字符
+a..b
+a 开头，b 结尾，中间包含 2 个任意字符
+a12b、a#?b
+
+
+\\d
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-19 13:09" pubdate>
+              2021-05-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%85%83%E5%AD%97%E7%AC%A6/">元字符</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/19/MySQL/%E7%AC%AC1%E7%AB%A0%20%20%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/">相关配置</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/19/MySQL/%E7%AC%AC1%E7%AB%A0%20%20%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/">
+          
+          
+            
+          
+          1.1 启动 MySQL 服务1.1.1 Linux1. 使用 service1234service mysqld status    -- 查看状态service mysqld start     -- 启动service mysqld stop      -- 停止service mysqld restart   -- 重启
+
+2. 使用 systemctl1234systemctl stat
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-19 13:09" pubdate>
+              2021-05-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/MySQL/">MySQL</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/17/Java/%E7%AC%AC2%E7%AB%A0%20%20%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/">第2章 类型系统</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/17/Java/%E7%AC%AC2%E7%AB%A0%20%20%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/">
+          
+          
+            
+          
+          2.1 五种引用类型五种引用类型：数组、类、接口、枚举、注解
+2.1.1 引用类型和基本类型
+八种基本类型由 Java 语言定义，程序员不能定义新基本类型。引用类型由用户定义，因此有无限多个
+基本类型表示单个值。引用类型是聚合类型，可以保存零个或多个基本值或对象。假设 Point 类存储两个 double 类型的值，char[] 和 Point[] 数组类型是聚合类型，因为它们保存一些 char 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-17 13:09" pubdate>
+              2021-05-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%A5%E5%8F%A3/">接口</a>
+            
+              <a href="/tags/%E6%B3%9B%E5%9E%8B/">泛型</a>
+            
+              <a href="/tags/%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">枚举和注解</a>
+            
+              <a href="/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/">嵌套类型</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/15/Git/gitee_depositary/">Git 基础操作</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/15/Git/gitee_depositary/">
+          
+          
+            
+          
+          Git 基础知识Git 四大区域
+
+workspace：工作区
+staging area：暂存区/缓存区
+local repository：本地仓库或版本库
+remote repository：远程仓库
+
+上传本地项目至 GiteeGit 全局设置某账号下所有的 Git 仓库都有效（推荐）
+12git config --global user.name &quot;your username&qu
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-15 22:47" pubdate>
+              2021-05-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Git/">Git</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/gitee/">gitee</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/15/Java/%E7%AC%AC1%E7%AB%A0%20%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/">第1章 类和对象</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/15/Java/%E7%AC%AC1%E7%AB%A0%20%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/">
+          
+          
+            
+          
+          1.1 定义类123public class Integer extends Number implements Serializable, Comparable &#123;    // 这里是类的成员&#125;
+
+
+class 关键字前面可以放修饰符关键字或注解
+如果类扩展其他类，类名后面要加上 extends 关键字和要扩展的类名
+如果类实现一个或多个接口，类名或 extends 子句之后
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-15 22:47" pubdate>
+              2021-05-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%B1%BB/">类</a>
+            
+              <a href="/tags/%E5%AF%B9%E8%B1%A1/">对象</a>
+            
+              <a href="/tags/%E5%AD%97%E6%AE%B5/">字段</a>
+            
+              <a href="/tags/%E6%96%B9%E6%B3%95/">方法</a>
+            
+              <a href="/tags/%E4%BF%AE%E9%A5%B0%E7%AC%A6/">修饰符</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/12/Linux/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">文件传输</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/12/Linux/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">
+          
+          
+            
+          
+          安全文件传输协议 SFTPSFTP (Secure File Transfer Protocol) 与 FTP 相比，为文件传输提供了一种安全的网络加密方法
+命令行sftp 远程连接服务器1sftp username@hostname (ip)
+
+将客户端的文件上传至服务器12put [local_file] [remote_file]put -r [local_directory] [remot
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-12 22:34" pubdate>
+              2021-05-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/sftp/">sftp</a>
+            
+              <a href="/tags/scp/">scp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/10/Hadoop/HDFS/">HDFS</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/10/Hadoop/HDFS/">
+          
+          
+            
+          
+          HDFS
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-10 23:47" pubdate>
+              2021-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Hadoop/">Hadoop</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

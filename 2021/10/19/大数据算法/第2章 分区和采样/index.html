@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="浮梁华生">
+  <meta name="keywords" content="">
+  <title>第2章  分区和采样 - 浮梁华生</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"docker-apache.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浮梁华生</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="第2章  分区和采样">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-19 20:27" pubdate>
+        2021年10月19日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第2章  分区和采样</h1>
+            
+            <div class="markdown-body">
+              <h2 id="2-1-中心思想"><a href="#2-1-中心思想" class="headerlink" title="2.1 中心思想"></a>2.1 中心思想</h2><h3 id="2-1-1-为什么写这篇文章（Why）"><a href="#2-1-1-为什么写这篇文章（Why）" class="headerlink" title="2.1.1 为什么写这篇文章（Why）"></a>2.1.1 为什么写这篇文章（Why）</h3><ul>
+<li>传统的数据处理方法无法处理大体量和复杂的数据，单机也不能进行大数据分析，因此可扩展的分布式计算架构已成为大数据分析框架的常见设计</li>
+<li>而在这些框架中，数据分区和采样是两种基本策略，可用于扩展和加速计算，能够解决数据量大导致的无法进行数据分析的问题</li>
+</ul>
+<h3 id="2-1-2-文章的目的是什么（What）"><a href="#2-1-2-文章的目的是什么（What）" class="headerlink" title="2.1.2 文章的目的是什么（What）"></a>2.1.2 文章的目的是什么（What）</h3><p>帮助研究人员从数据采样和分区开始，进行大数据近似分析</p>
+<h3 id="2-1-3-中心思想是什么（What）"><a href="#2-1-3-中心思想是什么（What）" class="headerlink" title="2.1.3 中心思想是什么（What）"></a>2.1.3 中心思想是什么（What）</h3><ul>
+<li>概述两个常用的大数据分析框架： Hadoop、Spark</li>
+<li>数据分区：概述、分区方法（描述、优缺点）、Hadoop clusters 中的数据分区方法</li>
+<li>数据采样：概述、采样方法（描述、优缺点）、Hadoop clusters 中的数据采样方法</li>
+<li>近似计算：概述、Hadoop clusters 中基于采样的近似（三角平衡模型）</li>
+</ul>
+<h2 id="2-2-中心内容"><a href="#2-2-中心内容" class="headerlink" title="2.2 中心内容"></a>2.2 中心内容</h2><h3 id="2-2-1-分区"><a href="#2-2-1-分区" class="headerlink" title="2.2.1 分区"></a>2.2.1 分区</h3><p><strong>作用：</strong>数据库查询；大数据分析框架中的数据密集型计算；高扩展性、并行计算（分治，divide and conquer）</p>
+<p><strong>问题：</strong>分区不平衡的问题（数据倾斜），典型的分区方法没有考虑数据集的 class 或 key 的分布</p>
+<p><strong>分类：</strong>垂直分区、水平分区、功能分区</p>
+<table>
+<thead>
+<tr>
+<th>垂直分区</th>
+<th>公式</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>轮询调度 Round-robin</td>
+<td>i-th row to node (i mod n)</td>
+<td>打乱顺序；顺序扫描，分区均衡</td>
+<td>不适合点查询和范围查询</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>(k, v) to node h(k)</td>
+<td>打乱顺序；顺序扫描，适合基于点查询</td>
+<td>需要额外计算 Value，不适合范围查询和没有分区属性的点查询</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>(k, v) to node that holds k’s interval</td>
+<td>不打乱顺序；顺序扫描，分区均衡，适合点查询和范围查询（只需搜索一个或几个分区）</td>
+<td>1. 选择分区边界是一个挑战；<br />2. 分区边界是由于一个或几个分区中的所有进程，可能会发生执行倾斜 Execution Skew</td>
+</tr>
+<tr>
+<td>Random</td>
+<td>rand(i) to node n</td>
+<td>打乱顺序；顺序扫描，分区均衡</td>
+<td>需要额外计算随机值，记录随机分布</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-2-Hadoop-clusters-中的分区"><a href="#2-2-2-Hadoop-clusters-中的分区" class="headerlink" title="2.2.2 Hadoop clusters 中的分区"></a>2.2.2 Hadoop clusters 中的分区</h3><p>在 Hadoop 中，HDFS 主要负责数据分区。 将大数据文件导入 HDFS 时，将文件依次划分为由字节范围确定的固定存储大小的小块。</p>
+<p>在 Spark 中，第一步是将 HDFS 块导入 RDD 的内存数据结构中。可以使用不同的方法对 RDD 进行分区和重新分区，例如哈希、范围和自定义分区。</p>
+<p>在 Hadoop clusters 中，关于分布式数据随机化的工作是 Cloud OnLine Aggregation（COLA）。它引入了一个预处理阶段</p>
+<ul>
+<li>使用 MapReduce 作业随机化 HDFS 中的数据。 在 Map 操作，一个介于 1 和 P（HDFS 块的数量）分配给每个记录在数据</li>
+<li>然后，将每条记录写入Reduce 操作中分配的块。 在那之后，通过从 HDFS 顺序读取随机块，块级采样可用于在线聚合</li>
+</ul>
+<h4 id="1-HDFS-的问题"><a href="#1-HDFS-的问题" class="headerlink" title="1. HDFS 的问题"></a>1. HDFS 的问题</h4><ul>
+<li>HDFS 没有考虑统计特性，如概率分布</li>
+<li>Data Skew 数据倾斜：map 倾斜（不平衡的输入数据），reduce 倾斜（不平衡的中间数据）</li>
+<li>采样与分区一起使用，可以减轻数据倾斜的影响并保证负载平衡</li>
+</ul>
+<h4 id="2-数据倾斜-Data-Skew"><a href="#2-数据倾斜-Data-Skew" class="headerlink" title="2. 数据倾斜 Data Skew"></a>2. 数据倾斜 Data Skew</h4><p><strong>数据倾斜：</strong>指数据集分布不均匀（uneven），大量相同的 key 被分配（partition）到同一个分区里，增加该分区的计算时间，最终降低整体的并行计算。因此负载均衡是提高并行计算效率的关键</p>
+<p><strong>数据倾斜产生的原因</strong></p>
+<ul>
+<li>map 倾斜：输入文件的大小不均匀</li>
+<li>reduce 倾斜：key 分布不均匀，导致 partition 不均匀</li>
+</ul>
+<p><strong>数据倾斜的解决办法</strong></p>
+<ul>
+<li>当出现小文件过多时，合并小文件。可以通过 set hive.merge.mapfiles=true 来解决</li>
+<li>采样</li>
+</ul>
+<h3 id="2-2-3-采样"><a href="#2-2-3-采样" class="headerlink" title="2.2.3 采样"></a>2.2.3 采样</h3><p><strong>作用：</strong>采样部分数据作为一个子数据集，该子数据集与源数据集具有近似的数据分布，即能够通过子数据集近似得到源数据集的部分或全部信息</p>
+<table>
+<thead>
+<tr>
+<th>采样方法</th>
+<th>特点</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>伯努利采样 Bernoulli sampling</td>
+<td>不放回抽样，每条记录至多被抽样一次</td>
+<td>等概率抽样，抽样大小不固定</td>
+<td>很难估计处理延迟，简单随机采样可以</td>
+</tr>
+<tr>
+<td>简单随机采样 Simple random sampling</td>
+<td>放回抽样，每条记录可能被多次抽样</td>
+<td>等概率抽样，抽样大小固定</td>
+<td>不能保证数据中的每组数据被等概率抽样，分层采样可以。不适用数据容量不知的情况</td>
+</tr>
+<tr>
+<td>分层采样 Stratified sampling</td>
+<td>数据集被分成多个层（分区），从每个组中等概率抽样一条记录</td>
+<td>与简单随机采样相比，分层抽样有更高的统计精度和更低的抽样误差</td>
+<td>在每个组中抽取一条记录耗时</td>
+</tr>
+<tr>
+<td>蓄水池采样 Reservoir sampling</td>
+<td>不放回抽样，抽样大小（蓄水池大小）固定。应用于数据监控中</td>
+<td>在不知道数据容量时，每条记录被等概率抽样</td>
+<td>不适合非等概率的场景</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-4-Hadoop-cluster-中的采样"><a href="#2-2-4-Hadoop-cluster-中的采样" class="headerlink" title="2.2.4 Hadoop cluster 中的采样"></a>2.2.4 Hadoop cluster 中的采样</h3><p>效率：block-level sampling &gt; record-level sampling</p>
+<p>Spark 的采样函数可以分为两类：使用 sample() 函数的简单随机采样和使用 sampleByKey() 和 sampleByKeyExact() 的分层采样。</p>
+<p>使用经典数据分区方法生成的数据块的块级采样不一定产生用于大数据近似计算的良好代表性样本</p>
+<p>基于块级采样的 HDFS 块分区没考虑数据的统计特性，无法保证 HDFS 块是随机样本</p>
+<h3 id="2-2-5-近似计算"><a href="#2-2-5-近似计算" class="headerlink" title="2.2.5 近似计算"></a>2.2.5 近似计算</h3><p><strong>作用：</strong>减少集群计算的开销，增加数据分析的效率</p>
+<p><strong>关键：</strong>近似计算在准确性和效率之间进行权衡（trade-off）</p>
+<p><strong>常见的近似计算方法：</strong>采样 sampling、素描 sketching、直方图 histograms 、在线聚合  online aggregation</p>
+<h4 id="Hadoop-clusters-中基于采样的近似"><a href="#Hadoop-clusters-中基于采样的近似" class="headerlink" title="Hadoop clusters 中基于采样的近似"></a>Hadoop clusters 中基于采样的近似</h4><p><strong>三角平衡模型：</strong>Accuracy、Run-time、Resource usage </p>
+<p><strong>ApproxHadoop：</strong>使用多阶段采样在 Hadoop MapReduce 中实现近似</p>
+<p><strong>ApproxSpark：</strong>使用多阶段采样或自适应分层的水库采样在 Spark 中实现近似，它支持记录级和块级采样（也称为数据项级和分区级）。 然而，块级采样会导致更大的误差范围，因为 RDD 中的数据不一定是随机的</p>
+<h2 id="2-3-总结和扩展"><a href="#2-3-总结和扩展" class="headerlink" title="2.3 总结和扩展"></a>2.3 总结和扩展</h2><h3 id="2-3-1-总结"><a href="#2-3-1-总结" class="headerlink" title="2.3.1 总结"></a>2.3.1 总结</h3><ul>
+<li><p>分区和采样用于加速计算，具有高扩展性</p>
+</li>
+<li><p>分区和采样的数据质量直接影响近似计算的结果，应综合考虑三角平衡模型</p>
+</li>
+<li><p>Hadoop MapReduce 适合扫描整个大数据集一次的算法。由于繁重的 I/O 和通信成本，不适合迭代数据分析算法</p>
+</li>
+<li><p>Apache Spark 及其内存计算模型比 Hadoop MapReduce 中基于磁盘的集群计算要快得多，适合迭代算法</p>
+</li>
+</ul>
+<h4 id="1-四个研究问题（Future-Work）"><a href="#1-四个研究问题（Future-Work）" class="headerlink" title="1. 四个研究问题（Future Work）"></a>1. 四个研究问题（Future Work）</h4><ul>
+<li>考虑到内存可能永远不足以容纳整个数据集，因为数据增长速度快于技术扩展，如何从 Hadoop 集群上的大规模分布式数据集中抽取随机样本？</li>
+<li>如何从大数据集中快速获取随机样本分区，以便数据科学家可以直接使用随机样本数据块，使用他们喜欢的技术和库来探索和分析大数据？</li>
+<li>如何从大数据集的随机样本数据块中聚合本地结果，用于不同的数据分析和挖掘算法？</li>
+<li>整个大数据集有多少数据才能近似得出与整个数据集结果相同的结果？</li>
+</ul>
+<h4 id="2-Challenges"><a href="#2-Challenges" class="headerlink" title="2. Challenges"></a>2. Challenges</h4><ul>
+<li>在无共享架构的计算集群中，当考虑基于块的组织和内存、I/O 和通信的高成本时，采样是一项挑战</li>
+<li>获取小的不相交的随机样本仍然是集群计算框架中的一个挑战</li>
+<li>当不清楚数据集的统计信息时，不能随意进行随机抽样，建议同一数据集上的多种采样策略将能够更有效地评估数据集</li>
+</ul>
+<h4 id="3-My-Future-Work"><a href="#3-My-Future-Work" class="headerlink" title="3. My Future Work"></a>3. My Future Work</h4><ul>
+<li>如何建立适合自己模型的三角平衡模型，</li>
+<li>分区和采样的计算成本很大（遍历），有没有可能优化？</li>
+<li>如何采样得到不相交的随机样本（至多被采样一次）</li>
+</ul>
+<h3 id="2-3-2-扩展"><a href="#2-3-2-扩展" class="headerlink" title="2.3.2 扩展"></a>2.3.2 扩展</h3><h4 id="1-随机样本划分-Random-Sample-Partition（RSP）"><a href="#1-随机样本划分-Random-Sample-Partition（RSP）" class="headerlink" title="1. 随机样本划分 Random Sample Partition（RSP）"></a>1. 随机样本划分 Random Sample Partition（RSP）</h4><p>随机抽样的计算成本很高，因为要对分布式数据块文件（如 HDFS）进行遍历才能获得随机样本数据，这一过程需要大量的磁盘读写操作和节点间的数据通信</p>
+<p><strong>思考：</strong>如果分布式数据块可以直接当作样本数据来用，那么就不需要随机抽样了</p>
+<p><strong>关键：</strong>每个数据块的样本数据分布与整个大数据的数据分布需保持一致，这样才能用一个数据块的样本数据估计整体的数据。选取的数据块越多，估计误差也越小</p>
+<h4 id="2-RSP-模型"><a href="#2-RSP-模型" class="headerlink" title="2. RSP 模型"></a>2. RSP 模型</h4><p><strong>核心思想：</strong>将大数据文件划分成许多小的随机样本划分数据块文件，即每个数据块文件是大数据文件的一个随机样本数据。这样的划分给大数据分析带来两个好处：</p>
+<ul>
+<li>随机样本数据可以直接选取整个数据块文件（Block-Level Sampling，BLS 或 Partition-Level Sampling, PLS），不需要对大数据的单个记录进行抽样（Record-Level Sampling，RLS），避免了随机抽样的遍历操作。Spark 使用的是 PLS</li>
+<li>通过对少量数据块文件的分析和建模即可得到大数据的统计估计结果和模型</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/">大数据算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E5%8C%BA/">分区</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%87%87%E6%A0%B7/">采样</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/18/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AE%97%E6%B3%95/%E7%AC%AC3%E7%AB%A0%20%20%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A1%86%E6%9E%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第3章  分区和采样</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1%20%E5%9B%9E%E6%BA%AF/">
+                        <span class="hidden-mobile">1 递归与回溯</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
